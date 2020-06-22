@@ -1,0 +1,80 @@
+{% load static %}
+{% load socialaccount %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-signin-client_id" content="870502794410-l7dbsdej3mo905ddv4bkv04oa01o4e5a.apps.googleusercontent.com">
+
+    <title>Document</title>
+
+    
+    <!--index.html script (MAIN)-->
+    <script src = "{% static 'sessionpopup.js' %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.0.2/anime.js"></script>
+    <!--anime.js-->
+
+    <script src="https://apis.google.com/js/platform.js" async defer></script> 
+    <!--Google Sign in-->
+
+    <link href="{% static 'login.css' %}" rel="stylesheet" type="text/css"/>
+    <!--Login page STYLE-->
+
+
+
+
+</head>
+<body>
+    <div class = "main">
+        <div>
+            <img id = logo src = "{% static 'collab1.png' %}">
+        </div>
+        <div>
+            <h1 class = "typing">Classrooms are just a click away.</h1>
+           
+        </div>
+        <div class = "box">
+            
+            <div class = "google-button">
+                <!--<div class="g-signin2" id = "googleBtn" data-onsuccess="onSignIn"></div>-->
+                <a href="{% provider_login_url 'google' %}">Login with Google</a>
+            </div>
+        </div>
+        <div class = "user" id = "user">
+            <img src = "{% static 'userwhite.png' %}">
+            <p>Login</p>
+        </div>
+        <div id = "arrow1">
+            <img src = "{% static 'arrow.png' %}">
+        </div>
+        <div class = "search">
+            <img src = "{% static 'searchwhite.png' %}">
+            <p>Browse</p>
+        </div>
+        <div id = "arrow2">
+            <img src = "{% static 'arrow.png' %}">
+        </div>
+        <div class = "collabicon">
+            <img src = "{% static 'collabicon.png' %}">
+            <p>Collab</p>
+        </div>
+    </div>  
+
+    <script src = "{% static 'index.js' %}" defer></script>
+    <script>
+        function renderButton() {
+            gapi.signin2.render('my-signin2', {
+                'scope': 'profile email',
+                'width': 300,
+                'height': 50,
+                'longtitle': true,
+                'theme': 'dark',
+                'onsuccess': onSuccess,
+                'onfailure': onFailure
+      });
+    }
+    </script>
+</body>
+</html>
