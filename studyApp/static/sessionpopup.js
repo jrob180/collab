@@ -1,4 +1,3 @@
-
 var index = 0;
 const participants = [];
 const classes = ['MATH_25C', 'COMS_1004C', 'ENG_LITC', 'FROSCI_DISCC'];
@@ -15,6 +14,9 @@ var classes2 = document.getElementById('MATH_25');
 var classes3 = document.getElementById('ENG_LIT');
 var classes4 = document.getElementById('FROSCI_DISC');
 var allClasses = document.getElementById('all_rooms');
+var userModal = document.getElementById('signout');
+var userBg = document.querySelector('.user-bg');
+
 
 function getCurrentCourse(){
     if (document.getElementById('MATH_25').classList.contains('current_page_item')){
@@ -35,8 +37,8 @@ function getCurrentCourse(){
 
 }   
 function getCurrentCourseName(){
-        var s = getCurrentCourse()
-        return s.replace(/_/g, " ")
+        var s = getCurrentCourse()
+        return s.replace(/_/g, " ")
         }
 
 window.onload=function(){   //displays and closes the modal (popup window)
@@ -51,70 +53,17 @@ window.onload=function(){   //displays and closes the modal (popup window)
     });
 }
 
+userModal.addEventListener('click', function(){
+    userBg.classList.add('user-active');
+});
+
+userBg.addEventListener('click', function(){
+    userBg.classList.remove('user-active'); 
+})
+  
    //stores the value from the input field and creates a room with it
    
-   function createRoom(){
-
-    var name;
-
-    var input = document.getElementById('description').value;
-
-    if(input.length < 29){
-    name = input
-    }
-    else{
-        name = input.substring(0,30) + "..."
-    }
-
-    modalBg.classList.remove('bg-active'); //takes away the modal 
-
-    var room = document.createElement('div')
-
-    if (document.getElementById('MATH_25').classList.contains('current_page_item')){
-        room.classList.add('MATH_25C')
-    }
-    else if (document.getElementById('COMS_1004').classList.contains('current_page_item')) {
-        room.classList.add('COMS_1004C')
-    }
-    else if (document.getElementById('ENG_LIT').classList.contains('current_page_item')) {
-        room.classList.add('ENG_LITC')
-    }
-    else if (document.getElementById('FROSCI_DISC').classList.contains('current_page_item')) {
-        room.classList.add('FROSCI_DISCC')
-    } 
-
-    room.classList.add('all_rooms')
-    
-    room.classList.add('current_room_example')
-    
-    var allRooms = document.getElementsByClassName('current_rooms')[0]
-    var roomContents = `
-
-        {% block content %}
-			<p class = "name">${name}</p>
-
-			<div class = "inner_room" id = ${index}>
-				<div class = "user_bars">
-                    <img src = "assets/IMG_6931.jpeg">
-                    {% for post in posts %}
-                        <p>{{Rooms.Users}}</p>
-                    {% endfor %}
-                </div>
-            </div>
-            <div class = "people">
-				<button class = "join_room" onclick = "joinRoom(${index})">Join Room</button>
-				<i class="fas fa-users"></i>
-				<p>1</p>
-            </div>
-        {% endblock content %}
-        `
-    room.innerHTML = roomContents
-    allRooms.append(room)
-    participants.push(1)
-    index++
-
-    document.getElementById('description').value = ""
-    }
+ 
 
     allClasses.addEventListener('click', function(){
         var s = getCurrentCourse() + 'C';
@@ -137,11 +86,11 @@ window.onload=function(){   //displays and closes the modal (popup window)
     }
     
     var header = document.getElementsByClassName('banner_2')[0]
-    header.innerHTML=`<h1>
-    Welcome to all current study sessions!
-    </h1>
-    <p>Here you can find study groups for assignments you are working on.</p>
-    `
+    header.innerHTML=`<h1>
+    Welcome to all current study sessions!
+    </h1>
+    <p>Here you can find study groups for assignments you are working on.</p>
+    `
     })
 
    classes4.addEventListener('click',function(){
@@ -169,12 +118,12 @@ window.onload=function(){   //displays and closes the modal (popup window)
     }
     
     var header = document.getElementsByClassName('banner_2')[0]
-    var name = getCurrentCourseName()
-    header.innerHTML=`<h1>
-    Welcome to ${name}!
-    </h1>
-    <p>Here you can find study groups for assignments you are working on.</p>
-    `
+    var name = getCurrentCourseName()
+    header.innerHTML=`<h1>
+    Welcome to ${name}!
+    </h1>
+    <p>Here you can find study groups for assignments you are working on.</p>
+    `
 });
 classes3.addEventListener('click',function(){
     
@@ -199,12 +148,12 @@ classes3.addEventListener('click',function(){
         currentRooms.style.display="inline-block"
     }
     var header = document.getElementsByClassName('banner_2')[0]
-    var name = getCurrentCourseName()
-    header.innerHTML=`<h1>
-    Welcome to ${name}!
-    </h1>
-    <p>Here you can find study groups for assignments you are working on.</p>
-    `
+    var name = getCurrentCourseName()
+    header.innerHTML=`<h1>
+    Welcome to ${name}!
+    </h1>
+    <p>Here you can find study groups for assignments you are working on.</p>
+    `
 });
 classes2.addEventListener('click',function(){
     
@@ -229,12 +178,12 @@ classes2.addEventListener('click',function(){
         currentRooms.style.display="inline-block"
     }
     var header = document.getElementsByClassName('banner_2')[0]
-    var name = getCurrentCourseName()
-    header.innerHTML=`<h1>
-    Welcome to ${name}!
-    </h1>
-    <p>Here you can find study groups for assignments you are working on.</p>
-    `
+    var name = getCurrentCourseName()
+    header.innerHTML=`<h1>
+    Welcome to ${name}!
+    </h1>
+    <p>Here you can find study groups for assignments you are working on.</p>
+    `
 });
 
 
@@ -266,19 +215,19 @@ classes1.addEventListener('click',function(){
     currentRooms.style.display="inline-block"*/
     
     var header = document.getElementsByClassName('banner_2')[0]
-    var name = getCurrentCourseName()
-    header.innerHTML=`<h1>
-    Welcome to CS 50!
-    </h1>
-    <p>Here you can find study groups for assignments you are working on.</p>
-    `
+    var name = getCurrentCourseName()
+    header.innerHTML=`<h1>
+    Welcome to CS 50!
+    </h1>
+    <p>Here you can find study groups for assignments you are working on.</p>
+    `
     
 });
 
 
 //var scale = Math.min(         //making elements resizable 
-  //    availableWidth / contentWidth, 
-  //    availableHeight / contentHeight 
+  //    availableWidth / contentWidth, 
+  //    availableHeight / contentHeight 
   //  );
 
 function joinRoom(i){ //adding user cards to rooms
@@ -301,7 +250,6 @@ function joinRoom(i){ //adding user cards to rooms
   
 
  /*function removeUser(){
-
     var user = document.createElement('div')  
     user.classList.add("user_bars")
     var room = document.getElementsByClassName('inner_room')[index]
@@ -368,3 +316,44 @@ function removeUser(i, j){
 
      currentRooms.removeChild(room);
  }
+//resizing stuff 
+ /*
+$(function () {
+    var isAdded = false;
+    $(window).resize(function () {
+        if (!isAdded && $(window).width() > 641) {
+             isAdded = true;
+        } else if (isAdded && $(window).width() <= 641) {
+            isAdded = false;
+            $('.banner_2').remove();
+        }
+    });
+});
+*/
+
+var banner_2 = document.querySelector('.banner_2')
+
+function removeBanner(){
+    if(window.width() <= 800){
+        banner_2.remove()
+    }
+}
+
+//online header 
+
+var onlineNow = document.getElementById('#online-header');
+var users = document.querySelector('.online')
+
+onlineNow.addEventListener('click', function(){
+    onlineNow.classList.remove(users);
+
+});
+//flipping the card
+/*
+    var flip = document.getElementById("flip");
+    var roomExample = docoument.querySelector('.current_room_example');
+    flip.addEventListener('click', function(){
+        roomExample.classList.remove('back');
+    })
+    
+*/
