@@ -15,9 +15,14 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+#from studyApp.views import refresh_access_token
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('studyApp.urls')),
     path('accounts/', include('allauth.urls')),
 ]
+
+#refresh_access_token(repeat=2, repeat_until = None)
+

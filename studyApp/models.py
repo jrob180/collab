@@ -8,6 +8,7 @@ class Room(models.Model):
     title = models.CharField(max_length=33)
     zoom_url = models.CharField(max_length = 1000)
     meeting_id = models.CharField(max_length = 100)
+    course = models.CharField(max_length = 100)
     #Users = ArrayField(models.CharField(max_length=200), blank=True)
     #Users = models.ForeignKey(User, on_delete=models.CASCADE)
 
@@ -21,5 +22,8 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     zoom_id = models.CharField(max_length = 100)
 
+class Token(models.Model):
+    access_token = models.TextField()
+    refresh_token = models.TextField()
 # Create your models here.
 

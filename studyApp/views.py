@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .models import Room
-from .models import Profile
+from .models import Profile, Token
 from django.views.generic import CreateView
 from .forms import NameForm
 from django.contrib.auth.decorators import login_required
@@ -14,10 +14,15 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+import base64
+from background_task import background
+import schedule
+import time
 
 
-token = 'eyJhbGciOiJIUzUxMiIsInYiOiIyLjAiLCJraWQiOiIyNWYyMjA2YS1lODA3LTRlMjUtYjhjYi0wZGZjMjBhYjdiNWIifQ.eyJ2ZXIiOiI2IiwiY2xpZW50SWQiOiJ6SmliOG5Rc1RHMFFBX0pnRXFqNVEiLCJjb2RlIjoiZXVnNWlrSG9LZF95ZWlWdUlXc1FfNjNOOUtEY3F1aG9nIiwiaXNzIjoidXJuOnpvb206Y29ubmVjdDpjbGllbnRpZDp6SmliOG5Rc1RHMFFBX0pnRXFqNVEiLCJhdXRoZW50aWNhdGlvbklkIjoiMjM2NDJlMTFlYjBiZTFhZGNiMmFkYjZjNTFhOWJlNDkiLCJ1c2VySWQiOiJ5ZWlWdUlXc1FfNjNOOUtEY3F1aG9nIiwiZ3JvdXBOdW1iZXIiOjAsImF1ZCI6Imh0dHBzOi8vb2F1dGguem9vbS51cyIsImFjY291bnRJZCI6ImhORE8zbG1NU3RTNnhjcS1iMy1QMUEiLCJuYmYiOjE1OTQ0Mzc2NzQsImV4cCI6MTU5NDQ0MTI3NCwidG9rZW5UeXBlIjoiYWNjZXNzX3Rva2VuIiwiaWF0IjoxNTk0NDM3Njc0LCJqdGkiOiJiYWQxNjhjOS03YTc3LTRlYTMtOGI2OC1mZWUwMGIzNWE1ODkiLCJ0b2xlcmFuY2VJZCI6MjJ9.ztaR-aKWc0tiPkmbtwlYQUO92cwURNbXRQxNt_75uvex0rIlTVpQJajgj_TNx5uFheHLfcnCT0-0E13gRgXOHw'
-start = 450
+
+#token = 'eyJhbGciOiJIUzUxMiIsInYiOiIyLjAiLCJraWQiOiIyNWYyMjA2YS1lODA3LTRlMjUtYjhjYi0wZGZjMjBhYjdiNWIifQ.eyJ2ZXIiOiI2IiwiY2xpZW50SWQiOiJ6SmliOG5Rc1RHMFFBX0pnRXFqNVEiLCJjb2RlIjoiZXVnNWlrSG9LZF95ZWlWdUlXc1FfNjNOOUtEY3F1aG9nIiwiaXNzIjoidXJuOnpvb206Y29ubmVjdDpjbGllbnRpZDp6SmliOG5Rc1RHMFFBX0pnRXFqNVEiLCJhdXRoZW50aWNhdGlvbklkIjoiMjM2NDJlMTFlYjBiZTFhZGNiMmFkYjZjNTFhOWJlNDkiLCJ1c2VySWQiOiJ5ZWlWdUlXc1FfNjNOOUtEY3F1aG9nIiwiZ3JvdXBOdW1iZXIiOjAsImF1ZCI6Imh0dHBzOi8vb2F1dGguem9vbS51cyIsImFjY291bnRJZCI6ImhORE8zbG1NU3RTNnhjcS1iMy1QMUEiLCJuYmYiOjE1OTQ0Mzc2NzQsImV4cCI6MTU5NDQ0MTI3NCwidG9rZW5UeXBlIjoiYWNjZXNzX3Rva2VuIiwiaWF0IjoxNTk0NDM3Njc0LCJqdGkiOiJiYWQxNjhjOS03YTc3LTRlYTMtOGI2OC1mZWUwMGIzNWE1ODkiLCJ0b2xlcmFuY2VJZCI6MjJ9.ztaR-aKWc0tiPkmbtwlYQUO92cwURNbXRQxNt_75uvex0rIlTVpQJajgj_TNx5uFheHLfcnCT0-0E13gRgXOHw'
+start = 800
 def read_file(request):
     f = open('/Users/arulkapoor118/collab_website/collab/studyApp/loaderio-4049d7ee993d07bdda5b43856ece8ea9.txt', 'r')
     file_content = f.read()
@@ -80,6 +85,26 @@ def meetingend(request):
 
     return HttpResponse(status=200)
 
+
+'''
+@csrf_exempt
+@require_POST
+def meetingstart(request):
+    jsondata = request.body
+    data = json.loads(jsondata)
+    #meetingtopic = data['payload']['object']['topic']
+    #room = Room.objects.get(title = meetingtopic)
+    meetingid = data['payload']['object']['topic']
+    room = Room.objects.get(meeting_id = meetingid)
+
+    inactive = Room.objects.get(title = "inactive")
+
+    Profile.objects.filter(room = room).update(room=inactive)
+    room.delete()
+
+    return HttpResponse(status=200)
+'''
+
 @csrf_exempt
 @require_POST
 def participantleft(request):
@@ -123,18 +148,22 @@ def participantjoin(request):
 def createroom(request):
     if request.method == 'GET':
         title = request.GET['room_title']
-        
-        
+        course = request.GET['course']
+        print(course)
         form = NameForm()
         global start
         user = Profile.objects.get(user = request.user)
         #rooms = start_meeting(token, start, title, user.zoom_id)
-        rooms = start_meeting(token, start, title, request.user.first_name, request.user.last_name )
+        refresh_access_token()
+
+        token = Token.objects.get(id = 1).access_token
+        rooms = start_meeting(token, start, title, request.user.first_name, request.user.last_name)
 
         room = Room()
         room.title = title
         room.zoom_url = rooms[1]
         room.meeting_id = rooms[2]
+        room.course = course
         room.save()
         
         user.room = room
@@ -151,6 +180,11 @@ def createroom(request):
 
 @login_required(login_url='login/')
 def home(request):
+    course = request.path[1:-1]
+    if course == "":
+        course = 'LITHUM'
+    elif course == 'section':
+        course = 'SECTION ABC'
     user = request.user
     if user.username != user.get_full_name and user.username != 'arulkapoor118':
         user.username = str(user.get_full_name())
@@ -160,7 +194,8 @@ def home(request):
     form = NameForm()
 
     context = {
-        'rooms': Room.objects.all(),
+        #'rooms': Room.objects.all(),
+        'rooms': Room.objects.filter(course = course),
         'users': Profile.objects.all(),
         'counter': c,
         'form': form,
@@ -189,8 +224,9 @@ def joinroom(request):
 def start_meeting(access_token, index, topic, firstname, lastname):
     global start
     start+=1
+    #print(access_token)
     
-    headers = {'Authorization': "Bearer " + token, 'host': 'zoom.us', "Content-Type": 'application/json'}
+    headers = {'Authorization': "Bearer " + access_token, 'host': 'zoom.us', "Content-Type": 'application/json'}
     payload = {
     "action": "custCreate",
     "user_info": {
@@ -246,3 +282,56 @@ def get_participants(access_token, meeting_id):
     endpoint = 'https://api.zoom.us/v2/metrics/meetings/' + str(meeting_id) + '/participants'
     x = requests.get(meeting_endpoint, headers = headers)
     return json.loads(x.text)['participants']
+
+'''@background(schedule = 1)
+def refresh_access_token():
+    token = Token.objects.get(id = 1)
+    refresh_token = token.refresh_token
+    client_id = 'zJib8nQsTG0QA_JgEqj5Q'
+    client_secret = 'V7GDiRa1c1d9gMRfW4GzZMvp3MJY7vkE'
+
+    message = client_id + ':' + client_secret
+    message_bytes = message.encode('ascii')
+    base64_bytes = base64.b64encode(message_bytes)
+    auth = 'Basic ' + base64_bytes.decode('ascii')
+
+    endpoint = 'https://zoom.us/oauth/token?grant_type=refresh_token&refresh_token=' + refresh_token
+    headers = {'Authorization': auth, 'host': 'zoom.us'}
+    x = requests.post(endpoint, headers = headers)
+    j = json.loads(x.text)
+    token.refresh_token= j['refresh_token']
+    token.access_token = j['access_token']
+    token.save()
+    print('\n')
+    print('TOKEN HAS BEEN REFRESHED' + str(time.time()))
+    print('\n')
+    return'''
+#schedule.every(5).seconds.do(refresh_access_token)
+
+#while True:
+#    schedule.run_pending()
+#    time.sleep(1) 
+
+def refresh_access_token():
+
+    token = Token.objects.get(id = 1)
+    refresh_token = token.refresh_token
+    client_id = 'zJib8nQsTG0QA_JgEqj5Q'
+    client_secret = 'V7GDiRa1c1d9gMRfW4GzZMvp3MJY7vkE'
+
+    message = client_id + ':' + client_secret
+    message_bytes = message.encode('ascii')
+    base64_bytes = base64.b64encode(message_bytes)
+    auth = 'Basic ' + base64_bytes.decode('ascii')
+
+    endpoint = 'https://zoom.us/oauth/token?grant_type=refresh_token&refresh_token=' + refresh_token
+    headers = {'Authorization': auth, 'host': 'zoom.us'}
+    x = requests.post(endpoint, headers = headers)
+    j = json.loads(x.text)
+    token.refresh_token= j['refresh_token']
+    token.access_token = j['access_token']
+    token.save()
+    #print('\n')
+    #print('TOKEN HAS BEEN REFRESHED' + str(time.time()))
+    #print('\n')
+    return

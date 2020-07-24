@@ -30,6 +30,8 @@ ALLOWED_HOSTS = [
     '127.0.0.1',
     '3e31127869b4.ngrok.io',
     'cf46e8f2b6e0.ngrok.io',
+    'cc1c917b78f6.ngrok.io',
+    'ee562bb8e2d1.ngrok.io',
 ]
 
 
@@ -47,7 +49,9 @@ INSTALLED_APPS = [
     'allauth', 
     'allauth.account',  
     'allauth.socialaccount',   
-    'allauth.socialaccount.providers.google',   
+    'allauth.socialaccount.providers.google',
+    'background_task',
+    'django_crontab',  
 ]
 
 MIDDLEWARE = [
@@ -81,6 +85,7 @@ TEMPLATES = [
         },
     },
 ]
+
 
 WSGI_APPLICATION = 'collab.wsgi.application'
 
@@ -155,3 +160,7 @@ SOCIALACCOUNT_PROVIDERS = {
 }
 
 STATIC_URL = '/static/'
+
+CRONJOBS = [
+    ('*/1 * * * *', 'studyApp.cron.refresh_access_token')
+]

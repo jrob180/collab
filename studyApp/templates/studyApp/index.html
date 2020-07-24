@@ -103,17 +103,18 @@ Released   : 20130902
 				<!--<li id = 'all_rooms' class ="all_rooms"><a href="#" accesskey="2" title="">ALL ROOMS</a></li>
 				<li id = 'COMS_1004' class ="current_page_item"><a href="#" accesskey="2" title="">COMS 1004</a></li>
 				<li id = 'MATH_25'><a href="#" accesskey="3" title="">MATH 25</a></li>-->
+
 				<li class = 'list'>
-					<a href="#" accesskey="5" id="classes">
+					<a href="/" id="classes" class = "hi">
 						<i class="far fa-bookmark"></i>
-						<p>ENG LIT</p>
+						<p>LITHUM</p>
 					</a>
 				</li>
 				</li>
 				<li class = 'list'>
-					<a href="#" accesskey="5" id="classes">
+					<a href="/section" id="classes">
 						<i class="far fa-bookmark"></i>
-						<p>CS 50</p>
+						<p>SECTION ABC</p>
 					</a>
 				</li>
 			</ul>
@@ -221,12 +222,14 @@ Released   : 20130902
 
 var frm = $('#post_text');
     frm.submit(function () {
-
+		var course = document.querySelector('.active').children[1].textContent
+		window.alert(course)
         $.ajax({
             type: "GET",
             url: "/createroom",
 			data: {
-				room_title: frm.serializeArray()[1].value
+				room_title: frm.serializeArray()[1].value,
+				course: course
 			},
             success: function (data) {
 

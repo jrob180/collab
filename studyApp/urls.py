@@ -1,12 +1,14 @@
 from django.urls import path, include
 from . import views
 from django.conf.urls import url
+ 
 
 
 
 
 urlpatterns = [
     path('', views.home, name = "studyApp-home"),
+    path('section/', views.home, name = "studyApp-home"),
     path('login/', views.login, name = "studyApp-login"),
     url(r'^joinroom/$', views.joinroom, name='joinroom'),
     url(r'^createroom/$', views.createroom, name='createroom'),
