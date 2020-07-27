@@ -95,7 +95,7 @@ ul a:hover
 }
 
 /*********************************************************************************/
-/* List Styles                                                                   */
+/*  Styles                                                                   */
 /*********************************************************************************/
 /*
 ul.style1
@@ -461,9 +461,9 @@ ul.contact li a.icon-rss:before { background: #F2600B; }
 #plus{
 	margin-top: 2px;
 }
-#classes
+.classes
 {
-	color: #0A2A66;
+	/*background-color: #0A2A66;*/
 	text-decoration: none;
 	font-family: 'Lato', sans-serif;
 	color: white;
@@ -475,13 +475,14 @@ ul.contact li a.icon-rss:before { background: #F2600B; }
 	flex-direction: row;
 	width: 100%;
 } 
-#classes i{
+.classes i{
 	margin-top: 2px;
 }
-#classes:hover{
-	background-image: linear-gradient(to right, #0A2A66 , rgb(41, 66, 112));
+.classes:hover{
+	background-color:  #0A2A66;
+	text-decoration: none;
 }
-#classes p{
+.classes p{
 	padding: 0;
 	margin: 0;
 }
@@ -906,6 +907,13 @@ margin-right: 10%;
 {
 	display: block;
 	color: white;
-	background: red;
 }
 
+.active{
+	background-color: #0A2A66;
+	
+}
+
+.active i{
+	fill: white;
+}

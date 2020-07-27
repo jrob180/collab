@@ -28,10 +28,10 @@ DEBUG = True
 ALLOWED_HOSTS = [
     '737899e9175e.ngrok.io',
     '127.0.0.1',
-    '3e31127869b4.ngrok.io',
-    'cf46e8f2b6e0.ngrok.io',
-    'cc1c917b78f6.ngrok.io',
+    'localhost',
     'ee562bb8e2d1.ngrok.io',
+    '554516b85f73.ngrok.io',
+    '689f071b91a6.ngrok.io',
 ]
 
 

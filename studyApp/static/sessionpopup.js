@@ -16,37 +16,51 @@ var allClasses = document.getElementById('all_rooms');
 var userModal = document.getElementById('signout');
 var userBg = document.querySelector('.user-bg');
 
-var courses = document.getElementsByClassName('list')
-var lithum = courses[0]
-var section = courses[1]
 
-lithum.addEventListener('click', function(){
-    var current_course = document.querySelector('.active')
+//var courses = document.querySelector('.list');
+
+//var lithum = document.querySelector('.classes');
+
+//var current_course;
+/*window.onload= function(){
+    courses = document.getElementsByClassName('list')
+    window.alert('he')
+}*/
+//var lithum = courses[0]
+//var section = courses[1]
+//var lithum_a = lithum.children[0]
+//var section_a = section.children[0]
+
+   //child = courses[0]
+
+    /*current_course = document.querySelector('.active');
     if(current_course != null){
-        current_course.classList.remove('active');
-        window.alert('yeehaw')
-        lithum.children[0].classList.add('active');
+        current_course.classList.toggle('active');
+        window.alert('yeehaw1')
+        child.classList.toggle('active');
     }
     else{
-        window.alert(lithum.innerHTML)
-        lithum.children[0].classList.add('active');
-    }
-    
-})
+        
+        window.alert('juul25')
+    }*/
 
-section.addEventListener('click', function(){
-    var current_course = document.querySelector('.active')
+/*
+function course2(){
+    courses = document.getElementsByClassName('list');
+    child = courses[1]
+    var current_course = document.querySelector('.active');
     if(current_course != null){
-        current_course.classList.remove('active');
-        window.alert('yeehaw')
-        section.children[0].classList.add('active');
+        current_course.classList.toggle('active');
+        window.alert('yeehaw2')
+        child.classList.toggle('active');
     }
     else{
-        section.children[0].classList.add('active');
-        window.alert(section.innerHTML)
+        child.classList.toggle('active');
+        window.alert('juul18')
     }
-    
-})
+}*/
+
+
 /*for(var i = 0; i < courses.length; i++){
 
     var sectionCourse = courses[i]
@@ -99,6 +113,24 @@ window.onload=function(){   //displays and closes the modal (popup window)
     modalClose.addEventListener('click', function(){
         modalBg.classList.remove('bg-active');
     });
+    
+    var courses = document.querySelectorAll('.list');
+
+    var location = window.location.pathname;
+    if(location == '/section/'){
+        courses[1].classList.add('active')
+        courses[1].children[0].children[0].classList.remove('far')
+        courses[1].children[0].children[0].classList.add('fa')
+    }
+    else{
+        courses[0].classList.add('active')
+        courses[0].children[0].children[0].classList.remove('far')
+        courses[0].children[0].children[0].classList.add('fa')
+    }
+    //courses.addEventListener('click', function(){
+    //    lithum.classList.add('active');
+    //});
+    
 }
 
 userModal.addEventListener('click', function(){
@@ -108,12 +140,12 @@ userModal.addEventListener('click', function(){
 userBg.addEventListener('click', function(){
     userBg.classList.remove('user-active'); 
 })
-  
+ 
    //stores the value from the input field and creates a room with it
    
- 
+ /*
 
-    allClasses.addEventListener('click', function(){
+allClasses.addEventListener('click', function(){
         var s = getCurrentCourse() + 'C';
         var currentClass = document.getElementById(getCurrentCourse())
         allClasses.classList.add('current_page_item')
@@ -139,8 +171,9 @@ userBg.addEventListener('click', function(){
     </h1>
     <p>Here you can find study groups for assignments you are working on.</p>
     `
-    })
-
+    })*/
+/*
+    
    classes4.addEventListener('click',function(){
     //var s = getCurrentCourse()+'C';
     var currentClass = document.getElementById(getCurrentCourse())
@@ -257,10 +290,10 @@ classes1.addEventListener('click',function(){
         var currentRooms = document.getElementsByClassName('COMS_1004C')[i]
         currentRooms.style.display="inline-block"
     }
-    /*var currentRooms = document.getElementsByClassName('COMS_1004C')[0]
+    var currentRooms = document.getElementsByClassName('COMS_1004C')[0]
     var prevRooms = document.getElementsByClassName('MATH_25C')[0]
     prevRooms.style.display="none"
-    currentRooms.style.display="inline-block"*/
+    currentRooms.style.display="inline-block"
     
     var header = document.getElementsByClassName('banner_2')[0]
     var name = getCurrentCourseName()
@@ -270,7 +303,7 @@ classes1.addEventListener('click',function(){
     <p>Here you can find study groups for assignments you are working on.</p>
     `
     
-});
+});*/
 
 
 //var scale = Math.min(         //making elements resizable 
@@ -299,19 +332,7 @@ function joinRoom(i){ //adding user cards to rooms
 
   
 //resizing stuff 
- /*
-$(function () {
-    var isAdded = false;
-    $(window).resize(function () {
-        if (!isAdded && $(window).width() > 641) {
-             isAdded = true;
-        } else if (isAdded && $(window).width() <= 641) {
-            isAdded = false;
-            $('.banner_2').remove();
-        }
-    });
-});
-*/
+
 
 var banner_2 = document.querySelector('.banner_2')
 
@@ -323,6 +344,8 @@ function removeBanner(){
 
 //online header 
 
+
+/*
 var onlineNow = document.getElementById('#online-header');
 var users = document.querySelector('.online')
 
@@ -331,7 +354,7 @@ onlineNow.addEventListener('click', function(){
 
 });
 
+*/
 // Course Tab Navigation
-
 
 
