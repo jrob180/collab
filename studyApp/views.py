@@ -22,7 +22,7 @@ import time
 
 
 #token = 'eyJhbGciOiJIUzUxMiIsInYiOiIyLjAiLCJraWQiOiIyNWYyMjA2YS1lODA3LTRlMjUtYjhjYi0wZGZjMjBhYjdiNWIifQ.eyJ2ZXIiOiI2IiwiY2xpZW50SWQiOiJ6SmliOG5Rc1RHMFFBX0pnRXFqNVEiLCJjb2RlIjoiZXVnNWlrSG9LZF95ZWlWdUlXc1FfNjNOOUtEY3F1aG9nIiwiaXNzIjoidXJuOnpvb206Y29ubmVjdDpjbGllbnRpZDp6SmliOG5Rc1RHMFFBX0pnRXFqNVEiLCJhdXRoZW50aWNhdGlvbklkIjoiMjM2NDJlMTFlYjBiZTFhZGNiMmFkYjZjNTFhOWJlNDkiLCJ1c2VySWQiOiJ5ZWlWdUlXc1FfNjNOOUtEY3F1aG9nIiwiZ3JvdXBOdW1iZXIiOjAsImF1ZCI6Imh0dHBzOi8vb2F1dGguem9vbS51cyIsImFjY291bnRJZCI6ImhORE8zbG1NU3RTNnhjcS1iMy1QMUEiLCJuYmYiOjE1OTQ0Mzc2NzQsImV4cCI6MTU5NDQ0MTI3NCwidG9rZW5UeXBlIjoiYWNjZXNzX3Rva2VuIiwiaWF0IjoxNTk0NDM3Njc0LCJqdGkiOiJiYWQxNjhjOS03YTc3LTRlYTMtOGI2OC1mZWUwMGIzNWE1ODkiLCJ0b2xlcmFuY2VJZCI6MjJ9.ztaR-aKWc0tiPkmbtwlYQUO92cwURNbXRQxNt_75uvex0rIlTVpQJajgj_TNx5uFheHLfcnCT0-0E13gRgXOHw'
-start = 1000
+start = 1300
 def read_file(request):
     f = open('/Users/arulkapoor118/collab_website/collab/studyApp/loaderio-4049d7ee993d07bdda5b43856ece8ea9.txt', 'r')
     file_content = f.read()
@@ -62,7 +62,9 @@ def create_user_profile(sender, instance, created, **kwargs):
         id = json.loads(u.text)['id']
         Profile.objects.create(user=instance, room = Room.objects.get(title = "inactive"), zoom_id= id)
         '''
-        Profile.objects.create(user=instance, room = Room.objects.get(title = "inactive"), zoom_id= "")
+
+        # course = ...
+        Profile.objects.create(user=instance, room = Room.objects.get(title = "inactive"), zoom_id= "", section = "")
 
 @receiver(post_save, sender=User)
 def save_user_profile(sender, instance, **kwargs):
@@ -181,11 +183,13 @@ def createroom(request):
 @login_required(login_url='login/')
 def home(request):
     course = request.path[1:-1]
+    user = request.user
     if course == "":
         course = 'LITHUM'
     elif course == 'section':
-        course = 'SECTION ABC'
-    user = request.user
+        #course = 'SECTION ABC'
+        course = user.profile.section
+
     if user.username != user.get_full_name and user.username != 'arulkapoor118':
         user.username = str(user.get_full_name())
         user.save()

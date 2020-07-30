@@ -1,7 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
-from django.db.models.signals import post_save
+#from django.db.models.signals import post_save
 from django.dispatch import receiver
+#from django_pg import models
 import requests, json
 
 class Room(models.Model):
@@ -9,6 +10,7 @@ class Room(models.Model):
     zoom_url = models.CharField(max_length = 1000)
     meeting_id = models.CharField(max_length = 100)
     course = models.CharField(max_length = 100)
+    #course = models.ArrayField(models.CharField(max_length = 100))
     #Users = ArrayField(models.CharField(max_length=200), blank=True)
     #Users = models.ForeignKey(User, on_delete=models.CASCADE)
 
@@ -21,6 +23,8 @@ class Profile(models.Model):
     room = models.ForeignKey(Room, on_delete=models.CASCADE)
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     zoom_id = models.CharField(max_length = 100)
+    section = models.CharField(max_length = 100) 
+
 
 class Token(models.Model):
     access_token = models.TextField()

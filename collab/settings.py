@@ -32,6 +32,8 @@ ALLOWED_HOSTS = [
     'ee562bb8e2d1.ngrok.io',
     '554516b85f73.ngrok.io',
     '689f071b91a6.ngrok.io',
+    'ba4f4b1cfa1e.ngrok.io',
+    'aa2bd4fff57f.ngrok.io',
 ]
 
 
@@ -47,12 +49,15 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sites',
     'allauth', 
-    'allauth.account',  
+    'allauth.account', 
+    #'social_auth', 
     'allauth.socialaccount',   
     'allauth.socialaccount.providers.google',
     'background_task',
-    'django_crontab',  
+    'django_crontab',
+    #'django_pg',  
 ]
+#SOCIALACCOUNT_ADAPTER = 'collab.user.adapters.MySocialAccount'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -100,6 +105,27 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
+'''
+DATABASES = {
+
+    'default': {
+
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+
+        'NAME': os.path.join(BASE_DIR, 'postgreSQL'),
+
+        'USER': 'arulkapoor118',
+
+        'PASSWORD': 'q123q123',
+
+        'HOST': '689f071b91a6.ngrok.io',
+
+        'PORT': '8000',
+
+
+    }
+}'''
+
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
@@ -140,6 +166,8 @@ USE_TZ = True
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
     'allauth.account.auth_backends.AuthenticationBackend',
+    #'social_auth.backends.google.GoogleOAuth2Backend',
+
 )
 
 SITE_ID = 1
@@ -158,9 +186,19 @@ SOCIALACCOUNT_PROVIDERS = {
         }
     }
 }
+SOCIAL_AUTH_PIPELINE =  (
+
+    'social_core.pipeline.social_auth.auth_allowed',
+)
+SOCIAL_AUTH_GOOGLE_OAUTH2_AUTH_EXTRA_ARGUMENTS = {
+    'hd': 'columbia.edu',
+    'access_type': 'online',
+}
+
 
 STATIC_URL = '/static/'
 
-CRONJOBS = [
-    ('*/1 * * * *', 'studyApp.cron.refresh_access_token')
-]
+
+#CRONJOBS = [
+#    ('*/1 * * * *', 'studyApp.cron.refresh_access_token')
+#]

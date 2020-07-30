@@ -117,7 +117,7 @@ Released   : 20130902
 				<li class = 'list'>
 					<a href="/section" class="classes">
 						<i class="far fa-bookmark"></i>
-						<p>SECTION ABC</p>
+						<p>{{ user.profile.section }}</p>
 					</a>
 				</li>
 			</ul>
@@ -228,10 +228,14 @@ var frm = $('#post_text');
 		//var course = document.querySelector('.active').children[1].textContent
 		var loc = window.location.pathname
 		var course
-		if(loc == '/section/')
-			course = "SECTION ABC"
-		else
+		var section = document.getElementsByClassName('classes')[1];
+		if(loc == '/section/'){
+			//course = "SECTION ABC"
+			course = section.children[1].textContent
+		}
+		else{
 			course = "LITHUM"
+		}
         $.ajax({
             type: "GET",
             url: "/createroom",
