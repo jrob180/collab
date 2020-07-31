@@ -22,26 +22,103 @@
     <link href="{% static 'login.css' %}" rel="stylesheet" type="text/css"/>
     <!--Login page STYLE-->
 
-
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css" integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc" crossorigin="anonymous">
 
 
 </head>
 <body>
-    <div class = "main">
-        <div>
-            <img id = logo src = "{% static 'collab1.png' %}">
-        </div>
-        <div>
-            <h1 class = "typing">Classrooms are just a click away.</h1>
-           
-        </div>
-        <div class = "box">
+<!--
+    <header>
+        <nav>
+            <h1>Collab</h1>
+
+            <ul>
+                <li><a data-page = "login" href = "#">Login</a></li>
+                <li><a data-page = "how-it-works" href = "#">How It Works</a></li>
+                <li><a data-page = "about-us" href = "#">About Us</a></li>
+                <div class = "bubble"></div>
+            </ul>
+        </nav>
+    </header>
+---->
+    <div class = "sections">
+
+        <section class = "main" data-index = "1">
             
+            <img id = "collab" src = "{% static 'collab.png' %}">
+
+            <div id="wholething">
+                <!--
+                <div id="justifyabovemiddleearth">
+                    
+                <div id="textabovemiddleearth">
+                        <div id="middleearth">Classrooms<br/>Study Groups<br/>Breakthroughs</br>Classrooms<br/>Study Groups<br/>Breakthroughs</br></div>
+                </div>
+                -->
+                <h1 class = "typing">Classrooms are just a click away.</h1>
+
+                </div>
+            </div>     
+
             <div class = "google-button">
-                <!--<div class="g-signin2" id = "googleBtn" data-onsuccess="onSignIn"></div>-->
-                <a href="{% provider_login_url 'google' %}">Login with Google</a>
+                    <!--<div class="g-signin2" id = "googleBtn" data-onsuccess="onSignIn"></div>-->
+                    <a href="{% provider_login_url 'google' %}">
+                        <img src = "{% static 'googleicon.svg' %}">
+                        <h1>Sign-In with Google</h1>
+                    </a>
             </div>
-        </div>
+            
+            <a id = "down-arrow" onClick="document.querySelector('.how').scrollIntoView();">
+                <i class="fas fa-chevron-down"></i>
+            </a>
+            
+
+        </section>
+        
+        <section class = "how" data-index = "2" id = "how">
+            <div class = "punchline">
+                <p>COLLABORATE, VIRTUALLY.</p>
+                <h1>Collab brings</h1>
+                <h1>the library to you,</h1>
+                <h1>wherever you are.</h1>
+                <p>Organizing study groups has never been simpler.</p>
+                <p>Quit slacking and start studying with your peers now.</p>
+                <button id = "sign-in-link" onClick="document.querySelector('.main').scrollIntoView();">SIGN IN</button><button id = "learn-more" onClick="document.querySelector('.about').scrollIntoView();">LEARN MORE</button>
+            </div>
+            <img class = "login-graphic" src = "{% static 'login-graphic2.svg' %}">
+        </section>
+            
+            
+        <section class = "about" data-index = "3">
+
+            <h1 id = "collab-title">All-in-One Collaboration Hub</h1>
+
+            <div class = "navigation">
+                <img>
+                <h1>Navigate</h1>
+                <p>Once logged into Collab, simply toggle between</p>
+                <p>your classes to get a snapshot of what your</p>
+                <p>classmates are currently working on.</p>
+            </div>
+
+            <div class = "browse">
+                <img>
+                <h1>Browse</h1>
+                <p>Find the room that matches your area of focus.</p>
+                <p>Check who's working in the room, how many people</p>
+                <p>are currently studying in it, and join.</p>
+            </div>
+
+            <div class = "create">
+                <img>
+                <h1>Create</h1>
+                <p>No ongoing session concerning your need?</p>
+                <p>Seamlessly create your own.</p>
+            </div>
+
+        </section>
+        
+        <!--
         <div class = "user" id = "user">
             <img src = "{% static 'userwhite.png' %}">
             <p>Login</p>
@@ -59,7 +136,7 @@
         <div class = "collabicon">
             <img src = "{% static 'collabicon.png' %}">
             <p>Collab</p>
-        </div>
+        </div>-->
     </div>  
 
     <script src = "{% static 'index.js' %}" defer></script>

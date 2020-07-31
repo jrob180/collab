@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'allauth.account',  
     'allauth.socialaccount',   
     'allauth.socialaccount.providers.google',   
+    'session_security',
 ]
 
 MIDDLEWARE = [
@@ -54,9 +55,20 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'session_security.middleware.SessionSecurityMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+#SESSION_COOKIE_AGE = 20
+
+SESSION_SECURITY_WARN_AFTER = 10000
+
+SESSION_SECURITY_EXPIRE_AFTER = 15000
+
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+
+#SESSION_SAVE_EVERY_REQUEST = True
 
 ROOT_URLCONF = 'collab.urls'
 
@@ -71,6 +83,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                #'django.core.context_processors.request'
             ],
         'libraries':{
             'joinroom': 'studyApp.templatetags.joinroom',
@@ -79,6 +92,11 @@ TEMPLATES = [
         },
     },
 ]
+
+TEMPLATES_CONTEXT_PROCESSORS = [
+    'django.core.context_processors.request'
+]
+
 
 WSGI_APPLICATION = 'collab.wsgi.application'
 

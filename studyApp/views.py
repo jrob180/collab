@@ -7,6 +7,7 @@ from .forms import NameForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
 from django.contrib.auth.models import User
+from django.template.context_processors import csrf
 
 class Counter:
     count = 0

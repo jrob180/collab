@@ -15,6 +15,9 @@ var classes2 = document.getElementById('MATH_25');
 var classes3 = document.getElementById('ENG_LIT');
 var classes4 = document.getElementById('FROSCI_DISC');
 var allClasses = document.getElementById('all_rooms');
+var userModal = document.getElementById('signout');
+var userBg = document.querySelector('.user-bg');
+
 
 function getCurrentCourse(){
     if (document.getElementById('MATH_25').classList.contains('current_page_item')){
@@ -51,6 +54,14 @@ window.onload=function(){   //displays and closes the modal (popup window)
     });
 }
 
+userModal.addEventListener('click', function(){
+    userBg.classList.add('user-active');
+});
+
+userBg.addEventListener('click', function(){
+    userBg.classList.remove('user-active'); 
+})
+  
    //stores the value from the input field and creates a room with it
    
    function createRoom(){
@@ -368,3 +379,96 @@ function removeUser(i, j){
 
      currentRooms.removeChild(room);
  }
+//resizing stuff 
+ /*
+$(function () {
+    var isAdded = false;
+    $(window).resize(function () {
+        if (!isAdded && $(window).width() > 641) {
+             isAdded = true;
+        } else if (isAdded && $(window).width() <= 641) {
+            isAdded = false;
+            $('.banner_2').remove();
+        }
+    });
+});
+*/
+
+var banner_2 = document.querySelector('.banner_2')
+
+function removeBanner(){
+    if(window.width() <= 800){
+        banner_2.remove()
+    }
+}
+
+//online header 
+
+var onlineNow = document.getElementById('#online-header');
+var users = document.querySelector('.online')
+
+onlineNow.addEventListener('click', function(){
+    onlineNow.classList.remove(users);
+
+});
+//flipping the card
+/*
+    var flip = document.getElementById("flip");
+    var roomExample = docoument.querySelector('.current_room_example');
+
+
+    flip.addEventListener('click', function(){
+        roomExample.classList.remove('back');
+    })
+    
+*/
+
+//signing in button
+/*
+$(".google-button").click(function() {
+    window.location = $(this).find("a").attr("href"); 
+    return false;
+  });
+*/
+
+
+var onlineNowButton = document.getElementById('online-header')
+var users = document.querySelector('.online')
+var onlineNow = document.getElementById('online-now');
+
+window.onload = function(){
+onlineNow.addEventListener('click', function(){
+    onlineNow.classList.remove('online');
+})
+}
+//navbar 
+
+const sections = document.querySelectorAll('section');
+const bubble = document.querySelector('.bubble');
+
+const colors = [
+    ''
+]
+
+//removing login graphic
+var login_graphic = document.querySelector('.login-graphic');
+
+function removeLoginGraphic(){
+    if(window.width() <= 800){
+        login_graphic.remove()
+    }
+}
+
+//login page scrollmagic 
+$(document).ready(function(){
+
+    var controller = new ScrollMagic.Controller();
+
+    var ourScene = new ScrollMagic.Scene({
+        triggerElement: '#how'
+    })
+    .setClassToggle('.punchline', 'fade-in')
+    .addTo(controller);
+
+
+});

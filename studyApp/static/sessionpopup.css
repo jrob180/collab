@@ -2,6 +2,7 @@
     position: fixed;
     width: 100%;
     height: 100vh;
+    z-index: 6;
     top: 0;
     left: 0;
     background-color: rgba(0, 0, 0, 0.5);
@@ -33,6 +34,8 @@
 .modal h1{
     font-size: min(3.25vh, 1.83vw);
     padding: 0% 0% 8%;
+    position: absolute;
+    top: 20%;
 }
 #description{
     width: 60%;
@@ -43,8 +46,12 @@ form label{
     display: none;
 }
 #enter{
-
+    width: 50%;
+    position: absolute;
+    left: 25%;
+    top: 50%;
     padding: 2% 4%;
+    margin-top: 15%;
     background-color: rgb(0, 89, 255);
     color: white;
     border: none;
@@ -53,6 +60,22 @@ form label{
     border-radius: min(0.75vh, .42vw);
     font-size: min(2vh, 1.13vw);
 }
+.modal form{
+   position: absolute;
+   top: 50%;
+}
+.modal input{ 
+    width: min(40vh, 23vw);
+    height: min(3.5vh, 1.9vw);
+    border-top: none;
+    border-right: none;
+    border-left: none;
+    border-bottom: 1px solid rgb(0, 89, 255);
+    outline: 0;
+    font-size: min(2.7vh, 1.512vw);
+    font-weight: 700px;
+}
+
 .modal-close{
     position: absolute;
     top: 3%;
@@ -60,10 +83,101 @@ form label{
     font-weight: bold;
     cursor: pointer;
     font-size: min(3vh, 1.69vw);
+    color: #0A2A66;
+}
+.modal-close:hover{
+    color:rgb(0, 89, 255);
 }
 .modal-error{
     font-size: 15px;
     color: red;
     visibility: visible;
     opacity: 1;
+}
+
+.user-bg{
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    z-index: 6;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s, opacity 0.5s;
+}
+.user-active{
+    visibility: visible;
+    opacity: 1;
+}
+.user-modal{
+    position: absolute;
+    top: 12%;
+    right: 2%;
+    background-color: white;
+    width: min(19vw, 33.63vh);
+    height: min(30.8vw, 55vh);
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-direction: column;
+    font-family: 'Lato', sans-serif;
+    border-radius: 5px;
+    box-shadow: -3px 2px 10px rgb(202, 201, 201), 3px 3px 10px rgb(202, 201, 201);
+}
+.user-modal img{
+    position: absolute;
+	right: 30%;
+	top: 5%;
+    height: min(15vh, 8.4vw);
+    width: auto;
+    border-radius: 100px;
+}
+.user-modal a{
+        position: absolute;
+		right: 30%;
+		top: 75%;
+		text-align: center;
+		color: #0A2A66;
+		border: 1px solid #0A2A66;
+		text-decoration: none;
+		text-decoration: none;
+		font-size: 15px;
+		background-color: white;
+		padding-top: min(1vh, .56vw);
+		padding-bottom: min(1vh, .56vw);
+		padding-left: min(3vh, 1.68vw);
+		padding-right: min(3vh, 1.68vw);
+		border-radius: min(.8vh, .45vw);
+		font-family: 'Lato', sans-serif;
+		font-weight: 400;
+		z-index: 10;
+}
+.user-modal a:hover{
+    background-color:  #f7f8fa;
+}
+#name{
+    position: absolute;
+    top: 40%;
+    text-align: center;
+    font-family: 'Lato', sans-serif;
+    font-size: min(2.6vh, 1.456vw);
+    font-weight: 400;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+#email{
+    font-family: 'Lato', sans-serif;
+    position: absolute;
+    text-align: center;
+    top: 50%;
+    border-bottom: 1px solid grey;
+    padding-bottom: 10%;
+    font-size: min(2.3vh, 1.288vw);
+    font-weight: 300;
+    margin-top: 0;
+    padding-top: 0;
 }
