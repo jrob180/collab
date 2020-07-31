@@ -53,11 +53,12 @@ INSTALLED_APPS = [
     #'social_auth', 
     'allauth.socialaccount',   
     'allauth.socialaccount.providers.google',
+    #'allauth.socialaccount.adapter',
     'background_task',
     'django_crontab',
     #'django_pg',  
 ]
-#SOCIALACCOUNT_ADAPTER = 'collab.user.adapters.MySocialAccount'
+SOCIALACCOUNT_ADAPTER = 'studyApp.adapters.MySocialAccount'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
