@@ -1,10 +1,16 @@
 from django.db import models
 from django.contrib.auth.models import User
-from django.db.models.signals import post_save
+#from django.db.models.signals import post_save
 from django.dispatch import receiver
+#from django_pg import models
+import requests, json
 
 class Room(models.Model):
     title = models.CharField(max_length=33)
+    zoom_url = models.CharField(max_length = 1000)
+    meeting_id = models.CharField(max_length = 100)
+    course = models.CharField(max_length = 100)
+    #course = models.ArrayField(models.CharField(max_length = 100))
     #Users = ArrayField(models.CharField(max_length=200), blank=True)
     #Users = models.ForeignKey(User, on_delete=models.CASCADE)
 
@@ -12,19 +18,16 @@ class Room(models.Model):
         return self.title
 
 class Profile(models.Model):
-    name = models.CharField(max_length=60)
-    image_url = models.CharField(max_length=1000)
+    #name = models.CharField(max_length=60)
+    #image_url = models.CharField(max_length=1000)
     room = models.ForeignKey(Room, on_delete=models.CASCADE)
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+    zoom_id = models.CharField(max_length = 100)
+    section = models.CharField(max_length = 100) 
 
+
+class Token(models.Model):
+    access_token = models.TextField()
+    refresh_token = models.TextField()
 # Create your models here.
 
-@receiver(post_save, sender=User)
-def create_user_profile(sender, instance, created, **kwargs):
-    if created:
-        Profile.objects.create(user=instance, room = Room.objects.get(title = "inactive") )
-        
-
-@receiver(post_save, sender=User)
-def save_user_profile(sender, instance, **kwargs):
-    instance.profile.save()

@@ -1,3 +1,4 @@
+/*
 imageUrl = 'x';
 
 gapi.load('auth2', function(){
@@ -35,6 +36,7 @@ function onSignIn(googleUser) { //signing the user in
       console.log('User signed out.');
     });
   }
+  */
 /*
   window.onload=function(){
   document.getElementById('#signout').addEventListener('click', function(){

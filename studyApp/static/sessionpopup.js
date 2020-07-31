@@ -1,10 +1,8 @@
-
 var index = 0;
 const participants = [];
 const classes = ['MATH_25C', 'COMS_1004C', 'ENG_LITC', 'FROSCI_DISCC'];
 
 //getting user profile info 
-
 var modal = document.querySelector('.modal');
 var modalBtn = document.querySelector('.modal-btn');
 var modalBg = document.querySelector('.modal-bg');
@@ -18,6 +16,72 @@ var allClasses = document.getElementById('all_rooms');
 var userModal = document.getElementById('signout');
 var userBg = document.querySelector('.user-bg');
 
+<<<<<<< HEAD
+=======
+
+//var courses = document.querySelector('.list');
+
+//var lithum = document.querySelector('.classes');
+
+//var current_course;
+/*window.onload= function(){
+    courses = document.getElementsByClassName('list')
+    window.alert('he')
+}*/
+//var lithum = courses[0]
+//var section = courses[1]
+//var lithum_a = lithum.children[0]
+//var section_a = section.children[0]
+
+   //child = courses[0]
+
+    /*current_course = document.querySelector('.active');
+    if(current_course != null){
+        current_course.classList.toggle('active');
+        window.alert('yeehaw1')
+        child.classList.toggle('active');
+    }
+    else{
+        
+        window.alert('juul25')
+    }*/
+
+/*
+function course2(){
+    courses = document.getElementsByClassName('list');
+    child = courses[1]
+    var current_course = document.querySelector('.active');
+    if(current_course != null){
+        current_course.classList.toggle('active');
+        window.alert('yeehaw2')
+        child.classList.toggle('active');
+    }
+    else{
+        child.classList.toggle('active');
+        window.alert('juul18')
+    }
+}*/
+
+
+/*for(var i = 0; i < courses.length; i++){
+
+    var sectionCourse = courses[i]
+    sectionCourse.addEventListener('click', function(){
+        var current_course = document.querySelector('.active')
+        if(current_course != null){
+            current_course.classList.remove('active');
+            window.alert('yeehaw')
+            sectionCourse.children[0].classList.add('active');
+        }
+        else{
+            window.alert(sectionCourse.children[0])
+            sectionCourse.children[0].classList.add('active');
+        }
+        
+    })
+}*/
+
+>>>>>>> 72e859f4aed96f3d3d32d870addda1ad98daf3c3
 
 function getCurrentCourse(){
     if (document.getElementById('MATH_25').classList.contains('current_page_item')){
@@ -38,8 +102,8 @@ function getCurrentCourse(){
 
 }   
 function getCurrentCourseName(){
-        var s = getCurrentCourse()
-        return s.replace(/_/g, " ")
+        var s = getCurrentCourse()
+        return s.replace(/_/g, " ")
         }
 
 window.onload=function(){   //displays and closes the modal (popup window)
@@ -52,6 +116,7 @@ window.onload=function(){   //displays and closes the modal (popup window)
     modalClose.addEventListener('click', function(){
         modalBg.classList.remove('bg-active');
     });
+<<<<<<< HEAD
 }
 
 userModal.addEventListener('click', function(){
@@ -69,65 +134,41 @@ userBg.addEventListener('click', function(){
     var name;
 
     var input = document.getElementById('description').value;
+=======
+    
+    var courses = document.querySelectorAll('.list');
+>>>>>>> 72e859f4aed96f3d3d32d870addda1ad98daf3c3
 
-    if(input.length < 29){
-    name = input
+    var location = window.location.pathname;
+    if(location == '/section/'){
+        courses[1].classList.add('active')
+        courses[1].children[0].children[0].classList.remove('far')
+        courses[1].children[0].children[0].classList.add('fa')
     }
     else{
-        name = input.substring(0,30) + "..."
+        courses[0].classList.add('active')
+        courses[0].children[0].children[0].classList.remove('far')
+        courses[0].children[0].children[0].classList.add('fa')
     }
-
-    modalBg.classList.remove('bg-active'); //takes away the modal 
-
-    var room = document.createElement('div')
-
-    if (document.getElementById('MATH_25').classList.contains('current_page_item')){
-        room.classList.add('MATH_25C')
-    }
-    else if (document.getElementById('COMS_1004').classList.contains('current_page_item')) {
-        room.classList.add('COMS_1004C')
-    }
-    else if (document.getElementById('ENG_LIT').classList.contains('current_page_item')) {
-        room.classList.add('ENG_LITC')
-    }
-    else if (document.getElementById('FROSCI_DISC').classList.contains('current_page_item')) {
-        room.classList.add('FROSCI_DISCC')
-    } 
-
-    room.classList.add('all_rooms')
+    //courses.addEventListener('click', function(){
+    //    lithum.classList.add('active');
+    //});
     
-    room.classList.add('current_room_example')
-    
-    var allRooms = document.getElementsByClassName('current_rooms')[0]
-    var roomContents = `
+}
 
-        {% block content %}
-			<p class = "name">${name}</p>
+userModal.addEventListener('click', function(){
+    userBg.classList.add('user-active');
+});
 
-			<div class = "inner_room" id = ${index}>
-				<div class = "user_bars">
-                    <img src = "assets/IMG_6931.jpeg">
-                    {% for post in posts %}
-                        <p>{{Rooms.Users}}</p>
-                    {% endfor %}
-                </div>
-            </div>
-            <div class = "people">
-				<button class = "join_room" onclick = "joinRoom(${index})">Join Room</button>
-				<i class="fas fa-users"></i>
-				<p>1</p>
-            </div>
-        {% endblock content %}
-        `
-    room.innerHTML = roomContents
-    allRooms.append(room)
-    participants.push(1)
-    index++
+userBg.addEventListener('click', function(){
+    userBg.classList.remove('user-active'); 
+})
+ 
+   //stores the value from the input field and creates a room with it
+   
+ /*
 
-    document.getElementById('description').value = ""
-    }
-
-    allClasses.addEventListener('click', function(){
+allClasses.addEventListener('click', function(){
         var s = getCurrentCourse() + 'C';
         var currentClass = document.getElementById(getCurrentCourse())
         allClasses.classList.add('current_page_item')
@@ -148,13 +189,14 @@ userBg.addEventListener('click', function(){
     }
     
     var header = document.getElementsByClassName('banner_2')[0]
-    header.innerHTML=`<h1>
-    Welcome to all current study sessions!
-    </h1>
-    <p>Here you can find study groups for assignments you are working on.</p>
-    `
-    })
-
+    header.innerHTML=`<h1>
+    Welcome to all current study sessions!
+    </h1>
+    <p>Here you can find study groups for assignments you are working on.</p>
+    `
+    })*/
+/*
+    
    classes4.addEventListener('click',function(){
     //var s = getCurrentCourse()+'C';
     var currentClass = document.getElementById(getCurrentCourse())
@@ -180,12 +222,12 @@ userBg.addEventListener('click', function(){
     }
     
     var header = document.getElementsByClassName('banner_2')[0]
-    var name = getCurrentCourseName()
-    header.innerHTML=`<h1>
-    Welcome to ${name}!
-    </h1>
-    <p>Here you can find study groups for assignments you are working on.</p>
-    `
+    var name = getCurrentCourseName()
+    header.innerHTML=`<h1>
+    Welcome to ${name}!
+    </h1>
+    <p>Here you can find study groups for assignments you are working on.</p>
+    `
 });
 classes3.addEventListener('click',function(){
     
@@ -210,12 +252,12 @@ classes3.addEventListener('click',function(){
         currentRooms.style.display="inline-block"
     }
     var header = document.getElementsByClassName('banner_2')[0]
-    var name = getCurrentCourseName()
-    header.innerHTML=`<h1>
-    Welcome to ${name}!
-    </h1>
-    <p>Here you can find study groups for assignments you are working on.</p>
-    `
+    var name = getCurrentCourseName()
+    header.innerHTML=`<h1>
+    Welcome to ${name}!
+    </h1>
+    <p>Here you can find study groups for assignments you are working on.</p>
+    `
 });
 classes2.addEventListener('click',function(){
     
@@ -240,12 +282,12 @@ classes2.addEventListener('click',function(){
         currentRooms.style.display="inline-block"
     }
     var header = document.getElementsByClassName('banner_2')[0]
-    var name = getCurrentCourseName()
-    header.innerHTML=`<h1>
-    Welcome to ${name}!
-    </h1>
-    <p>Here you can find study groups for assignments you are working on.</p>
-    `
+    var name = getCurrentCourseName()
+    header.innerHTML=`<h1>
+    Welcome to ${name}!
+    </h1>
+    <p>Here you can find study groups for assignments you are working on.</p>
+    `
 });
 
 
@@ -271,25 +313,25 @@ classes1.addEventListener('click',function(){
         var currentRooms = document.getElementsByClassName('COMS_1004C')[i]
         currentRooms.style.display="inline-block"
     }
-    /*var currentRooms = document.getElementsByClassName('COMS_1004C')[0]
+    var currentRooms = document.getElementsByClassName('COMS_1004C')[0]
     var prevRooms = document.getElementsByClassName('MATH_25C')[0]
     prevRooms.style.display="none"
-    currentRooms.style.display="inline-block"*/
+    currentRooms.style.display="inline-block"
     
     var header = document.getElementsByClassName('banner_2')[0]
-    var name = getCurrentCourseName()
-    header.innerHTML=`<h1>
-    Welcome to CS 50!
-    </h1>
-    <p>Here you can find study groups for assignments you are working on.</p>
-    `
+    var name = getCurrentCourseName()
+    header.innerHTML=`<h1>
+    Welcome to CS 50!
+    </h1>
+    <p>Here you can find study groups for assignments you are working on.</p>
+    `
     
-});
+});*/
 
 
 //var scale = Math.min(         //making elements resizable 
-  //    availableWidth / contentWidth, 
-  //    availableHeight / contentHeight 
+  //    availableWidth / contentWidth, 
+  //    availableHeight / contentHeight 
   //  );
 
 function joinRoom(i){ //adding user cards to rooms
@@ -311,72 +353,35 @@ function joinRoom(i){ //adding user cards to rooms
   }
   
 
- /*function removeUser(){
+  
+//resizing stuff 
 
-    var user = document.createElement('div')  
-    user.classList.add("user_bars")
-    var room = document.getElementsByClassName('inner_room')[index]
-    var userTemplate = `
-        
-            <img src = "assets/IMG_6931.jpeg">
-            <p>Jackson Roberts</p>
-       
-    `
-    user.innerHTML = userTemplate
-    room.remove(user)
-  }*/
-function removeUser(i, j){
-    var innerRoom = document.getElementsByClassName('inner_room')[i];
-    var userBar = innerRoom.getElementsByClassName('user_bars')[j];
-    innerRoom.removeChild(userBar);
 
-    decreaseParticipants(i);
+var banner_2 = document.querySelector('.banner_2')
+
+function removeBanner(){
+    if(window.width() <= 800){
+        banner_2.remove()
+    }
 }
 
-  
- function updateParticipants(i){
+//online header 
 
-    participants[i] += 1;
-    var room = document.getElementById(i)
-    room.nextElementSibling.innerHTML = `             
-    
-        <button class = "join_room" onclick = "joinRoom(${i})">Join Room</button>
-        <i class="fas fa-users"></i>
-        <p>${participants[i]}</p>
-    
-    `
- }
- 
- function decreaseParticipants(i){
 
-    participants[i] -= 1;
-    var room = document.getElementById(i)
-    room.nextElementSibling.innerHTML = `             
-    
-        <button class = "join_room" onclick = "joinRoom(${i})">Join Room</button>
-        <i class="fas fa-users"></i>
-        <p>${participants[i]}</p>
-    
-    `
- }
+/*
+var onlineNow = document.getElementById('#online-header');
+var users = document.querySelector('.online')
 
- function removeRoom(i){
-     var currentRooms = document.getElementsByClassName('current_rooms')[0];
-     var room;
+onlineNow.addEventListener('click', function(){
+    onlineNow.classList.remove(users);
 
-     if (document.getElementById('MATH_25').classList.contains('current_page_item')){
-        room = currentRooms.getElementsByClassName('MATH_25C current_room_example')[i];
-    }
-    else if (document.getElementById('COMS_1004').classList.contains('current_page_item')) {
-        room = currentRooms.getElementsByClassName('COMS_1004C current_room_example')[i];
-    }
-    else if (document.getElementById('ENG_LIT').classList.contains('current_page_item')) {
-        room = currentRooms.getElementsByClassName('ENG_LITC current_room_example')[i];
-    }
-    else if (document.getElementById('FROSCI_DISC').classList.contains('current_page_item')) {
-        room = currentRooms.getElementsByClassName('FROSCI_DISCC current_room_example')[i];
-    } 
+});
 
+*/
+// Course Tab Navigation
+
+
+<<<<<<< HEAD
      currentRooms.removeChild(room);
  }
 //resizing stuff 
@@ -472,3 +477,5 @@ $(document).ready(function(){
 
 
 });
+=======
+>>>>>>> 72e859f4aed96f3d3d32d870addda1ad98daf3c3

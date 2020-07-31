@@ -14,7 +14,13 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
+<<<<<<< HEAD
 from django.urls import path, include 
+=======
+from django.urls import path, include
+#from studyApp.views import refresh_access_token
+
+>>>>>>> 72e859f4aed96f3d3d32d870addda1ad98daf3c3
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -22,3 +28,6 @@ urlpatterns = [
     path('accounts/', include('allauth.urls')),
     path(r'session_security/', include('session_security.urls')),
 ]
+
+#refresh_access_token(repeat=2, repeat_until = None)
+
