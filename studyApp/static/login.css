@@ -84,7 +84,6 @@ section h2{
 }
 #sign-in-link{
     background-color: #0A2A66;
-<<<<<<< HEAD
     color: white;
     border: min(.25vh, .14vw) solid #0A2A66;
 }
@@ -216,22 +215,6 @@ section h2{
 #logo{
     min-width: 191px;
     min-height: 69px;
-=======
-    
-}
-.main{
-    z-index: -2;
-    background-color: #0A2A66;
-    
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-}
-.main img{
-    margin-top: 10%;
-    height: min(12vh, 6.72vw);
-    width: min(33vh, 18.48vw);
->>>>>>> 72e859f4aed96f3d3d32d870addda1ad98daf3c3
 }
 /*
 .box{
@@ -247,18 +230,13 @@ section h2{
 */
 .main h1{
     color: white;
-<<<<<<< HEAD
     font-size: min(9.5vh, 5.32vw);
-=======
-    font-size: min(8vh, 4.48vw);
->>>>>>> 72e859f4aed96f3d3d32d870addda1ad98daf3c3
     letter-spacing: 3px;
     font-family: 'Lato';
     overflow-x: scroll;
     font-weight: 500;
     padding: 0;
     font-family: 'Lato', sans-serif;
-<<<<<<< HEAD
     animation: slide_up 1.4s;
 }
 #collab{
@@ -271,11 +249,6 @@ section h2{
 
     animation-name: slide_up;
     animation-duration: 1.4s;
-=======
-    transition: blink;
-    margin-top: 7%;
-    margin-bottom: 8%;
->>>>>>> 72e859f4aed96f3d3d32d870addda1ad98daf3c3
 }
 .main p{
     /*
@@ -297,7 +270,6 @@ section h2{
     border-radius: 5px;
 
 }
-<<<<<<< HEAD
 .google-button{
     text-align: center;
     justify-content: center;
@@ -321,10 +293,6 @@ section h2{
     flex-direction: row;
     border: 1px solid white;
     
-=======
-.google-button a{
-    color: white;
->>>>>>> 72e859f4aed96f3d3d32d870addda1ad98daf3c3
     text-decoration: none;
     margin: 0 auto;
     border-radius: 3px;
@@ -345,7 +313,6 @@ section h2{
 .google-button p{
     border: 1px solid white;
     border-radius: 3px;
-<<<<<<< HEAD
     
     padding-top: min(2.5vh, 1.4vw);
     padding-bottom: min(2.5vh, 1.4vw);
@@ -381,17 +348,12 @@ section h2{
    color: white;
 
 
-=======
-    padding: 1.5% 4%;
-    justify-content: center;
->>>>>>> 72e859f4aed96f3d3d32d870addda1ad98daf3c3
 }
 .google-button a:hover{
     
     background-color:  rgb(41, 66, 112);
     
 }
-<<<<<<< HEAD
 
 #down-arrow{
     font-size: min(7vh, 3.92vw);
@@ -402,8 +364,6 @@ section h2{
     animation: 5s pulse infinite, slide_up 1.4s;
 }
 
-=======
->>>>>>> 72e859f4aed96f3d3d32d870addda1ad98daf3c3
 /*
 .user img{
     position: absolute; 
@@ -485,13 +445,6 @@ section h2{
         margin: 0;
         width: min(15vh, 8.5vw);
 }*/
-<<<<<<< HEAD
-
-=======
-.typing{
-    animation: blink 4s infinite ease;
-}
->>>>>>> 72e859f4aed96f3d3d32d870addda1ad98daf3c3
 
 @keyframes blink{
     0%{
@@ -504,7 +457,6 @@ section h2{
         color: white;
     }
 }
-<<<<<<< HEAD
 
 
 @keyframes slide_up{
@@ -650,5 +602,3 @@ div#middleearth {
 }
 
 */
-=======
->>>>>>> 72e859f4aed96f3d3d32d870addda1ad98daf3c3

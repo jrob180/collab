@@ -7,9 +7,6 @@ from .forms import NameForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
 from django.contrib.auth.models import User
-<<<<<<< HEAD
-from django.template.context_processors import csrf
-=======
 import json
 import requests
 from django.http import JsonResponse
@@ -18,8 +15,8 @@ from django.views.decorators.http import require_POST
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 import base64
-from background_task import background
-import schedule
+#from background_task import background
+#import schedule
 import time
 
 
@@ -31,7 +28,6 @@ def read_file(request):
     file_content = f.read()
     f.close()
     return HttpResponse(file_content, content_type="text/plain")
->>>>>>> 72e859f4aed96f3d3d32d870addda1ad98daf3c3
 
 class Counter:
     count = 0

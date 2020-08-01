@@ -16,72 +16,19 @@ var allClasses = document.getElementById('all_rooms');
 var userModal = document.getElementById('signout');
 var userBg = document.querySelector('.user-bg');
 
-<<<<<<< HEAD
-=======
+var onlineNowButton = document.getElementById('online-header')
+var users = document.querySelector('.online')
+var onlineNow = document.getElementById('online-now');
 
-//var courses = document.querySelector('.list');
+//navbar 
 
-//var lithum = document.querySelector('.classes');
+const sections = document.querySelectorAll('section');
+const bubble = document.querySelector('.bubble');
 
-//var current_course;
-/*window.onload= function(){
-    courses = document.getElementsByClassName('list')
-    window.alert('he')
-}*/
-//var lithum = courses[0]
-//var section = courses[1]
-//var lithum_a = lithum.children[0]
-//var section_a = section.children[0]
+const colors = [
+    ''
+]
 
-   //child = courses[0]
-
-    /*current_course = document.querySelector('.active');
-    if(current_course != null){
-        current_course.classList.toggle('active');
-        window.alert('yeehaw1')
-        child.classList.toggle('active');
-    }
-    else{
-        
-        window.alert('juul25')
-    }*/
-
-/*
-function course2(){
-    courses = document.getElementsByClassName('list');
-    child = courses[1]
-    var current_course = document.querySelector('.active');
-    if(current_course != null){
-        current_course.classList.toggle('active');
-        window.alert('yeehaw2')
-        child.classList.toggle('active');
-    }
-    else{
-        child.classList.toggle('active');
-        window.alert('juul18')
-    }
-}*/
-
-
-/*for(var i = 0; i < courses.length; i++){
-
-    var sectionCourse = courses[i]
-    sectionCourse.addEventListener('click', function(){
-        var current_course = document.querySelector('.active')
-        if(current_course != null){
-            current_course.classList.remove('active');
-            window.alert('yeehaw')
-            sectionCourse.children[0].classList.add('active');
-        }
-        else{
-            window.alert(sectionCourse.children[0])
-            sectionCourse.children[0].classList.add('active');
-        }
-        
-    })
-}*/
-
->>>>>>> 72e859f4aed96f3d3d32d870addda1ad98daf3c3
 
 function getCurrentCourse(){
     if (document.getElementById('MATH_25').classList.contains('current_page_item')){
@@ -116,28 +63,28 @@ window.onload=function(){   //displays and closes the modal (popup window)
     modalClose.addEventListener('click', function(){
         modalBg.classList.remove('bg-active');
     });
-<<<<<<< HEAD
-}
-
-userModal.addEventListener('click', function(){
+    /*
+    onlineNow.addEventListener('click', function(){
+        onlineNow.classList.remove('online');
+    });
+    */
+    userModal.addEventListener('click', function(){
     userBg.classList.add('user-active');
-});
+    });
 
-userBg.addEventListener('click', function(){
+    userBg.addEventListener('click', function(){
     userBg.classList.remove('user-active'); 
-})
+    })
   
    //stores the value from the input field and creates a room with it
    
-   function createRoom(){
+   //function createRoom(){
 
-    var name;
+    //var name;
 
-    var input = document.getElementById('description').value;
-=======
+    //var input = document.getElementById('description').value;
     
     var courses = document.querySelectorAll('.list');
->>>>>>> 72e859f4aed96f3d3d32d870addda1ad98daf3c3
 
     var location = window.location.pathname;
     if(location == '/section/'){
@@ -155,14 +102,6 @@ userBg.addEventListener('click', function(){
     //});
     
 }
-
-userModal.addEventListener('click', function(){
-    userBg.classList.add('user-active');
-});
-
-userBg.addEventListener('click', function(){
-    userBg.classList.remove('user-active'); 
-})
  
    //stores the value from the input field and creates a room with it
    
@@ -381,9 +320,8 @@ onlineNow.addEventListener('click', function(){
 // Course Tab Navigation
 
 
-<<<<<<< HEAD
-     currentRooms.removeChild(room);
- }
+//currentRooms.removeChild(room);
+ //}
 //resizing stuff 
  /*
 $(function () {
@@ -409,13 +347,17 @@ function removeBanner(){
 
 //online header 
 
+/*
+
 var onlineNow = document.getElementById('#online-header');
 var users = document.querySelector('.online')
 
 onlineNow.addEventListener('click', function(){
-    onlineNow.classList.remove(users);
-
+    onlineNow.classList.remove(users); 
 });
+
+*/
+
 //flipping the card
 /*
     var flip = document.getElementById("flip");
@@ -437,23 +379,7 @@ $(".google-button").click(function() {
 */
 
 
-var onlineNowButton = document.getElementById('online-header')
-var users = document.querySelector('.online')
-var onlineNow = document.getElementById('online-now');
 
-window.onload = function(){
-onlineNow.addEventListener('click', function(){
-    onlineNow.classList.remove('online');
-})
-}
-//navbar 
-
-const sections = document.querySelectorAll('section');
-const bubble = document.querySelector('.bubble');
-
-const colors = [
-    ''
-]
 
 //removing login graphic
 var login_graphic = document.querySelector('.login-graphic');
@@ -465,6 +391,8 @@ function removeLoginGraphic(){
 }
 
 //login page scrollmagic 
+
+/*
 $(document).ready(function(){
 
     var controller = new ScrollMagic.Controller();
@@ -477,5 +405,4 @@ $(document).ready(function(){
 
 
 });
-=======
->>>>>>> 72e859f4aed96f3d3d32d870addda1ad98daf3c3
+*/

@@ -52,16 +52,11 @@ INSTALLED_APPS = [
     'allauth.account', 
     #'social_auth', 
     'allauth.socialaccount',   
-<<<<<<< HEAD
-    'allauth.socialaccount.providers.google',   
-    'session_security',
-=======
     'allauth.socialaccount.providers.google',
     #'allauth.socialaccount.adapter',
-    'background_task',
-    'django_crontab',
+    #'background_task',
+    #'django_crontab',
     #'django_pg',  
->>>>>>> 72e859f4aed96f3d3d32d870addda1ad98daf3c3
 ]
 SOCIALACCOUNT_ADAPTER = 'studyApp.adapters.MySocialAccount'
 
@@ -109,13 +104,10 @@ TEMPLATES = [
     },
 ]
 
-<<<<<<< HEAD
 TEMPLATES_CONTEXT_PROCESSORS = [
     'django.core.context_processors.request'
 ]
 
-=======
->>>>>>> 72e859f4aed96f3d3d32d870addda1ad98daf3c3
 
 WSGI_APPLICATION = 'collab.wsgi.application'
 
