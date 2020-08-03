@@ -29,6 +29,9 @@ const colors = [
     ''
 ]
 
+/*document.getElementById("myDiv").onclick = function() {
+    
+  };*/
 
 function getCurrentCourse(){
     if (document.getElementById('MATH_25').classList.contains('current_page_item')){
@@ -75,6 +78,13 @@ window.onload=function(){   //displays and closes the modal (popup window)
     userBg.addEventListener('click', function(){
     userBg.classList.remove('user-active'); 
     })
+
+    var form = document.getElementById("imgForm")
+
+    form.addEventListener("input", function () {
+        form.submit();
+    });
+
   
    //stores the value from the input field and creates a room with it
    
@@ -97,6 +107,9 @@ window.onload=function(){   //displays and closes the modal (popup window)
         courses[0].children[0].children[0].classList.remove('far')
         courses[0].children[0].children[0].classList.add('fa')
     }
+
+
+
     //courses.addEventListener('click', function(){
     //    lithum.classList.add('active');
     //});

@@ -133,7 +133,7 @@ form label{
 	right: 30%;
 	top: 5%;
     height: min(15vh, 8.4vw);
-    width: auto;
+    width: min(15vh, 8.4vw);
     border-radius: 100px;
 }
 .user-modal a{

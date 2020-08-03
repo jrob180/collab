@@ -976,7 +976,7 @@ background-color: white;
 }
 .user_bars img{
 	height: calc(20px + min(6vw, 2.5vh));
-	width: auto;
+	width: calc(20px + min(6vw, 2.5vh));
 	object-fit: cover;
 	position: relative;
 	right: 37%;

@@ -68,9 +68,12 @@ Released   : 20130902
 		<img style = "height: min(10vh, 5.63vw); min-height: 50px;" id = logo src = "{% static 'collab.png' %}">
 		
 		<button class = "modal-btn" id = "create">Start Session</button>
-		
-		<button id = "signout" style="background-image: url('{{user.socialaccount_set.all.0.get_avatar_url}}'); justify-content: center;">
-			
+		{% block content%}
+		{% if user.profile.image == "" %}
+			<button id = "signout" style="background-image: url('{{user.socialaccount_set.all.0.get_avatar_url}}'); justify-content: center;">
+		{% else %}
+			<button id = "signout" style="background-image: url('{{user.profile.image.url}}'); justify-content: center;">
+		{% endif %}
 		</button>
 
 		<!--href = "/accounts/logout/"-->
@@ -130,7 +133,7 @@ Released   : 20130902
 		<div class = "page_title">
 			<button class = "modal-btn">Start Session</button>
 		</div>-->
-			{% block content %}
+
 			{% for room in rooms %}
 				{% if room.title != "inactive" %}
 				<div class = "current_room_example">
@@ -140,7 +143,12 @@ Released   : 20130902
 						{% for user in users %}
 							{% if user.room == room %}
 							<div class = "user_bars">
+								{% if user.image == "" %}
 									<img src = '{{user.user.socialaccount_set.all.0.get_avatar_url}}'>
+								{% else %}
+									<img src = '{{user.image.url}}'>
+								{% endif %}
+
 									<p>{{user.user.get_full_name}}</p>
 							</div>
 							{{ counter.increment }}
@@ -165,20 +173,7 @@ Released   : 20130902
 
 
 </div>
-<!--Start session popup-->
-<!--
-<div class="modal-bg">
-	<div class="modal">
-		<h1>What's this meeting for?</h1>
-		<form id = "post_text" method = "post">
-			{% csrf_token %}
-			{{form}}
-			<button class = "create_room" type = "submit" style = "text-decoration: none" target = "_blank" id = "enter">Create Session</button>
-		</form>
-		<span class = "modal-close">X</span>
-	</div>
-</div>
--->
+
 <div class="modal-bg">
 	<div class="modal">
 		<h1>What's this meeting for?</h1>
@@ -196,7 +191,26 @@ Released   : 20130902
 
 <div class="user-bg" id = "user-bg">
 	<div class="user-modal" id = "user-modal">
-		<img src = "{{user.socialaccount_set.all.0.get_avatar_url}}">
+		
+		{% if user.profile.image == "" %}
+			<img src = '{{user.socialaccount_set.all.0.get_avatar_url}}'>
+			<form action="{% url 'uploadImage' %}"method = "post" id = "imgForm" enctype="multipart/form-data">
+				{% csrf_token %}
+				{{img_form.as_p}}
+
+				<!--<button type="submit">Upload</button> -->
+			</form>
+
+		{% else %}
+			<img src = '{{user.profile.image.url}}'>
+			<form action="{% url 'uploadImage' %}" method = "post" id = "imgForm" enctype="multipart/form-data">
+				{% csrf_token %}
+				<!--<input id = "description" style = "font-size: 20px"></form>-->
+				{{img_form.as_p}}
+
+				<!--<button type="submit">Upload</button> -->
+			</form>
+		{% endif %}
 		<p id = "name">{{user.get_full_name}}</p>
 		<p id = "email">{{user.email}}</p>
 		<a href = "/accounts/logout/">Logout</a>

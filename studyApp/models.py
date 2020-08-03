@@ -23,7 +23,8 @@ class Profile(models.Model):
     room = models.ForeignKey(Room, on_delete=models.CASCADE)
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     zoom_id = models.CharField(max_length = 100)
-    section = models.CharField(max_length = 100) 
+    section = models.CharField(max_length = 100)
+    image = models.ImageField(upload_to = "images/", default="") 
 
 
 class Token(models.Model):

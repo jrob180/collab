@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from .models import Room
 from .models import Profile, Token
 from django.views.generic import CreateView
-from .forms import NameForm
+from .forms import NameForm, ImageForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
 from django.contrib.auth.models import User
@@ -22,7 +22,7 @@ import time
 
 
 #token = 'eyJhbGciOiJIUzUxMiIsInYiOiIyLjAiLCJraWQiOiIyNWYyMjA2YS1lODA3LTRlMjUtYjhjYi0wZGZjMjBhYjdiNWIifQ.eyJ2ZXIiOiI2IiwiY2xpZW50SWQiOiJ6SmliOG5Rc1RHMFFBX0pnRXFqNVEiLCJjb2RlIjoiZXVnNWlrSG9LZF95ZWlWdUlXc1FfNjNOOUtEY3F1aG9nIiwiaXNzIjoidXJuOnpvb206Y29ubmVjdDpjbGllbnRpZDp6SmliOG5Rc1RHMFFBX0pnRXFqNVEiLCJhdXRoZW50aWNhdGlvbklkIjoiMjM2NDJlMTFlYjBiZTFhZGNiMmFkYjZjNTFhOWJlNDkiLCJ1c2VySWQiOiJ5ZWlWdUlXc1FfNjNOOUtEY3F1aG9nIiwiZ3JvdXBOdW1iZXIiOjAsImF1ZCI6Imh0dHBzOi8vb2F1dGguem9vbS51cyIsImFjY291bnRJZCI6ImhORE8zbG1NU3RTNnhjcS1iMy1QMUEiLCJuYmYiOjE1OTQ0Mzc2NzQsImV4cCI6MTU5NDQ0MTI3NCwidG9rZW5UeXBlIjoiYWNjZXNzX3Rva2VuIiwiaWF0IjoxNTk0NDM3Njc0LCJqdGkiOiJiYWQxNjhjOS03YTc3LTRlYTMtOGI2OC1mZWUwMGIzNWE1ODkiLCJ0b2xlcmFuY2VJZCI6MjJ9.ztaR-aKWc0tiPkmbtwlYQUO92cwURNbXRQxNt_75uvex0rIlTVpQJajgj_TNx5uFheHLfcnCT0-0E13gRgXOHw'
-start = 1300
+start = 1400
 def read_file(request):
     f = open('/Users/arulkapoor118/collab_website/collab/studyApp/loaderio-4049d7ee993d07bdda5b43856ece8ea9.txt', 'r')
     file_content = f.read()
@@ -62,9 +62,9 @@ def create_user_profile(sender, instance, created, **kwargs):
         id = json.loads(u.text)['id']
         Profile.objects.create(user=instance, room = Room.objects.get(title = "inactive"), zoom_id= id)
         '''
-
+        img_url = ""
         # course = ...
-        Profile.objects.create(user=instance, room = Room.objects.get(title = "inactive"), zoom_id= "", section = "")
+        Profile.objects.create(user=instance, room = Room.objects.get(title = "inactive"), zoom_id= "", section = "", img_url = img_url)
 
 @receiver(post_save, sender=User)
 def save_user_profile(sender, instance, **kwargs):
@@ -147,6 +147,20 @@ def participantjoin(request):
     return HttpResponse(status=200)
 '''
 # Create your views here.
+def uploadImage(request):
+    if request.method == 'POST':
+        print('helelelelel')
+        form = ImageForm(request.POST, request.FILES)
+        
+
+    
+        if form.is_valid(): 
+            profile = request.user.profile
+            profile.image = form.cleaned_data['image']
+            profile.save()
+        return redirect('studyApp-home')
+
+
 def createroom(request):
     if request.method == 'GET':
         title = request.GET['room_title']
@@ -182,6 +196,9 @@ def createroom(request):
 
 @login_required(login_url='login/')
 def home(request):
+
+        #return HttpResponse(status = 200)
+    #print(request.user.socialaccount)
     course = request.path[1:-1]
     user = request.user
     if course == "":
@@ -196,6 +213,7 @@ def home(request):
     c = Counter()
 
     form = NameForm()
+    img_form = ImageForm()
 
     context = {
         #'rooms': Room.objects.all(),
@@ -203,6 +221,7 @@ def home(request):
         'users': Profile.objects.all(),
         'counter': c,
         'form': form,
+        'img_form': img_form
     }
     return render(request, 'studyApp/index.html', context)
 

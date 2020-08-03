@@ -12,6 +12,7 @@ urlpatterns = [
     path('login/', views.login, name = "studyApp-login"),
     url(r'^joinroom/$', views.joinroom, name='joinroom'),
     url(r'^createroom/$', views.createroom, name='createroom'),
+     url(r'^uploadImage/$', views.uploadImage, name='uploadImage'),
     url(r'^meetingend', views.meetingend, name='meetingend'),
     url(r'^participantleft', views.participantleft, name='participantleft'),
     #url(r'^participantjoin', views.participantjoin, name='participantjoin'),

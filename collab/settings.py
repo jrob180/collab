@@ -34,6 +34,7 @@ ALLOWED_HOSTS = [
     '689f071b91a6.ngrok.io',
     'ba4f4b1cfa1e.ngrok.io',
     'aa2bd4fff57f.ngrok.io',
+    'dd5fb990096c.ngrok.io',
 ]
 
 
@@ -66,7 +67,7 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'session_security.middleware.SessionSecurityMiddleware',
+    #'session_security.middleware.SessionSecurityMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
@@ -78,6 +79,12 @@ SESSION_SECURITY_WARN_AFTER = 10000
 SESSION_SECURITY_EXPIRE_AFTER = 15000
 
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+
+
+
+MEDIA_ROOT =  os.path.join(BASE_DIR, 'media')
+
+MEDIA_URL = '/media/'
 
 #SESSION_SAVE_EVERY_REQUEST = True
 
