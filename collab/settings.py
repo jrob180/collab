@@ -61,6 +61,11 @@ INSTALLED_APPS = [
 ]
 SOCIALACCOUNT_ADAPTER = 'studyApp.adapters.MySocialAccount'
 
+MEDIA_ROOT =  os.path.join(BASE_DIR, 'media')
+
+MEDIA_URL = '/media/'
+
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -192,10 +197,10 @@ SOCIAL_AUTH_PIPELINE =  (
 
     'social_core.pipeline.social_auth.auth_allowed',
 )
-SOCIAL_AUTH_GOOGLE_OAUTH2_AUTH_EXTRA_ARGUMENTS = {
-    'hd': 'columbia.edu',
-    'access_type': 'online',
-}
+# SOCIAL_AUTH_GOOGLE_OAUTH2_AUTH_EXTRA_ARGUMENTS = {
+#     'hd': 'columbia.edu',
+#     'access_type': 'online',
+# }
 
 
 STATIC_URL = '/static/'

@@ -1,9 +1,9 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .models import Room
-from .models import Profile, Token
+from .models import Profile, Section, Token
 from django.views.generic import CreateView
-from .forms import NameForm
+from .forms import NameForm, ImageForm, SectionForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
 from django.contrib.auth.models import User
@@ -15,14 +15,12 @@ from django.views.decorators.http import require_POST
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 import base64
-from background_task import background
-import schedule
 import time
 
 
 
 #token = 'eyJhbGciOiJIUzUxMiIsInYiOiIyLjAiLCJraWQiOiIyNWYyMjA2YS1lODA3LTRlMjUtYjhjYi0wZGZjMjBhYjdiNWIifQ.eyJ2ZXIiOiI2IiwiY2xpZW50SWQiOiJ6SmliOG5Rc1RHMFFBX0pnRXFqNVEiLCJjb2RlIjoiZXVnNWlrSG9LZF95ZWlWdUlXc1FfNjNOOUtEY3F1aG9nIiwiaXNzIjoidXJuOnpvb206Y29ubmVjdDpjbGllbnRpZDp6SmliOG5Rc1RHMFFBX0pnRXFqNVEiLCJhdXRoZW50aWNhdGlvbklkIjoiMjM2NDJlMTFlYjBiZTFhZGNiMmFkYjZjNTFhOWJlNDkiLCJ1c2VySWQiOiJ5ZWlWdUlXc1FfNjNOOUtEY3F1aG9nIiwiZ3JvdXBOdW1iZXIiOjAsImF1ZCI6Imh0dHBzOi8vb2F1dGguem9vbS51cyIsImFjY291bnRJZCI6ImhORE8zbG1NU3RTNnhjcS1iMy1QMUEiLCJuYmYiOjE1OTQ0Mzc2NzQsImV4cCI6MTU5NDQ0MTI3NCwidG9rZW5UeXBlIjoiYWNjZXNzX3Rva2VuIiwiaWF0IjoxNTk0NDM3Njc0LCJqdGkiOiJiYWQxNjhjOS03YTc3LTRlYTMtOGI2OC1mZWUwMGIzNWE1ODkiLCJ0b2xlcmFuY2VJZCI6MjJ9.ztaR-aKWc0tiPkmbtwlYQUO92cwURNbXRQxNt_75uvex0rIlTVpQJajgj_TNx5uFheHLfcnCT0-0E13gRgXOHw'
-start = 1300
+start = 1600
 def read_file(request):
     f = open('/Users/arulkapoor118/collab_website/collab/studyApp/loaderio-4049d7ee993d07bdda5b43856ece8ea9.txt', 'r')
     file_content = f.read()
@@ -62,9 +60,9 @@ def create_user_profile(sender, instance, created, **kwargs):
         id = json.loads(u.text)['id']
         Profile.objects.create(user=instance, room = Room.objects.get(title = "inactive"), zoom_id= id)
         '''
-
+        image = None
         # course = ...
-        Profile.objects.create(user=instance, room = Room.objects.get(title = "inactive"), zoom_id= "", section = "")
+        Profile.objects.create(user=instance, room = Room.objects.get(title = "inactive"), zoom_id= "", section = "", image = image, first_login = True)
 
 @receiver(post_save, sender=User)
 def save_user_profile(sender, instance, **kwargs):
@@ -147,6 +145,17 @@ def participantjoin(request):
     return HttpResponse(status=200)
 '''
 # Create your views here.
+def uploadImage(request):
+    if request.method == 'POST':
+        form = ImageForm(request.POST, request.FILES)
+        
+        if form.is_valid(): 
+            profile = request.user.profile
+            profile.image = form.cleaned_data['image']
+            profile.save()
+        return redirect('studyApp-home')
+
+
 def createroom(request):
     if request.method == 'GET':
         title = request.GET['room_title']
@@ -182,6 +191,10 @@ def createroom(request):
 
 @login_required(login_url='login/')
 def home(request):
+
+    if request.user.profile.first_login:
+        return redirect('studyApp-classes')
+
     course = request.path[1:-1]
     user = request.user
     if course == "":
@@ -196,6 +209,7 @@ def home(request):
     c = Counter()
 
     form = NameForm()
+    img_form = ImageForm()
 
     context = {
         #'rooms': Room.objects.all(),
@@ -203,21 +217,41 @@ def home(request):
         'users': Profile.objects.all(),
         'counter': c,
         'form': form,
+        'img_form': img_form
     }
     return render(request, 'studyApp/index.html', context)
+
+@login_required(login_url='login/')
+def classes(request):
+    form = SectionForm()
+    context = {
+        #'rooms': Room.objects.all(),
+        'form': form,
+
+    }
+    return render(request, 'studyApp/classes.html', context)
+
+def selectClass(request):
+    if request.method == 'POST':
+        form = SectionForm(request.POST)
+    
+        if form.is_valid(): 
+            profile = request.user.profile
+            profile.section = form.cleaned_data['section'].name.upper()
+            profile.first_login = False
+            profile.save()
+        return redirect('studyApp-home')
+
 
 def login(request):
     return render(request, 'studyApp/login.html')
 
-'''def logout(request):
-    logout(request)
-    return render('studyApp/index.html')'''
 
 def joinroom(request):
     if request.method == 'GET':
         room = request.GET['room_id']
         user = Profile.objects.get(user = request.user)
-        #user = Profile.objects.get(user__first_name = 'Lauren')
+
         user.room = Room.objects.get(meeting_id = room) 
         user.save()
         #zoom api call to get all meeting participants, and then loop over participant ids and check 
@@ -228,7 +262,6 @@ def joinroom(request):
 def start_meeting(access_token, index, topic, firstname, lastname):
     global start
     start+=1
-    #print(access_token)
     
     headers = {'Authorization': "Bearer " + access_token, 'host': 'zoom.us', "Content-Type": 'application/json'}
     payload = {

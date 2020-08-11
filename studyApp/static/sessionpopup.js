@@ -7,6 +7,7 @@ var modal = document.querySelector('.modal');
 var modalBtn = document.querySelector('.modal-btn');
 var modalBg = document.querySelector('.modal-bg');
 var modalClose = document.querySelector('.modal-close');
+var logoutClose = document.querySelector('#logoutClose');
 var errorModal = document.querySelector('.modal-error');
 var classes1 = document.getElementById('COMS_1004');
 var classes2 = document.getElementById('MATH_25');
@@ -16,68 +17,18 @@ var allClasses = document.getElementById('all_rooms');
 var userModal = document.getElementById('signout');
 var userBg = document.querySelector('.user-bg');
 
+var onlineNowButton = document.getElementById('online-header')
+var users = document.querySelector('.online')
+var onlineNow = document.getElementById('online-now');
 
-//var courses = document.querySelector('.list');
+//navbar 
 
-//var lithum = document.querySelector('.classes');
+const sections = document.querySelectorAll('section');
+const bubble = document.querySelector('.bubble');
 
-//var current_course;
-/*window.onload= function(){
-    courses = document.getElementsByClassName('list')
-    window.alert('he')
-}*/
-//var lithum = courses[0]
-//var section = courses[1]
-//var lithum_a = lithum.children[0]
-//var section_a = section.children[0]
-
-   //child = courses[0]
-
-    /*current_course = document.querySelector('.active');
-    if(current_course != null){
-        current_course.classList.toggle('active');
-        window.alert('yeehaw1')
-        child.classList.toggle('active');
-    }
-    else{
-        
-        window.alert('juul25')
-    }*/
-
-/*
-function course2(){
-    courses = document.getElementsByClassName('list');
-    child = courses[1]
-    var current_course = document.querySelector('.active');
-    if(current_course != null){
-        current_course.classList.toggle('active');
-        window.alert('yeehaw2')
-        child.classList.toggle('active');
-    }
-    else{
-        child.classList.toggle('active');
-        window.alert('juul18')
-    }
-}*/
-
-
-/*for(var i = 0; i < courses.length; i++){
-
-    var sectionCourse = courses[i]
-    sectionCourse.addEventListener('click', function(){
-        var current_course = document.querySelector('.active')
-        if(current_course != null){
-            current_course.classList.remove('active');
-            window.alert('yeehaw')
-            sectionCourse.children[0].classList.add('active');
-        }
-        else{
-            window.alert(sectionCourse.children[0])
-            sectionCourse.children[0].classList.add('active');
-        }
-        
-    })
-}*/
+const colors = [
+    ''
+]
 
 
 function getCurrentCourse(){
@@ -113,6 +64,33 @@ window.onload=function(){   //displays and closes the modal (popup window)
     modalClose.addEventListener('click', function(){
         modalBg.classList.remove('bg-active');
     });
+    /*
+    onlineNow.addEventListener('click', function(){
+        onlineNow.classList.remove('online');
+    });
+    */
+    userModal.addEventListener('click', function(){
+    userBg.classList.add('user-active');
+    });
+
+    logoutClose.addEventListener('click', function(){
+    userBg.classList.remove('user-active'); 
+    });
+  
+
+    var form = document.getElementById("imgForm")
+
+    form.addEventListener("input", function () {
+        form.submit();
+    });
+
+   //stores the value from the input field and creates a room with it
+   
+   //function createRoom(){
+
+    //var name;
+
+    //var input = document.getElementById('description').value;
     
     var courses = document.querySelectorAll('.list');
 
@@ -132,14 +110,6 @@ window.onload=function(){   //displays and closes the modal (popup window)
     //});
     
 }
-
-userModal.addEventListener('click', function(){
-    userBg.classList.add('user-active');
-});
-
-userBg.addEventListener('click', function(){
-    userBg.classList.remove('user-active'); 
-})
  
    //stores the value from the input field and creates a room with it
    
@@ -358,3 +328,89 @@ onlineNow.addEventListener('click', function(){
 // Course Tab Navigation
 
 
+//currentRooms.removeChild(room);
+ //}
+//resizing stuff 
+ /*
+$(function () {
+    var isAdded = false;
+    $(window).resize(function () {
+        if (!isAdded && $(window).width() > 641) {
+             isAdded = true;
+        } else if (isAdded && $(window).width() <= 641) {
+            isAdded = false;
+            $('.banner_2').remove();
+        }
+    });
+});
+*/
+
+var banner_2 = document.querySelector('.banner_2')
+
+function removeBanner(){
+    if(window.width() <= 800){
+        banner_2.remove()
+    }
+}
+
+//online header 
+
+/*
+
+var onlineNow = document.getElementById('#online-header');
+var users = document.querySelector('.online')
+
+onlineNow.addEventListener('click', function(){
+    onlineNow.classList.remove(users); 
+});
+
+*/
+
+//flipping the card
+/*
+    var flip = document.getElementById("flip");
+    var roomExample = docoument.querySelector('.current_room_example');
+
+
+    flip.addEventListener('click', function(){
+        roomExample.classList.remove('back');
+    })
+    
+*/
+
+//signing in button
+/*
+$(".google-button").click(function() {
+    window.location = $(this).find("a").attr("href"); 
+    return false;
+  });
+*/
+
+
+
+
+//removing login graphic
+var login_graphic = document.querySelector('.login-graphic');
+
+function removeLoginGraphic(){
+    if(window.width() <= 800){
+        login_graphic.remove()
+    }
+}
+
+//login page scrollmagic 
+
+/*
+$(document).ready(function(){
+
+    var controller = new ScrollMagic.Controller();
+
+    var ourScene = new ScrollMagic.Scene({
+        triggerElement: '#how'
+    })
+    .setClassToggle('.punchline', 'fade-in')
+    .addTo(controller);
+
+
+});
+*/

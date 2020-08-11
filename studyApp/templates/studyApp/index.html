@@ -1,19 +1,15 @@
-
 {% load static %}
 {% load joinroom %}
 {% load socialaccount %}
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <!--
 Design by TEMPLATED
 http://templated.co
 Released for free under the Creative Commons Attribution License
-
-Name       : Skeleton ljrlkewjr
+Name       : Skeleton 
 Description: A two-column, fixed-width design with dark color scheme.
 Version    : 1.0
 Released   : 20130902
-
 -->
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -21,39 +17,31 @@ Released   : 20130902
 <title></title>
 <meta name="keywords" content="" />
 <meta name="description" content="" />
-
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <!--bootstrap stuff-->
-
 <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900" rel="stylesheet" />
 <link href= "{% static 'default.css' %}" rel="stylesheet" type="text/css" media="all" />
-
 <!--<link href="fonts.css" rel="stylesheet" type="text/css" media="all" />-->
-
 <!--[if IE 6]><link href="default_ie6.css" rel="stylesheet" type="text/css" /><![endif]-->
-
 <script src="https://kit.fontawesome.com/062d86a845.js" crossorigin="anonymous"></script>
 <!--icons-->
-
 <!--
 <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
-
-
 <script src="https://apis.google.com/js/platform.js" async defer></script> 
 -->
 <!--google API shit-->
-
 <script src = "{% static 'index.js' %}" defer></script>
 <!--main script for HOMEPAGE-->
-
 <script src = "{% static 'sessionpopup.js' %}" defer></script>
 <!--Starting a session popup script-->
 <link href = "{% static 'sessionpopup.css' %}" rel = "stylesheet">
 <!--Starting a session popup css-->
 
+<script type="text/javascript" src="js/bootstrap-filestyle.min.js"> </script>
+<!--File Upload Button style bootstrap-->
 </head>
-
 <body>
 <div id="page" class="container"> <!--left side container-->
 	<!--
@@ -61,29 +49,31 @@ Released   : 20130902
 			<img style = "height: min(10vh, 5.63vw)" id = logo src = "{% static 'collab1.png' %}">
 			<a id = "signout" href = "/accounts/logout/">Logout</a>
 	</div>-->
-
 	<div class = "banner">
-		<img style = "height: min(10vh, 5.63vw); min-height: 50px;" id = logo src = "{% static 'collab1.png' %}">
-		
+		<img style = "height: min(10vh, 5.63vw); min-height: 50px;" id = logo src = "{% static 'collab.png' %}">
+
 		<button class = "modal-btn" id = "create">Start Session</button>
-		
-		<button id = "signout" style="background-image: url('{{user.socialaccount_set.all.0.get_avatar_url}}'); justify-content: center;">
-			
+
+		{% block content%}
+		{% if user.profile.image == "" %}
+			<button id = "signout" style="background-image: url('{{user.socialaccount_set.all.0.get_avatar_url}}'); justify-content: center;">
+		{% else %}
+			<button id = "signout" style="background-image: url('{{user.profile.image.url}}'); justify-content: center;">
+		{% endif %}
 		</button>
 
 		<!--href = "/accounts/logout/"-->
 </div>
-
 	<div class = "banner_2">
-		<h1>Welcome to LITHUM!</h1>
+		<h1>Welcome to Literature Humanities!</h1>
 		<p>Here you can find study groups for assignments you are working on.</p>
 		
 	</div>
-
+	
 	<div id="header"> <!--navbar-->
 		
 		<div>
-			<img src = "{% static 'harvardlogo.png' %}">
+			<img src = "{% static 'culogo.png' %}">
 		</div>
 		
 		
@@ -99,18 +89,17 @@ Released   : 20130902
 				<li class="headers">
 					<i class="fas fa-caret-down"></i>
 					<p>Your Courses</p>
-					<a href = "#" id = "plus">
+					<a href = "{% url 'studyApp-classes' %}" id = "plus">
 						<i class="fas fa-plus"></i>
 					</a>
 				</li>
 				<!--<li id = 'all_rooms' class ="all_rooms"><a href="#" accesskey="2" title="">ALL ROOMS</a></li>
 				<li id = 'COMS_1004' class ="current_page_item"><a href="#" accesskey="2" title="">COMS 1004</a></li>
 				<li id = 'MATH_25'><a href="#" accesskey="3" title="">MATH 25</a></li>-->
-
 				<li class = 'list'>
 					<a href="/" class="classes">
 						<i class="far fa-bookmark"></i>
-						<p>LITHUM</p>
+						<p>LIT HUM</p>
 					</a>
 				</li>
 				</li>
@@ -121,6 +110,7 @@ Released   : 20130902
 					</a>
 				</li>
 			</ul>
+			<button class = "modal-btn" id = "create-mobile">Start Session</button>
 		</div>
 	</div>
 	<div class="current_rooms">
@@ -128,138 +118,153 @@ Released   : 20130902
 		<div class = "page_title">
 			<button class = "modal-btn">Start Session</button>
 		</div>-->
-			{% block content %}
 			{% for room in rooms %}
-				{% if room.title != "inactive" %}
-				<div class = "current_room_example">
-					<p class = "name">{{room.title}}</p>
-
-					<div class = "inner_room" id = 2>
-						{% for user in users %}
-							{% if user.room == room %}
-							<div class = "user_bars">
-									<img src = '{{user.user.socialaccount_set.all.0.get_avatar_url}}'>
-									<p>{{user.user.get_full_name}}</p>
-							</div>
-							{{ counter.increment }}
+			{% if room.title != "inactive" %}
+			<div class = "current_room_example">
+				<p class = "name">{{room.title}}</p>
+				<div class = "inner_room" id = 2>
+					{% for user in users %}
+						{% if user.room == room %}
+						<div class = "user_bars">
+							{% if user.image == "" %}
+								<img src = '{{user.user.socialaccount_set.all.0.get_avatar_url}}'>
+							{% else %}
+								<img src = '{{user.image.url}}'>
 							{% endif %}
-						{% endfor %}
-					</div>
-					<div class = "people">
-					<a class = "join_room" room-name = "{{room.meeting_id}}" href = "{{room.zoom_url}}" target = '_blank'
-					style = "text-decoration: none"> Join Room</a>
-						<i class="fas fa-users"></i> 
-						<p>{{counter.count}}</p>
-						{{ counter.zero }}
-					</div>
+
+								<p>{{user.user.get_full_name}}</p>
+						</div>
+						{{ counter.increment }}
+						{% endif %}
+					{% endfor %}
 				</div>
-				{% endif %}
-			{% endfor %}
-			
-			{% endblock content %}
+				<div class = "people">
+				<a class = "join_room" room-name = "{{room.meeting_id}}" href = "{{room.zoom_url}}" target = '_blank'>Join Room</a>
+					<i class="fas fa-users"></i> 
+					<p>{{counter.count}}</p>
+					{{ counter.zero }}
+				</div>
+			</div>
+			{% endif %}
+		{% endfor %}
 		
-	</div>
-	
+		{% endblock content %}
 
-
-</div>
-<!--Start session popup-->
-<!--
-<div class="modal-bg">
-	<div class="modal">
-		<h1>What's this meeting for?</h1>
-		<form id = "post_text" method = "post">
-			{% csrf_token %}
-			{{form}}
-			<button class = "create_room" type = "submit" style = "text-decoration: none" target = "_blank" id = "enter">Create Session</button>
-		</form>
-		<span class = "modal-close">X</span>
 	</div>
 </div>
--->
-<div class="modal-bg">
-	<div class="modal">
-		<h1>What's this meeting for?</h1>
-		<form id = "post_text" method = "post">
-			{% csrf_token %}
-			<!--<input id = "description" style = "font-size: 20px"></form>-->
-			{{form}}
-			<button type = "submit" style = "text-decoration: none" target = "_blank" id = "enter">Create Session</button>
-		</form>
-		<span class = "modal-close">
-			<i class="fas fa-times"></i>
-		</span>
+	<div class="modal-bg">
+		<div class="modal">
+			<h1>What's this meeting for?</h1>
+			<form id = "post_text" method = "post">
+				{% csrf_token %}
+				<!--<input id = "description" style = "font-size: 20px"></form>-->
+				{{form}}
+				<button type = "submit" target = "_blank" id = "enter">Create Session</button>
+			</form>
+			<span class = "modal-close">
+				<i class="fas fa-times"></i>
+			</span>
+		</div>
 	</div>
-</div>
 
-<div class="user-bg" id = "user-bg">
-	<div class="user-modal" id = "user-modal">
-		<img src = "{{user.socialaccount_set.all.0.get_avatar_url}}">
-		<p id = "name">{{user.get_full_name}}</p>
-		<p id = "email">{{user.email}}</p>
-		<a href = "/accounts/logout/">Logout</a>
-	</div>
-</div>
+	<div class="user-bg" id = "user-bg">
+			<div class="user-modal" id = "user-modal">
 
+				<span class = "modal-close" id = "logoutClose">
+					<i class="fas fa-times"></i>
+				</span>
+				
+
+				{% if user.profile.image == "" %}
+				<button id = "modalImg" onclick="$('#id_image').click();" style = "background-image: url('{{user.socialaccount_set.all.0.get_avatar_url}}')">
+					<div class="hover-content">
+						<p>Change Profile Picture</p>
+					</div>
+				</button>
+				<form action="{% url 'uploadImage' %}"method = "post" id = "imgForm" enctype="multipart/form-data">
+					
+					{% csrf_token %}
+					{{img_form.as_p}}
+
+					<!--<button type="submit">Upload</button> -->
+				</form>
+
+			{% else %}
+			<button id = "modalImg" onclick="$('#id_image').click();" style = "background-image: url('{{user.profile.image.url}}')">
+				<div class="hover-content">
+					<p>Change Profile Picture</p>
+				</div>
+			</button>
+				<form action="{% url 'uploadImage' %}" method = "post" id = "imgForm" enctype="multipart/form-data">
+					
+					{% csrf_token %}
+					<!--<input id = "description" style = "font-size: 20px"></form>-->
+					{{img_form.as_p}}
+
+					<!--<button type="submit">Upload</button> -->
+				</form>
+			{% endif %}
+
+				<p id = "name">{{user.get_full_name}}</p>
+				<p id = "email">{{user.email}}</p>
+				<a href = "/accounts/logout/">Logout</a>
+			</div>
+</div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-
 <script type="text/javascript">
-    $('.join_room').click(function(){
-    var room;
-    room = $(this).attr("room-name");
-    $.ajax(
-    {
-        type:"GET",
-        url: "/joinroom",
-        data:{
-                 room_id: room
-        },
-        success: function( data ) 
-        {
+$('.join_room').click(function(){
+	var room;
+	room = $(this).attr("room-name");
+	$.ajax(
+	{
+		type:"GET",
+		url: "/joinroom",
+		data:{
+				room_id: room
+		},
+		success: function( data ) 
+		{
 			location.href = '{% url 'studyApp-home'%}'; 
 			
-
-        }
-     })
+		}
+	})
 });
 
 var frm = $('#post_text');
-    frm.submit(function () {
-		//var course = document.querySelector('.active').children[1].textContent
-		var loc = window.location.pathname
-		var course
-		var section = document.getElementsByClassName('classes')[1];
-		if(loc == '/section/'){
-			//course = "SECTION ABC"
-			course = section.children[1].textContent
+frm.submit(function () {
+	//var course = document.querySelector('.active').children[1].textContent
+	var loc = window.location.pathname
+	var course
+	var section = document.getElementsByClassName('classes')[1];
+	if(loc == '/section/'){
+		//course = "SECTION ABC"
+		course = section.children[1].textContent
+	}
+	else{
+		course = "LITHUM"
+	}
+	$.ajax({
+		type: "GET",
+		url: "/createroom",
+		data: {
+			room_title: frm.serializeArray()[1].value,
+			course: course
+		},
+		success: function (data) {
+			window.open(data.meeting, '_blank');
+			if(course == 'LITHUM'){
+				window.open('{% url 'studyApp-home'%}', "_self");
+			}
+			else{
+				window.open('{% url 'studyApp-section'%}', "_self");
+			}
+		},
+		error: function(data) {
+			// something went wrong
 		}
-		else{
-			course = "LITHUM"
-		}
-        $.ajax({
-            type: "GET",
-            url: "/createroom",
-			data: {
-				room_title: frm.serializeArray()[1].value,
-				course: course
-			},
-            success: function (data) {
-
-				window.open(data.meeting, '_blank');
-				if(course == 'LITHUM'){
-					window.open('{% url 'studyApp-home'%}', "_self");
-				}
-				else{
-					window.open('{% url 'studyApp-section'%}', "_self");
-				}
-            },
-            error: function(data) {
-				// something went wrong
-            }
-        });
-        return false;
-    });
+	});
+	return false;
+});
 </script>
-
 </body>
 </html>
