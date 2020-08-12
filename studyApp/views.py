@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .models import Room
-from .models import Profile, Section, Token
+from .models import Profile, Section, Token, Index
 from django.views.generic import CreateView
 from .forms import NameForm, ImageForm, SectionForm
 from django.contrib.auth.decorators import login_required
@@ -20,7 +20,7 @@ import time
 
 
 #token = 'eyJhbGciOiJIUzUxMiIsInYiOiIyLjAiLCJraWQiOiIyNWYyMjA2YS1lODA3LTRlMjUtYjhjYi0wZGZjMjBhYjdiNWIifQ.eyJ2ZXIiOiI2IiwiY2xpZW50SWQiOiJ6SmliOG5Rc1RHMFFBX0pnRXFqNVEiLCJjb2RlIjoiZXVnNWlrSG9LZF95ZWlWdUlXc1FfNjNOOUtEY3F1aG9nIiwiaXNzIjoidXJuOnpvb206Y29ubmVjdDpjbGllbnRpZDp6SmliOG5Rc1RHMFFBX0pnRXFqNVEiLCJhdXRoZW50aWNhdGlvbklkIjoiMjM2NDJlMTFlYjBiZTFhZGNiMmFkYjZjNTFhOWJlNDkiLCJ1c2VySWQiOiJ5ZWlWdUlXc1FfNjNOOUtEY3F1aG9nIiwiZ3JvdXBOdW1iZXIiOjAsImF1ZCI6Imh0dHBzOi8vb2F1dGguem9vbS51cyIsImFjY291bnRJZCI6ImhORE8zbG1NU3RTNnhjcS1iMy1QMUEiLCJuYmYiOjE1OTQ0Mzc2NzQsImV4cCI6MTU5NDQ0MTI3NCwidG9rZW5UeXBlIjoiYWNjZXNzX3Rva2VuIiwiaWF0IjoxNTk0NDM3Njc0LCJqdGkiOiJiYWQxNjhjOS03YTc3LTRlYTMtOGI2OC1mZWUwMGIzNWE1ODkiLCJ0b2xlcmFuY2VJZCI6MjJ9.ztaR-aKWc0tiPkmbtwlYQUO92cwURNbXRQxNt_75uvex0rIlTVpQJajgj_TNx5uFheHLfcnCT0-0E13gRgXOHw'
-start = 1600
+#tart = 1700
 def read_file(request):
     f = open('/Users/arulkapoor118/collab_website/collab/studyApp/loaderio-4049d7ee993d07bdda5b43856ece8ea9.txt', 'r')
     file_content = f.read()
@@ -41,25 +41,6 @@ class Counter:
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
-        '''
-        global start
-        start+=1
-        
-        headers = {'Authorization': "Bearer " + token, 'host': 'zoom.us', "Content-Type": 'application/json'}
-        payload = {
-        "action": "custCreate",
-        "user_info": {
-            "email": str(start)+'l'+'@sdf.gh',
-            "type": 1,
-            "first_name": str(instance.first_name),
-            "last_name": str(instance.last_name)
-        }
-        }
-        user_endpoint = 'https://api.zoom.us/v2/users'
-        u = requests.post(user_endpoint, headers = headers, json = payload)
-        id = json.loads(u.text)['id']
-        Profile.objects.create(user=instance, room = Room.objects.get(title = "inactive"), zoom_id= id)
-        '''
         image = None
         # course = ...
         Profile.objects.create(user=instance, room = Room.objects.get(title = "inactive"), zoom_id= "", section = "", image = image, first_login = True)
@@ -162,13 +143,16 @@ def createroom(request):
         course = request.GET['course']
         print(course)
         form = NameForm()
-        global start
+
+        index = Index.objects.get(id = 1)
         user = Profile.objects.get(user = request.user)
         #rooms = start_meeting(token, start, title, user.zoom_id)
         refresh_access_token()
 
         token = Token.objects.get(id = 1).access_token
-        rooms = start_meeting(token, start, title, request.user.first_name, request.user.last_name)
+        rooms = start_meeting(token, index.number, title, request.user.first_name, request.user.last_name)
+        index.number = index.number + 1
+        index.save()
 
         room = Room()
         room.title = title
@@ -180,7 +164,7 @@ def createroom(request):
         user.room = room
         user.save()
 
-        start+=1
+        #start+=1
         data = {
             'meeting': rooms[0]
         }
@@ -261,14 +245,12 @@ def joinroom(request):
         return HttpResponse("Request method is not a GET")
 
 def start_meeting(access_token, index, topic, firstname, lastname):
-    global start
-    start+=1
-    
+
     headers = {'Authorization': "Bearer " + access_token, 'host': 'zoom.us', "Content-Type": 'application/json'}
     payload = {
     "action": "custCreate",
     "user_info": {
-        "email": str(start)+'l'+'@sdf.gh',
+        "email": str(index)+'l'+'@sdf.gh',
         "type": 1,
         "first_name": firstname,
         "last_name": lastname

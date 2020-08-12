@@ -33,9 +33,11 @@ class Section(models.Model):
     def __str__(self):
         return self.name
 
-
 class Token(models.Model):
     access_token = models.TextField()
     refresh_token = models.TextField()
+
+class Index(models.Model):
+    number = models.IntegerField()
 # Create your models here.
 
