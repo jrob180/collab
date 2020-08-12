@@ -459,7 +459,7 @@ color: #6F6F6F;
 .headers a{
 	color: rgba(255, 255, 255, 0.836);
 	margin-top: 0px;
-	margin-left: 5px;
+	margin-left: 10px;
 	font-size: calc(14px + min(.15vw, .31vh));
 }
 .headers a:hover{
@@ -706,17 +706,6 @@ margin-bottom: 4em;
 	box-shadow: 0px 0px 2px 2px white;
 }
 
-.banner_2{
-position: absolute;
-top: 40%;
-color: #0A2A66;
-text-align: center;
-font-family: 'Lato', sans-serif;
-}
-.banner_2 h1{
-font-size: min(3.5vh, 1.96vw);
-font-weight: 300;
-}
 .page_title{
 height: 50px;
 background-color:#f7f8fa;
@@ -908,7 +897,7 @@ top: min(1.7vh, 0.75vw);*/
 }
 .banner_2 h1{
 	font-size: min(3.5vh, 1.97vw);
-	font-weight: 800;
+	font-weight: 300;
 }
 .banner_2 p{
 	font-size: min(3vh, 1.69vw);
@@ -1096,4 +1085,101 @@ background-color: #0A2A66;
 
 .active i{
 fill: white;
+}
+
+
+/************** CLASS SELECTION PAGE *************************/
+.choose-section{
+	text-align: center;
+	justify-content: center;
+	position: absolute;
+	top: 150px;
+	width: 100%;
+	margin: 0 auto;
+}
+.class-form{
+	display: inline-block;
+	justify-content: space-between;
+	width: 400px;
+	margin-top: 10%;
+}
+.class-form p{
+	display: flex;
+	flex-direction: row;
+	justify-content: space-evenly;
+	font-size: 20px;
+	font-family: 'Lato', sans-serif;
+}
+.class-form button{
+	font-size: 15px;
+	background-color: white;
+	color: #0A2A66;
+	border: 1px solid #0A2A66;
+	border-radius: 3px;
+	margin-top: 10%;
+	padding-right: 25px;
+	padding-left: 25px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+
+	outline: none;
+}
+.class-form button:hover{
+	background-color: #f7f8fa;
+	border: 1px solid #0A2A66;
+	
+	color: #0A2A66;
+}
+.primary{
+	background-color: #0A2A66;
+	z-index: 5;
+	width: 100vw;
+	height: 60px;
+	color: white;
+	text-align: center;
+	position: fixed;
+	overflow: scroll;
+}
+.secondary{
+	width: 100%;
+	position: absolute;
+	top: 60px;
+	color: #0A2A66;
+	text-align: center;
+	font-family: 'Lato', sans-serif;
+	background-color: white;
+
+	padding-top: 30px;
+	padding-bottom: 30px;
+}
+.secondary h1{
+	font-size: 20px;
+	font-weight: 200;
+}
+.choices-page{
+	width: 125px;
+	height: 35px;
+	font-size: 16px;
+	font-family: 'Lato', sans-serif;
+	color: #444444;
+	background-color: #f7f8fa;
+	
+	border: 1px solid #444444;
+	border-radius: 3px;
+	outline: none;
+}
+
+/* gear button -- choices modal */
+.choices-modal{
+	background-color: rgb(41, 66, 112);
+	border: none;
+	outline: none;
+	margin-left: 10px;
+	margin-bottom: 5px;
+	font-size: 17px;
+	color: rgb(202, 201, 201);
+}
+.choices-modal:hover{
+	cursor: pointer;
+	color: white;
 }

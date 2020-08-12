@@ -89,8 +89,8 @@ Released   : 20130902
 				<li class="headers">
 					<i class="fas fa-caret-down"></i>
 					<p>Your Courses</p>
-					<a href = "{% url 'studyApp-classes' %}" id = "plus">
-						<i class="fas fa-plus"></i>
+					<button class = "choices-modal">
+						<i class="fas fa-cog"></i>
 					</a>
 				</li>
 				<!--<li id = 'all_rooms' class ="all_rooms"><a href="#" accesskey="2" title="">ALL ROOMS</a></li>
@@ -148,7 +148,6 @@ Released   : 20130902
 			{% endif %}
 		{% endfor %}
 		
-		{% endblock content %}
 
 	</div>
 </div>
@@ -208,8 +207,33 @@ Released   : 20130902
 				<p id = "name">{{user.get_full_name}}</p>
 				<p id = "email">{{user.email}}</p>
 				<a href = "/accounts/logout/">Logout</a>
-			</div>
+		</div>
+	
 </div>
+
+<div class = "choices-bg">
+	<div class = "choices">
+
+		<span class = "choices-close" id = "choicesClose">
+			<i class="fas fa-times"></i>
+		</span>
+		
+		<div class = "choose-section-modal">
+			<p class = "section-prompt">
+				What section are you in?
+			</p>
+			<form class = "class-form-modal" action="{% url 'selectClass' %}" method = "post">
+				{% csrf_token %}
+				{{section_form.as_p}}
+				<button type = "submit">Select Course</button>
+			</form>
+		</div>
+		{% endblock content%}
+
+	</div>
+
+</div>
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 <script type="text/javascript">
 $('.join_room').click(function(){

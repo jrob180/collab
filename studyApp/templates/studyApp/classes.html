@@ -2,20 +2,31 @@
 {% load socialaccount %}
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
 
-<body>
-    {% block content %}
-    <form action="{% url 'selectClass' %}" method = "post">
-        {% csrf_token %}
-        {{form}}
-        <button type = "submit">Submit</button>
-    </form>
-    {% endblock content%}
-    
-</body>
+        <link href= "{% static 'default.css' %}" rel="stylesheet" type="text/css" media="all" />
+
+    </head>
+
+    <body>
+        <div class = "primary">
+            <img style = "height: 60px;" id = logo src = "{% static 'collab.png' %}">
+        </div>
+        <div class = "secondary">
+            <h1>Join your classmates by selecting your courses below</h1>
+        </div>
+        {% block content %}
+        <div class = "choose-section">
+            <form class = "class-form" action="{% url 'selectClass' %}" method = "post">
+                {% csrf_token %}
+                {{form.as_p}}
+                <button type = "submit">Select Course</button>
+            </form>
+        </div>
+        {% endblock content%}
+        
+    </body>
 </html>

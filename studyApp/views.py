@@ -210,6 +210,7 @@ def home(request):
 
     form = NameForm()
     img_form = ImageForm()
+    section_form = SectionForm()
 
     context = {
         #'rooms': Room.objects.all(),
@@ -217,7 +218,8 @@ def home(request):
         'users': Profile.objects.all(),
         'counter': c,
         'form': form,
-        'img_form': img_form
+        'img_form': img_form,
+        'section_form': section_form
     }
     return render(request, 'studyApp/index.html', context)
 
@@ -241,7 +243,6 @@ def selectClass(request):
             profile.first_login = False
             profile.save()
         return redirect('studyApp-home')
-
 
 def login(request):
     return render(request, 'studyApp/login.html')

@@ -55,8 +55,8 @@ INSTALLED_APPS = [
     'allauth.socialaccount',   
     'allauth.socialaccount.providers.google',
     #'allauth.socialaccount.adapter',
-    'background_task',
-    'django_crontab',
+    #'background_task',
+    #'django_crontab',
     #'django_pg',  
 ]
 SOCIALACCOUNT_ADAPTER = 'studyApp.adapters.MySocialAccount'

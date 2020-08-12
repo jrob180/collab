@@ -21,6 +21,7 @@ class SectionForm(forms.Form):
     # section = forms.CharField(label='What section are you in?', 
     # widget=forms.Select(choices=SECTION_CHOICES))
 
-    section = forms.ModelChoiceField(queryset = Section.objects.all(), to_field_name="name", empty_label=None)
+    section = forms.ModelChoiceField(queryset = Section.objects.all(), to_field_name="name", empty_label=None, label = "What section are you in?",
+    widget=forms.Select(attrs={'class':'choices-page', 'id': 'choices-page-modal'}))
 
     

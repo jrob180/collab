@@ -21,6 +21,11 @@ var onlineNowButton = document.getElementById('online-header')
 var users = document.querySelector('.online')
 var onlineNow = document.getElementById('online-now');
 
+//choosing classes
+
+var choicesBtn = document.querySelector('.choices-modal');
+var choicesBg = document.querySelector('.choices-bg');
+var choicesClose = document.querySelector('#choicesClose');
 //navbar 
 
 const sections = document.querySelectorAll('section');
@@ -77,6 +82,14 @@ window.onload=function(){   //displays and closes the modal (popup window)
     userBg.classList.remove('user-active'); 
     });
   
+    //choosing classes
+
+    choicesBtn.addEventListener('click', function(){
+        choicesBg.classList.add('choices-active');
+    });
+    choicesClose.addEventListener('click', function(){
+        choicesBg.classList.remove('choices-active');
+    });
 
     var form = document.getElementById("imgForm")
 
