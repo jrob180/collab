@@ -225,6 +225,9 @@ def home(request):
 
 @login_required(login_url='login/')
 def classes(request):
+    # if not request.user.profile.first_login:
+    #     return redirect('studyApp-home')
+
     form = SectionForm()
     context = {
         #'rooms': Room.objects.all(),
