@@ -67,24 +67,37 @@ def meetingend(request):
     return HttpResponse(status=200)
 
 
-'''
+
 @csrf_exempt
 @require_POST
 def meetingstart(request):
     jsondata = request.body
     data = json.loads(jsondata)
     #meetingtopic = data['payload']['object']['topic']
-    #room = Room.objects.get(title = meetingtopic)
-    meetingid = data['payload']['object']['topic']
-    room = Room.objects.get(meeting_id = meetingid)
+    # title = data['payload']['object']['topic']
 
-    inactive = Room.objects.get(title = "inactive")
+    # meetingid = data['payload']['object']['id']
+    # room = Room.objects.get(meeting_id = meetingid)
+    # room.visible = True
+    # room.save()
+    
+    # room = Room()
+    # room.title = title
+    # room.zoom_url = rooms[1]
+    # room.meeting_id = meetingid
+    # room.course = course
+    # room.save()
+        
+    print(request.path)
+    # room = Room.objects.get(meeting_id = meetingid)
 
-    Profile.objects.filter(room = room).update(room=inactive)
-    room.delete()
+    # inactive = Room.objects.get(title = "inactive")
+
+    # Profile.objects.filter(room = room).update(room=inactive)
+    # room.delete()
 
     return HttpResponse(status=200)
-'''
+
 
 @csrf_exempt
 @require_POST
@@ -146,7 +159,7 @@ def createroom(request):
 
         index = Index.objects.get(id = 1)
         user = Profile.objects.get(user = request.user)
-        #rooms = start_meeting(token, start, title, user.zoom_id)
+
         refresh_access_token()
 
         token = Token.objects.get(id = 1).access_token
@@ -164,7 +177,6 @@ def createroom(request):
         user.room = room
         user.save()
 
-        #start+=1
         data = {
             'meeting': rooms[0]
         }
@@ -211,11 +223,13 @@ def home(request):
 def classes(request):
     form = SectionForm()
     context = {
-        #'rooms': Room.objects.all(),
         'form': form,
-
     }
     return render(request, 'studyApp/classes.html', context)
+
+def my_custom_page_not_found_view(request, exception):
+    return render(request, 'studyApp/error.html')
+
 
 def selectClass(request):
     if request.method == 'POST':
@@ -303,34 +317,6 @@ def get_participants(access_token, meeting_id):
     x = requests.get(meeting_endpoint, headers = headers)
     return json.loads(x.text)['participants']
 
-'''@background(schedule = 1)
-def refresh_access_token():
-    token = Token.objects.get(id = 1)
-    refresh_token = token.refresh_token
-    client_id = 'zJib8nQsTG0QA_JgEqj5Q'
-    client_secret = 'V7GDiRa1c1d9gMRfW4GzZMvp3MJY7vkE'
-
-    message = client_id + ':' + client_secret
-    message_bytes = message.encode('ascii')
-    base64_bytes = base64.b64encode(message_bytes)
-    auth = 'Basic ' + base64_bytes.decode('ascii')
-
-    endpoint = 'https://zoom.us/oauth/token?grant_type=refresh_token&refresh_token=' + refresh_token
-    headers = {'Authorization': auth, 'host': 'zoom.us'}
-    x = requests.post(endpoint, headers = headers)
-    j = json.loads(x.text)
-    token.refresh_token= j['refresh_token']
-    token.access_token = j['access_token']
-    token.save()
-    print('\n')
-    print('TOKEN HAS BEEN REFRESHED' + str(time.time()))
-    print('\n')
-    return'''
-#schedule.every(5).seconds.do(refresh_access_token)
-
-#while True:
-#    schedule.run_pending()
-#    time.sleep(1) 
 
 def refresh_access_token():
 

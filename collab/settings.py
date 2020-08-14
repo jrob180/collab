@@ -54,10 +54,7 @@ INSTALLED_APPS = [
     #'social_auth', 
     'allauth.socialaccount',   
     'allauth.socialaccount.providers.google',
-    #'allauth.socialaccount.adapter',
-    #'background_task',
-    #'django_crontab',
-    #'django_pg',  
+    'storages' 
 ]
 SOCIALACCOUNT_ADAPTER = 'studyApp.adapters.MySocialAccount'
 
@@ -205,7 +202,14 @@ SOCIAL_AUTH_PIPELINE =  (
 
 STATIC_URL = '/static/'
 
+AWS_ACCESS_KEY_ID = 'AKIAREDW2YOR42XWCBFW'
+AWS_SECRET_ACCESS_KEY = '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'
+AWS_STORAGE_BUCKET_NAME = 'collab-files' 
 
-#CRONJOBS = [
-#    ('*/1 * * * *', 'studyApp.cron.refresh_access_token')
-#]
+AWS_S3_SIGNATURE_VERSION = 's3v4'
+AWS_S3_REGION_NAME = 'us-east-2'
+
+AWS_S3_FILE_OVERWRITE = False
+AWS_DEFAULT_ACL = None
+
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'

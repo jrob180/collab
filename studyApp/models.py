@@ -10,6 +10,7 @@ class Room(models.Model):
     zoom_url = models.CharField(max_length = 1000)
     meeting_id = models.CharField(max_length = 100)
     course = models.CharField(max_length = 100)
+    #visible = models.BooleanField()
     #course = models.ArrayField(models.CharField(max_length = 100))
     #Users = ArrayField(models.CharField(max_length=200), blank=True)
     #Users = models.ForeignKey(User, on_delete=models.CASCADE)
