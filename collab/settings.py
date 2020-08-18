@@ -28,6 +28,7 @@ DEBUG = True
 ALLOWED_HOSTS = [
     '737899e9175e.ngrok.io',
     '127.0.0.1',
+    '0.0.0.0',
     'localhost',
     'ee562bb8e2d1.ngrok.io',
     '554516b85f73.ngrok.io',
@@ -35,6 +36,8 @@ ALLOWED_HOSTS = [
     'ba4f4b1cfa1e.ngrok.io',
     'aa2bd4fff57f.ngrok.io',
     'dd5fb990096c.ngrok.io',
+    'collab-env.eba-rqr27344.us-west-2.elasticbeanstalk.com',
+    
 ]
 
 
@@ -155,7 +158,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'US/Eastern'
 
 USE_I18N = True
 
@@ -202,8 +205,8 @@ SOCIAL_AUTH_PIPELINE =  (
 
 STATIC_URL = '/static/'
 
-AWS_ACCESS_KEY_ID = 'AKIAREDW2YOR42XWCBFW'
-AWS_SECRET_ACCESS_KEY = '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'
+AWS_ACCESS_KEY_ID = 'AKIAREDW2YOR4MGQRKCF'
+AWS_SECRET_ACCESS_KEY = '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'
 AWS_STORAGE_BUCKET_NAME = 'collab-files' 
 
 AWS_S3_SIGNATURE_VERSION = 's3v4'

@@ -3,3 +3,7 @@ media/**
 _pycache_/**
 migrations/**
 adapters
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml
