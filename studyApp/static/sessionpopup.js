@@ -6,6 +6,12 @@ const classes = ['MATH_25C', 'COMS_1004C', 'ENG_LITC', 'FROSCI_DISCC'];
 var modal = document.querySelector('.modal');
 var modalBtn = document.querySelector('.modal-btn');
 var modalBg = document.querySelector('.modal-bg');
+
+var sideModal = document.querySelector('.side-modal');
+var sideModalBtn = document.querySelector('.open-doc');
+var sideModalBg = document.querySelector('.side-modal-bg');
+var sideModalClose = document.querySelector('.side-modal-close');
+
 var modalClose = document.querySelector('.modal-close');
 var logoutClose = document.querySelector('#logoutClose');
 var errorModal = document.querySelector('.modal-error');
@@ -68,6 +74,16 @@ window.onload=function(){   //displays and closes the modal (popup window)
     
     modalClose.addEventListener('click', function(){
         modalBg.classList.remove('bg-active');
+    });
+
+    $(document).ready(function() {
+        $('.open-doc').click(function() {
+            sideModalBg.classList.add('side-bg-active')
+        });
+    });
+    
+    sideModalClose.addEventListener('click', function(){
+        sideModalBg.classList.remove('side-bg-active');
     });
     /*
     onlineNow.addEventListener('click', function(){
@@ -427,3 +443,25 @@ $(document).ready(function(){
 
 });
 */
+
+//Text Editor
+
+DecoupledEditor
+    .create( document.querySelector( '.document-editor__editable' ), {
+        cloudServices: {
+          
+        }
+    } )
+    .then( editor => {
+        const toolbarContainer = document.querySelector( '.document-editor__toolbar' );
+
+        toolbarContainer.appendChild( editor.ui.view.toolbar.element );
+
+        window.editor = editor;
+    } )
+    .catch( err => {
+        console.error( err );
+    } );
+
+    //side modal
+
