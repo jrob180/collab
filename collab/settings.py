@@ -28,6 +28,7 @@ DEBUG = True
 ALLOWED_HOSTS = [
     '737899e9175e.ngrok.io',
     '127.0.0.1',
+    '172.31.7.161',
     '0.0.0.0',
     'localhost',
     'ee562bb8e2d1.ngrok.io',
@@ -37,6 +38,8 @@ ALLOWED_HOSTS = [
     'aa2bd4fff57f.ngrok.io',
     'dd5fb990096c.ngrok.io',
     'collab-env.eba-rqr27344.us-west-2.elasticbeanstalk.com',
+    'collab-env-deploy.eba-rqr27344.us-west-2.elasticbeanstalk.com',
+    'collab-env.eba-ffyktbmw.us-east-2.elasticbeanstalk.com',
     
 ]
 
