@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from .models import Room
 from .models import Profile, Section, Token
 from django.views.generic import CreateView
-from .forms import NameForm, ImageForm, SectionForm
+from .forms import NameForm, ImageForm, SectionForm, TextForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
 from django.contrib.auth.models import User
@@ -211,6 +211,7 @@ def home(request):
     form = NameForm()
     img_form = ImageForm()
     section_form = SectionForm()
+    text_form = TextForm()
 
     context = {
         #'rooms': Room.objects.all(),
@@ -219,7 +220,8 @@ def home(request):
         'counter': c,
         'form': form,
         'img_form': img_form,
-        'section_form': section_form
+        'section_form': section_form,
+        'text_form': text_form
     }
     return render(request, 'studyApp/index.html', context)
 

@@ -19,7 +19,9 @@ urlpatterns = [
     #url(r'^participantjoin', views.participantjoin, name='participantjoin'),
     path('accounts/', include('allauth.urls')),
     url(r'^loaderio-4049d7ee993d07bdda5b43856ece8ea9/', views.read_file, name='loaderio-4049d7ee993d07bdda5b43856ece8ea9'),
-    #url(r'^createMeeting', views.createMeeting, name = "createMeeting")
+    #url(r'^createMeeting', views.createMeeting, name = "createMeeting"),
+    path('ckeditor/', include(
+        'ckeditor_uploader.urls')),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

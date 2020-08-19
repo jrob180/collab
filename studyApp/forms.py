@@ -1,6 +1,6 @@
 from django import forms
-from .models import Profile, Section
-
+from .models import Profile, Section, Room
+from django.forms import ModelForm
 
 class NameForm(forms.Form):
     your_name = forms.CharField(max_length=33, label = '')
@@ -8,6 +8,10 @@ class NameForm(forms.Form):
 class ImageForm(forms.Form):
     image = forms.ImageField()
 
+class TextForm(forms.ModelForm):
+    class Meta:
+        model = Room
+        fields = ['notes']
 
 
 class SectionForm(forms.Form):

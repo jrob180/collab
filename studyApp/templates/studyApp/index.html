@@ -83,7 +83,18 @@ Released   : 20130902
 			<div class="document-editor__toolbar"></div>
 			<div class="document-editor__editable-container">
 				<div class="document-editor__editable">
-					<p>The initial editor data.</p>
+
+					{% for room in rooms %}
+						{{room.notes|safe}}
+					{% endfor %}
+
+					<form method="post">
+						{% csrf_token %}
+						{{ text_form.media }} 
+						{{ text_form.as_p }}
+						<input type="submit" value="Save">
+					</form>
+
 				</div>
 			</div>
 		</div>

@@ -465,3 +465,4 @@ DecoupledEditor
 
     //side modal
 
+//removing CKEditor toolbar items

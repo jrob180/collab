@@ -59,7 +59,12 @@ INSTALLED_APPS = [
     #'background_task',
     #'django_crontab',
     #'django_pg',  
+    'ckeditor',
+    'ckeditor_uploader',
 ]
+
+CKEDITOR_UPLOAD_PATH = 'uploads/'
+
 SOCIALACCOUNT_ADAPTER = 'studyApp.adapters.MySocialAccount'
 
 MEDIA_ROOT =  os.path.join(BASE_DIR, 'media')
@@ -82,7 +87,7 @@ ROOT_URLCONF = 'collab.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
