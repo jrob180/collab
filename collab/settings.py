@@ -35,7 +35,8 @@ ALLOWED_HOSTS = [
     'ba4f4b1cfa1e.ngrok.io',
     'aa2bd4fff57f.ngrok.io',
     'dd5fb990096c.ngrok.io',
-    'bb24e4822392.ngrok.io'
+    'bb24e4822392.ngrok.io',
+    'collab-prod.eba-4jnba4jj.us-west-2.elasticbeanstalk.com',
 ]
 
 
