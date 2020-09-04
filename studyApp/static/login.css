@@ -4,7 +4,12 @@ html{
     scroll-behavior: smooth;
     background-color: rgb(56, 84, 136);
     width: 100vw !important;
-    /* Hello */
+
+    width: 100%;
+    height: 100%;
+    margin: 0px;
+    padding: 0px;
+    
 }
 body{
     float: center;
@@ -56,19 +61,22 @@ section h2{
 
 .how{
     background:white;
-
-
+    position: relative !important;
+    top: 0;
+    left: 0 !important;
     width: 100vw !important;
+
     height: 100vh;
     min-height: 400px;
 
+    overflow-x: hidden !important;
 }
 @media (max-width: 800px){
     .how{
         height: 400px !important;
     }
     .main{
-        height: 500px !important;
+        height: 300px !important;
     }
     
 }
@@ -100,7 +108,7 @@ section h2{
         height: auto;
     }
     .main h1{
-        font-size: 60px !important;
+        
     }
     #undraw1, #undraw2, #undraw3{
         width: 275px !important;
@@ -133,15 +141,7 @@ section h2{
     
 }
 #colorful-punchline{
-    background-color: #0A2A66;
-    background-image: linear-gradient(to top, #0A2A66, #5da3d2);
-    background-size: 100%;
-    background-clip: text;
-
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent; 
-    -moz-background-clip: text;
-    -moz-text-fill-color: transparent;
+    color: rgb(56, 84, 136);
 }
 .punchline button{
     /* Back up */
@@ -244,6 +244,13 @@ section h2{
     .about{
         height: 300px;
     }
+    #undraw4{
+        display: none;
+    }
+    .main h1{
+        width: 100%;
+        margin: 0 auto;
+    }
 }
 @media (min-height: 0px) and (max-height: 450px) {
     .login-graphic {
@@ -275,12 +282,14 @@ section h2{
     display: flex;
     flex-direction: row;
 
-    position: absolute;
-    top: 200%;
+    position: relative;
+    left: 0;
 
     height: 1300px;
     width: 100vw !important;
     justify-content: center;
+
+    overflow-x: hidden !important;
 }
 
 #collab-title{
@@ -305,7 +314,9 @@ section h2{
 .section{
     height: 1100px;
 }
-
+section{
+    overflow-x: hidden;
+}
 .navigation{
     display: flex;
     flex-direction: row;
@@ -478,10 +489,10 @@ section h2{
     visibility: 0;
 }
 .main{
-
+    background-color: rgb(56, 84, 136);
     display: flex;
-    flex-direction: column;
-    text-align: center;
+    flex-direction: row;
+
     justify-content: center;
 
 
@@ -489,15 +500,26 @@ section h2{
     background color: rgb(56, 84, 136);
     */
     width: 100vw !important;
-    height: 100vh;
+    height: 100vh !important;
 
-    max-height: 800px;
+
 
     padding: 0;
     margin: 0;
-    overflow-x: visible;
+    overflow-x: hidden !important;
+   
 }
+#undraw4{
+    position: absolute;
+    top: 25%;
+    right: 10%;
 
+    width: 25vw;
+    height: auto;
+
+    border-radius: 50%;
+    border: 3px solid rgb(56, 84, 136);
+}
 
 #logo{
     min-width: 191px;
@@ -516,23 +538,32 @@ section h2{
     border: 2px solid  #0A2A66;
 }
 */
+#statement{
+    
+}
 .main h1{
     color: white;
 
     /* Back up */
-    font-size: 5.32vw;
+    font-size: 5vw;
     /******/
 
-    font-size: min(9.5vh, 5.32vw);
+    font-size: min(7.8vh, 5vw);
     
-    letter-spacing: 3px;
+
     font-family: 'Lato';
     font-weight: 500;
     padding: 0;
     font-family: 'Lato', sans-serif;
 
 
-    margin: 15px;
+
+    position: absolute;
+  
+    top: 40%;
+    left: 10%;
+
+    width: 50vw;
 
 }
 @media (min-width: 480px) and (max-width: 900px) {
@@ -558,7 +589,7 @@ section h2{
     min-height: 73.26px;
     position: absolute;
     top: 10%;
-
+    left: 10%;
 }
 .main p{
     /*
@@ -586,11 +617,10 @@ section h2{
 .google-button{
     text-align: center;
     justify-content: center;
-    position: relative;
-    bottom: 15%;
-    width: 100vw;
-    margin: 0 auto;
-
+    position: absolute;
+    top: 75%;
+    left: 10%;
+ 
 }
 
 .google-button a{
@@ -645,6 +675,10 @@ section h2{
     */
    
     background-color: white;
+    border-right: 1px solid white;
+
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
 }
 
 /*
@@ -689,14 +723,14 @@ section h2{
 }
 .google-button a:hover{
     
-    background-color:  rgb(41, 66, 112);
+    background-color: rgb(56, 84, 136);
     
 }
-
+/*
 #down-arrow{
-    /*Back up */
+    
     font-size: 3vw;
-    /******/
+    
     font-size: min(7vh, 3.92vw);
     position: absolute;
     bottom: 5%;
@@ -708,7 +742,7 @@ section h2{
 
     display: none;
 }
-
+*/
 /*
 .user img{
     position: absolute; 

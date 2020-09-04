@@ -76,11 +76,12 @@
                         <h1>Sign-In with Google</h1>
                     </a>
             </div>
-            
+            <!--
             <a id = "down-arrow" onClick="document.querySelector('.how').scrollIntoView();">
                 <i class="fas fa-chevron-down"></i>
             </a>
-            
+            -->
+            <img id = "undraw4" src = "{% static 'undraw4.png' %}">
 
         </section>
         
@@ -134,7 +135,7 @@
 
             <div id = "bottom">
                 <p>© 2020, Collab Rooms, Inc.</p>
-                <a href = "CollabPrivacyPolicy.pdf">Privacy Policy</a>
+                <a href = "{% static 'CollabPrivacyPolicy.pdf' %}" target = "_blank">Privacy Policy</a>
             </div>
 
         </section>

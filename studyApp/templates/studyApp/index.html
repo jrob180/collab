@@ -171,9 +171,14 @@ Released   : 20130902
 			{% if room.title != "inactive" %}
 			<div class = "current_room_example">
 				<p class = "name">{{room.title}}</p>
-				<button type="button" class="open-doc" data-toggle="modal" data-target="#myModal">
+
+				<!--CK EDITOR-->
+
+				<!-- <button type="button" class="open-doc" data-toggle="modal" data-target="#myModal">
 					<i class="fas fa-expand-alt"></i>
-				</button>
+
+				</button> -->
+
 				<div class = "inner_room" id = 2>
 					{% for user in users %}
 						{% if user.room == room %}
@@ -199,10 +204,13 @@ Released   : 20130902
 			</div>
 			{% endif %}
 		{% endfor %}
-
-		
+	
 	
 	</div>
+
+	<a id = "feedback" href = "https://docs.google.com/forms/d/e/1FAIpQLSdCZKcME2VdzqRcdVepz6r96qQIbHNuXtQYWjDimwvDTUqlgQ/viewform?usp=sf_link " target = "_blank">
+		<i class="far fa-comment-alt"></i>
+	</a>
 </div>
 	<div class="modal-bg">
 		<div class="modal">

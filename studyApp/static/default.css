@@ -501,6 +501,7 @@ color: #6F6F6F;
 	padding: 0;
 	margin: 0 auto;
 }
+
 #bar li i{
 	padding: 5px 5% 0 15%;
 }
@@ -620,6 +621,23 @@ margin-bottom: 4em;
 	margin-top: min(8vh, 5.4vw);
 	z-index: 0;
 }
+#feedback{
+	font-size: 22px;
+
+	position: fixed;
+	bottom: 2%;
+	right: 1%;
+	
+	height: 40px;
+	width: 40px;
+
+	border-radius: 50%;
+	text-align: center;
+    line-height: 40px;
+	vertical-align: middle;
+	align-items: center;
+}
+
 .banner {
 	background-color: #0A2A66;
 	z-index: 5;
@@ -1320,7 +1338,15 @@ fill: white;
 	border-radius: 3px;
 	outline: none;
 }
-
+#privacy{
+	text-decoration: underline;
+	color: #0A2A66;
+	position: absolute;
+	width: 100%;
+	text-align: center;
+	bottom: 5%;
+	float: center;
+}
 /* gear button -- choices modal */
 .choices-modal{
 	background-color: rgb(41, 66, 112);
