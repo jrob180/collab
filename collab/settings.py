@@ -35,7 +35,11 @@ ALLOWED_HOSTS = [
     'ba4f4b1cfa1e.ngrok.io',
     'aa2bd4fff57f.ngrok.io',
     'dd5fb990096c.ngrok.io',
-    'bb24e4822392.ngrok.io'
+    'bb24e4822392.ngrok.io',
+    'collabrooms-prod-env.eba-yd7yre6h.us-west-2.elasticbeanstalk.com',
+    '172.31.40.199',
+    'collabrooms.io',
+    'www.collabrooms.io'
 ]
 
 
@@ -210,8 +214,28 @@ SOCIAL_AUTH_PIPELINE =  (
 
 
 STATIC_URL = '/static/'
+STATIC_ROOT = 'static'
 
 
 #CRONJOBS = [
 #    ('*/1 * * * *', 'studyApp.cron.refresh_access_token')
 #]
+
+CKEDITOR_CONFIGS = {
+    'default':
+        {'toolbar': 'Custom', 
+         'toolbar_Custom': [
+            ['Bold', 'Link', 'Unlink', 'Image'], 
+        ], 
+}}
+
+DJRICHTEXTFIELD_CONFIG = {
+    'js': ['//cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js'],
+    'init_template': 'djrichtextfield/init/tinymce.js',
+    'settings': {
+        'menubar': False,
+        'plugins': 'link image',
+        'toolbar': 'bold italic | link image | removeformat',
+        'width': 700
+    }
+}

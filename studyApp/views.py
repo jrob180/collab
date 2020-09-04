@@ -378,3 +378,11 @@ def refresh_access_token():
     #print('TOKEN HAS BEEN REFRESHED' + str(time.time()))
     #print('\n')
     return
+
+
+#class PostCreateView(CreateView):
+#    model = Room
+#   fields = ['notes']
+
+#    def get_success_url(self):
+#        return reverse('blog:detail', args=[self.object.pk])

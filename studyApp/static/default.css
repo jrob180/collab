@@ -685,7 +685,12 @@ margin-bottom: 4em;
 }
 #collab{
 	color: white;
-	font-size: min(5vh, 2.82vw);
+	width: min(5vh, 2.82vw);
+	height: auto;
+	/* Back up */
+	width: 2.82vw;
+	height: auto;
+	/*******/
 	position: absolute;
 	top: 25%;
 	left: 46%;

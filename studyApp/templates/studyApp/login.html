@@ -8,6 +8,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="google-signin-client_id" content="870502794410-l7dbsdej3mo905ddv4bkv04oa01o4e5a.apps.googleusercontent.com">
 
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
     <title>Collab</title>
 
     
@@ -43,6 +46,10 @@
         </nav>
     </header>
 ---->
+    <div id = "mobile-statement">
+        <h1>Collab Rooms for mobile devices is currently being developped.</h1>
+        <h1>Come back soon for an on-the-go collaborative experience!</h1>
+    </div>
     <div class = "sections">
 
         <section class = "main" data-index = "1">
@@ -82,7 +89,7 @@
                 <p>COLLABORATE, VIRTUALLY.</p>
                 <h1>Collab brings</h1>
                 <h1>the library to you,</h1>
-                <h1>wherever you are.</h1>
+                <h1 id = "colorful-punchline">wherever you are.</h1>
                 <p>Organizing study groups has never been simpler.</p>
                 <p>Quit slacking and start studying with your peers now.</p>
                 <button id = "sign-in-link" onClick="document.querySelector('.main').scrollIntoView();">SIGN IN</button><button id = "learn-more" onClick="document.querySelector('.about').scrollIntoView();">LEARN MORE</button>
@@ -93,33 +100,47 @@
             
         <section class = "about" data-index = "3">
 
+            
             <h1 id = "collab-title">All-in-One Collaboration Hub</h1>
 
             <div class = "navigation">
-                <img>
-                <h1>Navigate</h1>
-                <p>Once logged into Collab, simply toggle between</p>
-                <p>your classes to get a snapshot of what your</p>
-                <p>classmates are currently working on.</p>
+                <div class = "nav-div">
+                    <h1>Navigate</h1>
+                    <p>Once logged into Collab, simply toggle between your classes to get a snapshot of what your classmates are currently working on.</p>
+                </div>
+
+                <img id = "undraw1" src = "{% static 'undraw1.png' %}"></img>
             </div>
 
             <div class = "browse">
-                <img>
-                <h1>Browse</h1>
-                <p>Find the room that matches your area of focus.</p>
-                <p>Check who's working in the room, how many people</p>
-                <p>are currently studying in it, and join.</p>
+                <img id = "undraw2" src = "{% static 'undraw2.png' %}"></img>
+
+                <div class = "browse-div">
+                    <h1>Browse</h1>
+                    <p>Find the room that matches your area of focus. Check who's working in the room, how many people are currently studying in it, and join.</p>
+                </div>
             </div>
 
+
             <div class = "create">
-                <img>
-                <h1>Create</h1>
-                <p>No ongoing session concerning your need?</p>
-                <p>Seamlessly create your own.</p>
+               
+                <div class = "create-div">
+                    <h1>Create</h1>
+                    <p>No ongoing session concerning your need? Seamlessly create your own</p>
+                </div>
+
+                <img id = "undraw3" src = "{% static 'undraw3.png' %}">
+            </div>
+
+            <div id = "bottom">
+                <p>© 2020, Collab Rooms, Inc.</p>
+                <a href = "CollabPrivacyPolicy.pdf">Privacy Policy</a>
             </div>
 
         </section>
+
         
+    </div>
         <!--
         <div class = "user" id = "user">
             <img src = "{% static 'userwhite.png' %}">
@@ -138,8 +159,7 @@
         <div class = "collabicon">
             <img src = "{% static 'collabicon.png' %}">
             <p>Collab</p>
-        </div>-->
-    </div>  
+        </div>--> 
 
     <script src = "{% static 'index.js' %}" defer></script>
     <script>

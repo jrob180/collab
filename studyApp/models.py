@@ -5,6 +5,7 @@ from django.dispatch import receiver
 #from django_pg import models
 import requests, json
 from ckeditor.fields import RichTextField
+from ckeditor_uploader.fields import RichTextUploadingField
     
 
 class Room(models.Model):
@@ -12,7 +13,7 @@ class Room(models.Model):
     zoom_url = models.CharField(max_length = 1000)
     meeting_id = models.CharField(max_length = 100)
     course = models.CharField(max_length = 100)
-    notes = RichTextField()
+    notes = RichTextUploadingField(blank = True)
     #course = models.ArrayField(models.CharField(max_length = 100))
     #Users = ArrayField(models.CharField(max_length=200), blank=True)
     #Users = models.ForeignKey(User, on_delete=models.CASCADE)

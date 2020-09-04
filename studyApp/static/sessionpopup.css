@@ -383,7 +383,6 @@ form label{
     align-items: center;
     flex-direction: column;
     font-family: 'Lato', sans-serif;
-    transition: all 600ms ease-in-out;
 }
 .side-modal h1{
     position: absolute;

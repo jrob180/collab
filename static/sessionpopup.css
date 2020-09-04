@@ -1,0 +1,411 @@
+.modal-bg{
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    z-index: 6;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s, opacity 0.5s;
+   
+}
+.bg-active{
+    visibility: visible;
+    opacity: 1;
+}
+
+.modal{
+    position: relative;
+    background-color: white;
+    width: min(38vw, 67.26vh);
+    height: min(19vw, 33.63vh);
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-direction: column;
+    font-family: 'Lato', sans-serif;
+    border-radius: 5px;
+}
+.modal h1{
+    font-size: min(3.25vh, 1.83vw);
+    padding: 0% 0% 8%;
+    position: absolute;
+    top: 20%;
+}
+#description{
+    width: 60%;
+    height: 10%;
+}
+
+form label{
+    display: none;
+}
+#enter{
+    width: 50%;
+    position: absolute;
+    left: 25%;
+    top: 50%;
+    padding: 2% 4%;
+    margin-top: 15%;
+    background-color: rgb(0, 89, 255);
+    color: white;
+    border: none;
+    font-family: 'Lato', sans-serif;
+    cursor: pointer;
+    border-radius: min(0.75vh, .42vw);
+    font-size: min(2vh, 1.13vw);
+}
+#enter:hover{
+    text-decoration: underline;
+}
+.modal form{
+   position: absolute;
+   top: 50%;
+}
+.modal input{ 
+    width: min(40vh, 23vw);
+    height: min(3.5vh, 1.9vw);
+    border-top: none;
+    border-right: none;
+    border-left: none;
+    border-bottom: 1px solid rgb(0, 89, 255);
+    outline: 0;
+    font-size: min(2.7vh, 1.512vw);
+    font-weight: 700px;
+}
+
+.modal-close{
+    position: absolute;
+    top: 3%;
+    right: 3%;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: min(3vh, 1.69vw);
+    color: #0A2A66;
+}
+.modal-close:hover{
+    color:rgb(0, 89, 255);
+}
+.modal-error{
+    font-size: 15px;
+    color: red;
+    visibility: visible;
+    opacity: 1;
+}
+
+.user-bg{
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    z-index: 6;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s, opacity 0.5s;
+}
+.user-active{
+    visibility: visible;
+    opacity: 1;
+}
+.user-modal{
+    position: absolute;
+    top: 12vh;
+    right: 2vw;
+    background-color: white;
+    width: min(19vw, 33.63vh);
+    min-width: 197px;
+    height: min(30.8vw, 55vh);
+    min-height: 319.14px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-direction: column;
+    font-family: 'Lato', sans-serif;
+    border-radius: 5px;
+    box-shadow: -3px 2px 10px rgb(202, 201, 201), 3px 3px 10px rgb(202, 201, 201);
+}
+#modalImg{
+    position: absolute;
+    top: 5%;
+    margin: 0 auto;
+    height: min(15vh, 8.4vw);
+    width: min(15vh, 8.4vw);
+    min-height: 90px;
+    min-width: 90px;
+    border-radius: 100px;
+    object-fit: scale-down;
+    background-size: cover;
+    outline: none;
+    border: none;
+    padding: 0;
+}
+
+.hover-content{
+    opacity: 0;
+    padding: 0;
+    margin: 0 auto;
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: min(15vh, 8.4vw);
+    width: min(15vh, 8.4vw);
+    min-height: 90px;
+    min-width: 90px;
+    border-radius: 100px;
+    background-color: grey;
+    z-index: 10;
+}
+
+.hover-content p{
+    position: absolute;
+    top: 30%;
+    color: white;
+    margin: 0 auto;
+    opacity: 1;
+    z-index: 25;
+    font-family: 'Lato', sans-serif;
+    font-size: calc(7px + min(1vh, .56vw));
+}
+
+#modalImg:hover .hover-content{
+    opacity: 0.8;
+}
+#modalImg:hover .hover-content p{
+    opacity: 1;
+}
+
+#logoutClose{
+    position: absolute;
+    top: 1.5%;
+    right: 5%;
+    font-weight: 100;
+    cursor: pointer;
+    font-size: calc(15px + min(.56vh, .27vw));
+    color: #0A2A66;
+}
+#logoutClose:hover{
+    color: rgb(41, 66, 112);
+}
+#imgForm p{
+    visibility: hidden;
+}
+
+.user-modal a{
+    position: absolute;
+    margin: 0 auto;
+    top: 75%;
+    text-align: center;
+    color: #0A2A66;
+    border: 1px solid #0A2A66;
+    text-decoration: none;
+    text-decoration: none;
+    font-size: 15px;
+    background-color: white;
+    padding-top: min(1vh, .56vw);
+    padding-bottom: min(1vh, .56vw);
+    padding-left: min(3vh, 1.68vw);
+    padding-right: min(3vh, 1.68vw);
+    border-radius: min(.8vh, .45vw);
+    font-family: 'Lato', sans-serif;
+    font-weight: 400;
+    z-index: 10;
+}
+.user-modal a:hover{
+    background-color:  #f7f8fa;
+}
+#name{
+    position: absolute;
+    top: 40%;
+    text-align: center;
+    font-family: 'Lato', sans-serif;
+    font-size: calc(9px + min(1vh, .56vw));
+    font-weight: 400;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+#email{
+    font-family: 'Lato', sans-serif;
+    position: absolute;
+    text-align: center;
+    top: 50%;
+    border-bottom: 1px solid grey;
+    padding-bottom: 10%;
+    font-size: calc(9px + min(1vh, .56vw));
+    overflow-x: scroll;
+    font-weight: 300;
+    margin-top: 0;
+    padding-top: 0;
+}
+
+
+/* Choosing classes */
+
+.choices-bg{
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    z-index: 6;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s, opacity 0.5s;
+}
+.choices-active{
+    opacity: 1;
+    visibility: visible;
+}
+.choices{
+    position: relative;
+    top: 9%;
+    background-color: rgb(41, 66, 112);
+    width: min(38vw, 67.26vh);
+    height: min(19vw, 33.63vh);
+    min-width: 400px;
+    min-height: 200px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-direction: column;
+    font-family: 'Lato', sans-serif;
+    border-radius: 5px;
+}
+#choicesClose{
+    position: absolute;
+    top: 5%;
+    right: 5%;
+    font-weight: 100;
+    cursor: pointer;
+    font-size: calc(15px + min(.56vh, .27vw));
+    color: white;
+}
+.section-prompt{
+    color: white;
+    font-size: calc(13px + min(1vh, .56vw));
+    position: absolute;
+    top: 10%;
+    width: 100%;
+    margin: 0 auto;
+}
+.choose-section-modal{
+    width: 100%;
+    height: 100%;
+    text-align: center;
+}
+.class-form-modal{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 100%;
+    justify-content: space-evenly;
+}
+.class-form-modal p{
+    font-size: 14px;
+    font-family: 'Lato', sans-serif;
+    position: absolute;
+    top: 40%;
+}
+.class-form-modal button{
+	font-size: 15px;
+	background-color: white;
+	color: #0A2A66;
+	border: 1px solid #0A2A66;
+	border-radius: 3px;
+	padding-right: 25px;
+	padding-left: 25px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+
+    outline: none;
+    width: 50%;
+
+    position: absolute;
+    bottom: 10%;
+}
+/* Dropdown styling */
+.choices-page-modal{
+    width: 125px;
+	height: 35px;
+	font-size: 16px;
+	font-family: 'Lato', sans-serif;
+	color: white;
+	background-color: rgb(41, 66, 112);
+	
+	border: 1px solid white;
+	border-radius: 3px;
+	outline: none;
+}
+
+/* Side Modal */
+
+.side-modal-bg{
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    z-index: 6;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s, opacity 0.5s;
+   
+}
+.side-bg-active{
+    visibility: visible;
+    opacity: 1;
+}
+
+.side-modal{
+    position: absolute;
+    left: 0;
+    background-color: white;
+    width: 65vw;
+    height: 100vh;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-direction: column;
+    font-family: 'Lato', sans-serif;
+    transition: all 600ms ease-in-out;
+}
+.side-modal h1{
+    position: absolute;
+    top: 3%;
+    font-size: min(3.5vh, 1.96vw);
+    font-weight: 200;
+}
+.side-modal-close{
+    position: absolute;
+    top: 1%;
+    right: 2%;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: min(3vh, 1.69vw);
+    color: #0A2A66;
+}
+
+@keyframes slideOut{
+    from{
+        width: 0vw;
+    }
+    to{
+        width: 65vw;
+    }
+}

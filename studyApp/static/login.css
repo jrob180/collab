@@ -1,15 +1,14 @@
 
 html{
-    z-index: -2;
+    z-index: -15;
     scroll-behavior: smooth;
-    background-color: #0A2A66;
+    background-color: rgb(56, 84, 136);
 }
 body{
-    z-index: -2;
-    float: left;
+    float: center;
     overflow-x: hidden;
-    width: 100vw;
-
+    background-color: rgb(56, 84, 136);
+    z-index: -10;
 }
 header{
     box-shadow: 0px 3px 10px rgba(0,0,0,0.3);
@@ -50,25 +49,77 @@ section h2{
     font-size: 20px;
     color: white;
 }
-.login{
-    
-}
+
 .how{
-    background: white;
+    background:white;
     position: relative;
     left: 0;
-    width: 100vw;
+    width: 100vw !important;
+    height: 100vh;
+    min-height: 400px;
+
+}
+@media (max-width: 800px){
+    .how{
+        height: 400px !important;
+    }
+    .main{
+        height: 500px !important;
+    }
+    
 }
 .punchline{
-    font-size: calc(15px + min(5vh, 2.8vw));
+    /* Back up */
+    font-size: 3.5vw;
+    /******/
+    /*
+    font-size: calc(10px + min(5.5vh, 3.08vw));
+    */
     font-family: 'Lato', sans-serif;
     padding-left: 20px;
     position: absolute;
-    left: 3%;
-    top: 15%;
+    left: 10%;
+    vertical-align: center;
+    width: 45%;
+
+
+}
+@media (min-width: 1200px){
+    .punchline{
+        font-size: 40px;
+    }
+    .punchline p{
+        font-size: 20px !important;
+    }
+    .login-graphic{
+        width: 500px !important;
+        height: auto;
+    }
+    .main h1{
+        font-size: 60px !important;
+    }
+    #undraw1, #undraw2, #undraw3{
+        width: 275px !important;
+        height: 275px !important;
+    }
+    .browse, .navigation, .create{
+        height: 275px !important;
+    }
+    .browse p, .navigation p, .create p{
+        font-size: 22px !important;
+    }
+    #collab-title{
+        font-size: 50px !important;
+    }
+
 }
 .punchline p{
+    /* Back up */
+    font-size: 1.68vw;
+    /******/
+    
     font-size: min(3vh, 1.68vw);
+
     font-family: 'Lato', sans-serif;
     /*color: #0A2A66; */
 }
@@ -77,12 +128,32 @@ section h2{
     padding: 0;
     
 }
+#colorful-punchline{
+    background-color: #0A2A66;
+    background-image: linear-gradient(to top, #0A2A66, #5da3d2);
+    background-size: 100%;
+    background-clip: text;
+
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent; 
+    -moz-background-clip: text;
+    -moz-text-fill-color: transparent;
+}
 .punchline button{
+    /* Back up */
+    font-size: 1.1vw;
+    border: 1px solid black;
+
+    padding-top: .56vw;
+    padding-bottom: .56vw;
+    padding-left: 2.24vw;
+    padding-right: 2.24vw;
+    /*****/
     font-size: calc(10px + min(1.3vh, .728vw));
     margin-right: 5%;
     background-color: white;
     border: min(.25vh, .14vw) solid black;
-    border-radius: 5px;
+    border-radius: 4px;
     padding-top: min(1vh, .56vw);
     padding-bottom: min(1vh, .56vw); 
     padding-left: min(4vh, 2.24vw);
@@ -91,40 +162,99 @@ section h2{
 #sign-in-link{
     background-color: #0A2A66;
     color: white;
-    border: min(.25vh, .14vw) solid #0A2A66;
+    border: 1px solid #0A2A66;
 }
 #sign-in-link:hover{
-    background-color: white;
-    color: #0A2A66;
-    border: min(.25vh, .14vw) solid #0A2A66;
+    background-color: rgb(41, 66, 112);
 }
 #learn-more{
     background-color: white;
     color: #0A2A66;
-    border: min(.25vh, .14vw) solid #0A2A66;
+    border: 1px solid #0A2A66;
 }
 #learn-more:hover{
-    background-color: #0A2A66;
-    color: white;
-    border: min(.25vh, .14vw) solid #0A2A66;
+    background-color: #f7f8fa;
 }
 .login-graphic{
+    /* Back up */
+    width: 33vw;
+    height: auto;
+    /******/
+
     width: min(75vh, 42vw);
     height: auto;
+    
     position: absolute;
-    right: 1%;
+    right: 5%;
     min-width: 400px;
     
+}
+@media (min-height: 0px) and (max-height: 400px) {
+    .punchline p{
+        font-size: 15px;
+    }
+    .typing{
+        display: none;
+    }
 }
 @media (min-width: 0px) and (max-width: 900px) {
     .login-graphic {
       display: none;
+      visibility: 0;
+    }
+    .punchline{
+        position: absolute;
+        left: 0;
+        width: 100%;
+        text-align: center;
+        font-size: 35px;
+        padding: 0;
+    }
+    .punchline p{
+        font-size: 15px;
+    }
+    #sign-in-link, #learn-more{
+        display: none;
+    }
+    #undraw1, #undraw2, #undraw3{
+        display: none;
+    }
+    .navigation, .create{
+        display: flex;
+        justify-content: center;
+        width: 100%;
+    }
+    .browse{
+        display: flex;
+        justify-content: center;
+        width: 100%;
+    }
+    .browse-div{
+        position: unset !important;
+    }
+
+    .navigation p, .browse p, .create p{
+        color: red;
+        font-size: 18px !important;
+    }
+    .about{
+        height: 300px;
     }
 }
-@media (min-height: 0px) and (max-height: 400px) {
+@media (min-height: 0px) and (max-height: 450px) {
     .login-graphic {
       display: none;
     }
+    .punchline{
+     position: absolute;
+      left: 0;
+      width: 100%;
+      text-align: center;
+    }
+    #sign-in-link, #learn-more{
+        display: none;
+    }
+
 }
 @media (min-height: 0px) and (max-height: 360px) {
     #sign-in-link {
@@ -137,96 +267,234 @@ section h2{
     }
 }
 .about{
-    background: #0A2A66;
+    background: rgb(56, 84, 136);
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    left: 0;
+    top: 0%;
+    height: 1300px;
+    width: 100vw !important;
+    justify-content: center;
+}
+
+#collab-title{
+    /* Backup */
+    font-size: 4.5vw;
+    /****/
+
+    position: absolute;
+    top: 0;
+    font-family: sans-serif;
+    font-weight: 500;
+    
+    font-size: calc(20px + min(5vh, 2.8vw));
+    color: white;
+    background-color: rgb(56, 84, 136);
+    padding: 15px;
+    width: 100vw;
+
+    text-align: center;
+
+}
+.section{
+    height: 1100px;
+}
+
+.navigation{
     display: flex;
     flex-direction: row;
     position: absolute;
-    height: 200vh;
-    justify-content: center;
-}
-#collab-title{
-    position: absolute;
-    top: 3%;
-    font-family: sans-serif;
-    font-weight: 500;
-    font-size: calc(20px + min(5vh, 2.8vw));
-    color: white;
+
+    top: 15%;
+    font-family: 'Lato', sans-serif;
+    width: 75vw;
+    height: 20vw;
+    align-items: center;
+    /* Come back here */
+
+    /****/
+    margin: 0 auto;
 
 }
-.navigation{
-    position: absolute;
-    right: 5%;
-    top: 20%;
-    font-family: 'Lato', sans-serif;
-    padding-left: 20px;
+/*
+@media (min-width: 0px) and (max-width: 1400px) {
+    .navigation p{
+      font-size: 15px;
+    }
 }
+*/
+#undraw1{
+    position: absolute;
+    right: 0%;
+    top: -5%;
+    width: 20vw;
+    height: 20vw;
+    border-radius: 50%;
+    border: 5px solid #0A2A66;
+}
+
+.nav-div, .browse-div, .create-div{
+
+    width: 40vw;
+    min-width: 400px;
+    height: min(20vw, 31.2vh);
+    min-height: 200px;
+    background-color:  rgb(56, 84, 136);
+
+    text-align: center;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 .navigation p{
-    font-size: min(3vh, 1.68vw);
+    font-size: 1.7vw;
     font-family: 'Lato', sans-serif;
     color: white;
-    line-height: 10px;
+    line-height: 200%;
+    margin-top: 10px;
 }
 .navigation h1{
     color: white;
     font-size: calc(15px + min(3vh, 2.24vw));
     font-family: 'Lato', sans-serif;
-    font-weight: 500;
+    font-weight: 400;
+    margin: 0;
 }
 .browse{
+    display: flex;
+    flex-direction: row;
     position: absolute;
-    left: 5%;
     top: 40%;
     font-family: 'Lato', sans-serif;
-    padding-left: 20px;
+    width: 75vw;
+    height: 20vw;
+    align-items: center;
+
+    margin: 0 auto;
+
+}
+.browse-div{
+    position: absolute;
+    right: 0%;
+
+}
+#undraw2{
+    position: absolute;
+    left: 0%;
+    top: -5%;
+
+    width: 20vw;
+    height: 20vw;
+    border-radius: 50%;
+    border: 5px solid #0A2A66;
 }
 .browse p{
-    font-size: min(3vh, 1.68vw);
+    font-size: 1.7vw;
     font-family: 'Lato', sans-serif;
     color: white;
-    line-height: 10px;
+    line-height: 200%;
+    margin-top: 10px;
 }
 .browse h1{
     color: white;
     font-size: calc(15px + min(3vh, 2.24vw));
     font-family: 'Lato', sans-serif;
-    font-weight: 500;
+    font-weight: 400;
+    margin: 0;
 }
 .create{
     position: absolute;
-    right: 5%;
-    top: 60%;
+    width: 75vw;
+    height: 20vw;
+
+    top: 65%;
     font-family: 'Lato', sans-serif;
-    padding-left: 20px;
+    display: flex;
+    flex-direction: row;
+
+    align-items: center;
+    margin: 0 auto;
+
+}
+.create-div{
+    
+}
+#undraw3{
+    position: absolute;
+    right: 0%;
+    top: -5%;
+    width: 20vw;
+    height: 20vw;
+    border-radius: 50%;
+    border: 5px solid #0A2A66;
 }
 .create p{
-    font-size: min(3vh, 1.68vw);
+    font-size: 1.7vw;
     font-family: 'Lato', sans-serif;
     color: white;
-    line-height: 10px;
+    line-height: 200%;
+    margin-top: 10px;
 }
 .create h1{
     color: white;
     font-size: calc(15px + min(3vh, 2.24vw));
     font-family: 'Lato', sans-serif;
-    font-weight: 500;
+    font-weight: 400;
+    margin: 0;
+
+}
+#bottom{
+    display: flex;
+    flex-direction: row;
+    position: absolute;
+    bottom: 0;
+    height: 10vh;
+    width: 100%;
+    border-top: 2px solid white;
+    color: white;
+    justify-content: space-evenly;
+    align-items: center;
+}
+#bottom a{
+    text-decoration: underline;
+    color: white;
 }
 .bubble{
     position: absolute;
     z-index: -2;
     background: #0A2A66;
 }
+#mobile-statement{
+    display: none;
+    visibility: 0;
+}
 .main{
 
-    z-index: -2;
-  
+    position: relative;
+    top: 0;
+    left: 0%;
+
     display: flex;
     flex-direction: column;
     text-align: center;
     justify-content: center;
 
-    background: radial-gradient(rgb(76, 102, 151) 0%, rgb(41, 66, 112) 40%, #0A2A66 80%);
-    width: 100vw;
-    height: 100vh
+
+    /*
+    background color: rgb(56, 84, 136);
+    */
+    width: 100vw !important;
+    height: 100vh;
+
+    max-height: 800px;
+
+    padding: 0;
+    margin: 0;
+    overflow-x: visible;
 }
 
 
@@ -234,6 +502,7 @@ section h2{
     min-width: 191px;
     min-height: 69px;
 }
+
 /*
 .box{
     background-color:  #0A2A66;
@@ -248,25 +517,47 @@ section h2{
 */
 .main h1{
     color: white;
+
+    /* Back up */
+    font-size: 5.32vw;
+    /******/
+
     font-size: min(9.5vh, 5.32vw);
+    
     letter-spacing: 3px;
     font-family: 'Lato';
-    overflow-x: scroll;
     font-weight: 500;
     padding: 0;
     font-family: 'Lato', sans-serif;
-    animation: slide_up 1.4s;
+
+
+    margin: 15px;
+
+}
+@media (min-width: 480px) and (max-width: 900px) {
+    .main h1{
+        font-size: 37px;
+    }
+    .about{
+        height: 900px;
+    }
 }
 #collab{
-    height: min(15vh, 8.4vw);
+    /* Back up*/
+    width: 40.95vh;
+    height: 15vh;
+    /****/
+
     width: min(40.95vh, 22.392vw);
+    height: min(15vh, 8.4vw);
+
+    
+
     min-width: 200px;
     min-height: 73.26px;
     position: absolute;
     top: 10%;
 
-    animation-name: slide_up;
-    animation-duration: 1.4s;
 }
 .main p{
     /*
@@ -283,6 +574,9 @@ section h2{
     background-color:  #0A2A66;
     text-decoration-style: double;
     font-size: min(5vh, 2.82vw);
+    /* Back up*/
+    font-size: 25px;
+    /****/
     letter-spacing: 2px;
     font-family: 'Lato', sans-serif;
     border-radius: 5px;
@@ -292,20 +586,28 @@ section h2{
     text-align: center;
     justify-content: center;
     position: absolute;
-    top: 70%;
-    width: 100%;
+    bottom: 15vh;
+    width: 100vw;
     margin: 0 auto;
-    animation-name: slide_up;
-    animation-duration: 1.4s;
+
 }
 
 .google-button a{
-    position: relative;
-    width: min(39vh, 21.84vw);
-    height: min(7vh, 3.92vw);
+    /* Back up */
+    width: 232.5px;
+    height: 40px;
+    /*****/
 
+    position: relative;
+    /*
+    width: min(39vh, 21.84vw);
+    */
+    /*
+    height: min(7vh, 3.92vw);
+    */
+    /*
     min-width: 183px;
-    min-height: 32px;
+    */
     vertical-align: middle;
     display: flex;
     flex-direction: row;
@@ -314,16 +616,33 @@ section h2{
     text-decoration: none;
     margin: 0 auto;
     border-radius: 3px;
+
 }
 .google-button img{
-    height: 100%;
+     /* Back up */
+     width: 2.5%;
+     height: 100%;
+     /*****/
+    /*
     width: min(3vh, 1.68vw);
+    height: 100%;
+    */
     min-width: 15px;
     position: absolute;
     left: 0;
     bottom: 0;
+     /* Back up */
+     /*
+     padding-right: 1.176vw;
+     padding-left: 1.176vw;
+     /*****/
+     padding-right: 15px;
+     padding-left: 15px;
+    /*
     padding-right: calc(1px + min(2.1vh, 1.176vw));
     padding-left: calc(1px + min(2.2vh, 1.176vw));
+    */
+   
     background-color: white;
 }
 
@@ -349,7 +668,7 @@ section h2{
 }
 */
 .google-button h1{
-    font-size: calc(9px + min(1.2vh, .672vw));
+    font-size: 15.84px;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     letter-spacing: 0;
     font-weight: 600;
@@ -361,7 +680,7 @@ section h2{
    top: 28%;
 
    margin: 0 auto;
-   padding-left: min(3.5vh, 1.96vw);
+   padding-left: 19.97px;
    width: 100%;
    color: white;
 
@@ -374,12 +693,19 @@ section h2{
 }
 
 #down-arrow{
+    /*Back up */
+    font-size: 3vw;
+    /******/
     font-size: min(7vh, 3.92vw);
     position: absolute;
     bottom: 5%;
-    left: 49%;
+    
     color: white;
-    animation: 5s pulse infinite, slide_up 1.4s;
+
+    width: 100%;
+    text-align: center;
+
+    display: none;
 }
 
 /*
@@ -624,19 +950,30 @@ div#middleearth {
 /******* MOBILE VERSION **********/
 
 @media only screen and (max-device-width: 480px) {
-    
-    html, body{
-        overflow-x: hidden;
-        width: 100%;    
+    #mobile-statement{
+        display: block;
+        color:  rgb(41, 66, 112);
+        text-align: center;
+        font-family: sans-serif;
+        font-size: 15px;
+        margin: 0 auto;
+        background-color: white;
     }
 
+    #down-arrow, .google-button{
+        display: none;
+    }
+    .main, .how, .about{
+        display: none;
+    }
+    /*
     #collab{
         position: absolute;
         top: 50px;
     }
     section{
         height: 500px;
-        width: 100vw;
+
     }
     .main{
         height: 500px;
@@ -648,7 +985,7 @@ div#middleearth {
 	.main h1{
         position: relative;
         top: 0px;
-        font-size: 33px;
+        font-size: 37px;
         line-height: 50px;
         justify-content: center;
         text-align: center;
@@ -678,6 +1015,7 @@ div#middleearth {
     }
 
     .how{
+        width: 100vw;
         text-align: center;
         justify-content: center;
     }
@@ -685,8 +1023,7 @@ div#middleearth {
         position: absolute;
         top: 0%;
         padding: 0;
-        position: relative;
-        margin-left: auto;
+
     }
     .punchline p{
         font-size: 20px;
@@ -696,9 +1033,7 @@ div#middleearth {
     }
 
     .about{
-        height: 650px;
-        justify-content: center;
-        text-align: center;
+       
     }
     #collab-title{
         font-size: 25px;
@@ -734,4 +1069,5 @@ div#middleearth {
     .create p{
         font-size: 18px;
     }
+    */
 }
