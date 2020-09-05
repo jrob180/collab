@@ -247,9 +247,25 @@ section h2{
     #undraw4{
         display: none;
     }
-    .main h1{
+    .main{
         width: 100%;
+    }
+    #collab{
+        position: absolute;
+
+        top: 5%;
         margin: 0 auto;
+    }
+    .main h1{
+        position: unset !important;
+        margin: 0 auto;
+        text-align: center;
+        width: 100vw;
+    }
+    .google-button{
+        position: unset !important;
+        margin: 0 auto;
+        text-align: center;
     }
 }
 @media (min-height: 0px) and (max-height: 450px) {
@@ -565,6 +581,7 @@ section{
 
     width: 50vw;
 
+
 }
 @media (min-width: 480px) and (max-width: 900px) {
     .main h1{
@@ -576,13 +593,13 @@ section{
 }
 #collab{
     /* Back up*/
-    width: 40.95vh;
-    height: 15vh;
+    height: 100px;
+    width: auto;
     /****/
-
+/*
     width: min(40.95vh, 22.392vw);
     height: min(15vh, 8.4vw);
-
+*/
     
 
     min-width: 200px;

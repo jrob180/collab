@@ -1,3 +1,4 @@
+
 var index = 0;
 const participants = [];
 const classes = ['MATH_25C', 'COMS_1004C', 'ENG_LITC', 'FROSCI_DISCC'];
@@ -75,7 +76,20 @@ window.onload=function(){   //displays and closes the modal (popup window)
     modalClose.addEventListener('click', function(){
         modalBg.classList.remove('bg-active');
     });
+/*
+$( document ).ready(function() {
 
+    $(".modal-btn").click(function(){
+        $(".modal-bg").show()
+    });
+
+    window.onclick = function(event) {
+        if (event.target.class != "modal") {
+           $(".modal-bg").hide();
+        }
+     }
+});
+    */
     $(document).ready(function() {
         $('.open-doc').click(function() {
             sideModalBg.classList.add('side-bg-active')

@@ -9,7 +9,7 @@ from ckeditor_uploader.fields import RichTextUploadingField
     
 
 class Room(models.Model):
-    title = models.CharField(max_length=33)
+    title = models.CharField(max_length=45)
     zoom_url = models.CharField(max_length = 1000)
     meeting_id = models.CharField(max_length = 100)
     course = models.CharField(max_length = 100)

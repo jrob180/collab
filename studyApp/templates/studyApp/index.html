@@ -30,6 +30,8 @@ Released   : 20130902
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <!--bootstrap stuff-->
+
+
 <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900" rel="stylesheet" />
 <link href= "{% static 'default.css' %}" rel="stylesheet" type="text/css" media="all" />
 <!--<link href="fonts.css" rel="stylesheet" type="text/css" media="all" />-->
@@ -51,7 +53,7 @@ Released   : 20130902
 <!--Text Editor-->
 <script src="https://cdn.ckeditor.com/ckeditor5/21.0.0/decoupled-document/ckeditor.js"></script>
 
-<script type="text/javascript" src="js/bootstrap-filestyle.min.js"> </script>
+
 <!--File Upload Button style bootstrap-->
 </head>
 <body>
@@ -63,14 +65,14 @@ Released   : 20130902
 	</div>-->
 	<div class = "banner">
 		<img style = "height: min(10vh, 5.63vw); min-height: 50px;" id = logo src = "{% static 'collab.png' %}">
-
+		
 		<button class = "modal-btn" id = "create">Start Session</button>
 
 		{% block content%}
 		{% if user.profile.image == "" %}
-			<button id = "signout" style="background-image: url('{{user.socialaccount_set.all.0.get_avatar_url}}'); justify-content: center;">
+			<button id = "signout" class = "signout" data-tooltip = "Profile" style="background-image: url('{{user.socialaccount_set.all.0.get_avatar_url}}'); justify-content: center;">
 		{% else %}
-			<button id = "signout" style="background-image: url('{{user.profile.image.url}}'); justify-content: center;">
+			<button id = "signout" class = "signout" data-tooltip = "Profile" style="background-image: url('{{user.profile.image.url}}'); justify-content: center;">
 		{% endif %}
 		</button>
 
@@ -128,7 +130,7 @@ Released   : 20130902
 			<ul id = "bar">
 				<li class = "current-user">
 					<i class="fas fa-circle"></i>
-					<p>{{user.username}}</p>
+					<p>{{user.username|truncatechars:18}}</p>
 				</li>
 				<li class="time">
 					<p>Fall 2020</p>
@@ -153,7 +155,7 @@ Released   : 20130902
 				<li class = 'list'>
 					<a href="/section" class="classes">
 						<i class="far fa-bookmark"></i>
-						<p>{{ user.profile.section }}</p>
+						<p>{{ user.profile.section|truncatechars:15 }}</p>
 					</a>
 				</li>
 			</ul>
@@ -170,8 +172,12 @@ Released   : 20130902
 			{% for room in rooms %}
 			{% if room.title != "inactive" %}
 			<div class = "current_room_example">
-				<p class = "name">{{room.title}}</p>
 
+				{% if room.title|length >= 39 %}
+					<p class = "name" data-tooltip = "{{room.title}}">{{room.title|truncatechars:39}}</p>
+				{% else %}
+					<p class = "name">{{room.title}}</p>
+				{% endif %}
 				<!--CK EDITOR-->
 
 				<!-- <button type="button" class="open-doc" data-toggle="modal" data-target="#myModal">
@@ -208,7 +214,7 @@ Released   : 20130902
 	
 	</div>
 
-	<a id = "feedback" href = "https://docs.google.com/forms/d/e/1FAIpQLSdCZKcME2VdzqRcdVepz6r96qQIbHNuXtQYWjDimwvDTUqlgQ/viewform?usp=sf_link " target = "_blank">
+	<a id = "feedback" class = "feedback" data-tooltip = "Give us Feedback!" href = "https://docs.google.com/forms/d/e/1FAIpQLSdCZKcME2VdzqRcdVepz6r96qQIbHNuXtQYWjDimwvDTUqlgQ/viewform?usp=sf_link " target = "_blank">
 		<i class="far fa-comment-alt"></i>
 	</a>
 </div>
@@ -265,8 +271,8 @@ Released   : 20130902
 				</form>
 			{% endif %}
 
-				<p id = "name">{{user.get_full_name}}</p>
-				<p id = "email">{{user.email}}</p>
+				<p id = "name">{{user.get_full_name|truncatechars:27}}</p>
+				<p id = "email">{{user.email|truncatechars:24}}</p>
 				<a href = "/accounts/logout/">Logout</a>
 		</div>
 	
