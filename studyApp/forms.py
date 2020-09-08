@@ -25,7 +25,18 @@ class SectionForm(forms.Form):
     # section = forms.CharField(label='What section are you in?', 
     # widget=forms.Select(choices=SECTION_CHOICES))
 
-    section = forms.ModelChoiceField(queryset = Section.objects.all(), to_field_name="name", empty_label=None, label = "What section are you in?",
+    #section = forms.ModelChoiceField(queryset = Section.objects.all(), to_field_name="name", empty_label=None, label = "What section are you in?",
+    #widget=forms.Select(attrs={'class':'choices-page', 'id': 'choices-page-modal'}))
+    
+    class1 = forms.ModelChoiceField(queryset = Section.objects.filter(isSection = False), to_field_name="name", empty_label=None, label = "What is your first class?",
+    widget=forms.Select(attrs={'class':'choices-page', 'id': 'choices-page-modal'}))
+    class2 = forms.ModelChoiceField(queryset = Section.objects.filter(isSection = False), to_field_name="name", empty_label=None, label = "What is your second class?",
+    widget=forms.Select(attrs={'class':'choices-page', 'id': 'choices-page-modal'}))
+    class3 = forms.ModelChoiceField(queryset = Section.objects.filter(isSection = False), to_field_name="name", empty_label=None, label = "What is your third class?",
+    widget=forms.Select(attrs={'class':'choices-page', 'id': 'choices-page-modal'}))
+    class4 = forms.ModelChoiceField(queryset = Section.objects.filter(isSection = False), to_field_name="name", empty_label=None, label = "What is your fourth class",
+    widget=forms.Select(attrs={'class':'choices-page', 'id': 'choices-page-modal'}))
+    class5 = forms.ModelChoiceField(queryset = Section.objects.filter(isSection = False), to_field_name="name", empty_label=None, label = "What is your fifth class",
     widget=forms.Select(attrs={'class':'choices-page', 'id': 'choices-page-modal'}))
 
     

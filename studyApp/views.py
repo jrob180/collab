@@ -62,7 +62,7 @@ def create_user_profile(sender, instance, created, **kwargs):
         '''
         image = None
         # course = ...
-        Profile.objects.create(user=instance, room = Room.objects.get(title = "inactive"), zoom_id= "", section = "", image = image, first_login = True)
+        Profile.objects.create(user=instance, room = Room.objects.get(title = "inactive"), zoom_id= "", section = "", image = image, first_login = True, classes = {})
 
 @receiver(post_save, sender=User)
 def save_user_profile(sender, instance, **kwargs):
@@ -159,16 +159,19 @@ def uploadImage(request):
 def createroom(request):
     if request.method == 'GET':
         title = request.GET['room_title']
-        course = request.GET['course']
-        print(course)
+        course_ind = request.GET['course']
+
         form = NameForm()
         global start
         user = Profile.objects.get(user = request.user)
+        course = user.classes['classes'][int(course_ind)]
         #rooms = start_meeting(token, start, title, user.zoom_id)
+        
         refresh_access_token()
 
         token = Token.objects.get(id = 1).access_token
         rooms = start_meeting(token, start, title, request.user.first_name, request.user.last_name)
+        #rooms = ['hi', 'hi','hi']
 
         room = Room()
         room.title = title
@@ -203,6 +206,11 @@ def home(request):
         #course = 'SECTION ABC'
         course = user.profile.section
 
+    classes = user.profile.classes
+    for i in range(1,6):
+        if course == "class{i}".format(i=i):
+            course = classes['classes'][i-1]
+
     if user.username != user.get_full_name and user.username != 'arulkapoor118':
         user.username = str(user.get_full_name())
         user.save()
@@ -213,11 +221,14 @@ def home(request):
     section_form = SectionForm()
     text_form = TextForm()
 
+    
     context = {
         #'rooms': Room.objects.all(),
         'rooms': Room.objects.filter(course = course),
         'users': Profile.objects.all(),
         'counter': c,
+        'classes': classes['classes'],
+        'course': course,
         'form': form,
         'img_form': img_form,
         'section_form': section_form,
@@ -244,7 +255,15 @@ def selectClass(request):
     
         if form.is_valid(): 
             profile = request.user.profile
-            profile.section = form.cleaned_data['section'].name.upper()
+            #profile.section = form.cleaned_data['section'].name.upper()
+
+            class1 = form.cleaned_data['class1'].name.upper()
+            class2 = form.cleaned_data['class2'].name.upper()
+            class3 = form.cleaned_data['class3'].name.upper()
+            class4 = form.cleaned_data['class4'].name.upper()
+            class5 = form.cleaned_data['class5'].name.upper()
+            classes = [class1, class2, class3, class4, class5]
+            profile.classes = {'classes':classes}
             profile.first_login = False
             profile.save()
         return redirect('studyApp-home')

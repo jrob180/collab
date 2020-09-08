@@ -39,7 +39,8 @@ ALLOWED_HOSTS = [
     'collabrooms-prod-env.eba-yd7yre6h.us-west-2.elasticbeanstalk.com',
     '172.31.40.199',
     'collabrooms.io',
-    'www.collabrooms.io'
+    'www.collabrooms.io',
+    '67be1a47ffc6.ngrok.io'
 ]
 
 

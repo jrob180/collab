@@ -10,6 +10,11 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('', views.home, name = "studyApp-home"),
     path('section/', views.home, name = "studyApp-section"),
+    path('class1/', views.home, name = "studyApp-class1"),
+    path('class2/', views.home, name = "studyApp-class2"),
+    path('class3/', views.home, name = "studyApp-class3"),
+    path('class4/', views.home, name = "studyApp-class4"),
+    path('class5/', views.home, name = "studyApp-class5"),
     path('login/', views.login, name = "studyApp-login"),
     path('classes/', views.classes, name = "studyApp-classes"),
     url(r'^joinroom/$', views.joinroom, name='joinroom'),

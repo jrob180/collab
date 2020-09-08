@@ -134,7 +134,7 @@ $( document ).ready(function() {
     //var name;
 
     //var input = document.getElementById('description').value;
-    
+    /*
     var courses = document.querySelectorAll('.list');
 
     var location = window.location.pathname;
@@ -143,11 +143,13 @@ $( document ).ready(function() {
         courses[1].children[0].children[0].classList.remove('far')
         courses[1].children[0].children[0].classList.add('fa')
     }
+ 
     else{
         courses[0].classList.add('active')
         courses[0].children[0].children[0].classList.remove('far')
         courses[0].children[0].children[0].classList.add('fa')
-    }
+    }*/
+    
     //courses.addEventListener('click', function(){
     //    lithum.classList.add('active');
     //});
