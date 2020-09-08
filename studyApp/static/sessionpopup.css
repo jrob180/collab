@@ -22,6 +22,10 @@
 .modal{
     position: relative;
     background-color: white;
+    /*Back up */
+    width: 38vw;
+    height: 19vw;
+    /***/
     width: min(38vw, 67.26vh);
     height: min(19vw, 33.63vh);
     display: flex;
@@ -31,33 +35,67 @@
     font-family: 'Lato', sans-serif;
     border-radius: 5px;
 }
+@media only screen and (max-width: 900px){
+    .modal{
+        width: 350px;
+        height: 175px;
+    }
+    .modal h1{
+        font-size: 17px !important;
+    }
+    .modal input{
+        width: 200px !important;
+        font-size: 14px !important;
+    }
+    #enter{
+        font-size: 12px !important;
+        margin-top: 30px !important;
+    }
+    .modal-close{
+        font-size: 15px !important;
+    }
+    
+}
 .modal h1{
+    /*Back up */
+    font-size: 1.83vw;
+    /***/
     font-size: min(3.25vh, 1.83vw);
     padding: 0% 0% 8%;
     position: absolute;
     top: 20%;
+    font-weight: 400;
 }
 #description{
     width: 60%;
     height: 10%;
 }
-
+form{
+    display: flex;
+    flex-direction: column;
+    
+}
 form label{
     display: none;
 }
 #enter{
-    width: 50%;
-    position: absolute;
-    left: 25%;
-    top: 50%;
+    width: 100%;
+    display: block;
+
+    margin-right: 0 auto;
+    margin-top: 10%;
+
     padding: 2% 4%;
-    margin-top: 15%;
+
     background-color: rgb(0, 89, 255);
     color: white;
     border: none;
     font-family: 'Lato', sans-serif;
     cursor: pointer;
-    border-radius: min(0.75vh, .42vw);
+    border-radius: 4px;
+    /*Back up */
+    font-size: 1.13vw;
+    /***/
     font-size: min(2vh, 1.13vw);
 }
 #enter:hover{
@@ -68,13 +106,22 @@ form label{
    top: 50%;
 }
 .modal input{ 
+    /*Back up */
+    width: 23vw;
+    height: 1.9vw;
+    /***/
+
     width: min(40vh, 23vw);
     height: min(3.5vh, 1.9vw);
+
     border-top: none;
     border-right: none;
     border-left: none;
     border-bottom: 1px solid rgb(0, 89, 255);
     outline: 0;
+    /*Back up */
+    font-size: 1.512vw;
+    /***/
     font-size: min(2.7vh, 1.512vw);
     font-weight: 700px;
 }
@@ -85,6 +132,9 @@ form label{
     right: 3%;
     font-weight: bold;
     cursor: pointer;
+    /* Back up */
+    font-size: 1.69vw;
+    /****/
     font-size: min(3vh, 1.69vw);
     color: #0A2A66;
 }
@@ -117,10 +167,14 @@ form label{
     opacity: 1;
 }
 .user-modal{
-    position: absolute;
-    top: 12vh;
-    right: 2vw;
+    position: fixed;
+    top: 100px;
+    right: 3vw;
     background-color: white;
+    /*Back up */
+    width: 19vw;
+    height: 30.8vw;
+    /****/
     width: min(19vw, 33.63vh);
     min-width: 197px;
     height: min(30.8vw, 55vh);
@@ -133,19 +187,45 @@ form label{
     border-radius: 5px;
     box-shadow: -3px 2px 10px rgb(202, 201, 201), 3px 3px 10px rgb(202, 201, 201);
 }
+@media only screen and (max-width: 900px){
+    #name{
+        font-size: 15px !important;
+    }
+    #email{
+        font-size: 15px !important;
+    }
+    #modalImg{
+        height: 100px;
+        width: 100px;
+    }
+    .hover-content{
+        height: 100px;
+        width: 100px;
+    }
+    .hover-content p{
+        font-size: 12px !important;
+    }
+}
 #modalImg{
     position: absolute;
     top: 5%;
     margin: 0 auto;
+    /*Back up */
+    width: 8.4vw;
+    height: 8.4vw;
+    /****/
     height: min(15vh, 8.4vw);
     width: min(15vh, 8.4vw);
     min-height: 90px;
     min-width: 90px;
+
+
     border-radius: 100px;
     object-fit: scale-down;
     background-size: cover;
     outline: none;
     border: none;
+
     padding: 0;
 }
 
@@ -156,6 +236,10 @@ form label{
     position: absolute;
     top: 0;
     right: 0;
+    /*Back up */
+    width: 8.4vw;
+    height: 8.4vw;
+    /****/
     height: min(15vh, 8.4vw);
     width: min(15vh, 8.4vw);
     min-height: 90px;
@@ -163,6 +247,8 @@ form label{
     border-radius: 100px;
     background-color: grey;
     z-index: 10;
+
+    text-align: center;
 }
 
 .hover-content p{
@@ -173,14 +259,20 @@ form label{
     opacity: 1;
     z-index: 25;
     font-family: 'Lato', sans-serif;
+    /*Back up*/
+    font-size: 1vw;
+    /****/
     font-size: calc(7px + min(1vh, .56vw));
+
 }
 
 #modalImg:hover .hover-content{
     opacity: 0.8;
+
 }
 #modalImg:hover .hover-content p{
     opacity: 1;
+
 }
 
 #logoutClose{
@@ -189,6 +281,9 @@ form label{
     right: 5%;
     font-weight: 100;
     cursor: pointer;
+    /*Back up */
+    font-size: 1.5vw;
+    /***/
     font-size: calc(15px + min(.56vh, .27vw));
     color: #0A2A66;
 }
@@ -210,11 +305,14 @@ form label{
     text-decoration: none;
     font-size: 15px;
     background-color: white;
+    /* Back up */
+    padding: 3px 13px;
+    border-radius: 3px;
+    /***/
     padding-top: min(1vh, .56vw);
     padding-bottom: min(1vh, .56vw);
     padding-left: min(3vh, 1.68vw);
     padding-right: min(3vh, 1.68vw);
-    border-radius: min(.8vh, .45vw);
     font-family: 'Lato', sans-serif;
     font-weight: 400;
     z-index: 10;
@@ -227,6 +325,9 @@ form label{
     top: 40%;
     text-align: center;
     font-family: 'Lato', sans-serif;
+    /* Back up */
+    font-size: .7vw;
+    /****/
     font-size: calc(9px + min(1vh, .56vw));
     font-weight: 400;
     margin-bottom: 0;
@@ -239,8 +340,11 @@ form label{
     top: 50%;
     border-bottom: 1px solid grey;
     padding-bottom: 10%;
+    /* Back up */
+    font-size: 1.25vw;
+    /****/
     font-size: calc(9px + min(1vh, .56vw));
-    overflow-x: scroll;
+    
     font-weight: 300;
     margin-top: 0;
     padding-top: 0;
@@ -253,7 +357,7 @@ form label{
     position: fixed;
     width: 100%;
     height: 100vh;
-    z-index: 6;
+    z-index: 8;
     top: 0;
     left: 0;
     background-color: rgba(0, 0, 0, 0.5);
@@ -271,7 +375,7 @@ form label{
 .choices{
     position: relative;
     top: 9%;
-    background-color: rgb(41, 66, 112);
+    background-color: rgb(56, 84, 136);
     width: min(38vw, 67.26vh);
     height: min(19vw, 33.63vh);
     min-width: 400px;
@@ -282,6 +386,7 @@ form label{
     flex-direction: column;
     font-family: 'Lato', sans-serif;
     border-radius: 5px;
+
 }
 #choicesClose{
     position: absolute;
@@ -290,7 +395,7 @@ form label{
     font-weight: 100;
     cursor: pointer;
     font-size: calc(15px + min(.56vh, .27vw));
-    color: white;
+    color:white;
 }
 .section-prompt{
     color: white;
@@ -320,9 +425,9 @@ form label{
 }
 .class-form-modal button{
 	font-size: 15px;
-	background-color: white;
-	color: #0A2A66;
-	border: 1px solid #0A2A66;
+	background-color: rgb(56, 84, 136);
+	color: white;
+	border: 1px solid white;
 	border-radius: 3px;
 	padding-right: 25px;
 	padding-left: 25px;
@@ -334,6 +439,7 @@ form label{
 
     position: absolute;
     bottom: 10%;
+    cursor: pointer;
 }
 /* Dropdown styling */
 .choices-page-modal{
@@ -342,7 +448,7 @@ form label{
 	font-size: 16px;
 	font-family: 'Lato', sans-serif;
 	color: white;
-	background-color: rgb(41, 66, 112);
+	background-color: white;
 	
 	border: 1px solid white;
 	border-radius: 3px;
@@ -406,5 +512,58 @@ form label{
     }
     to{
         width: 65vw;
+    }
+}
+/* Modal settings for large screen sizes */
+
+@media only screen and (min-width: 1800px){
+    /* user modal */
+    .user-modal{
+        width: 350px;
+        height: 567px;
+    }
+    .user-modal a{
+        font-size: 20px;
+        padding: 6px 26px;
+    }
+    #name{
+        font-size: 25px !important;
+    }
+    #email{
+        font-size: 25px !important;
+    }
+    .modal-close{
+        font-size: 22px !important;
+    }
+    
+    #modalImg{
+        width: 136px;
+        height: 136px;
+    }
+    .hover-content{
+        width: 136px;
+        height: 136px;
+    }
+    .hover-content p{
+        font-size: 18px;
+    }
+    /*******/
+    /* Create session modal */
+    .modal{
+        width: 700px !important;
+        height: 350px !important;
+    }
+    .modal h1{
+        font-size: 30px !important;
+    }
+    .modal-close{
+        font-size: 25px !important;
+    }
+    .modal input{
+        font-size: 25px !important;
+    }
+    #enter{
+        margin-top: 50px;
+        font-size: 20px !important;
     }
 }

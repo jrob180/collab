@@ -64,7 +64,7 @@ Released   : 20130902
 			<a id = "signout" href = "/accounts/logout/">Logout</a>
 	</div>-->
 	<div class = "banner">
-		<img style = "height: min(10vh, 5.63vw); min-height: 50px;" id = logo src = "{% static 'collab.png' %}">
+		<img style = " height: 65px; width: auto;" id = logo src = "{% static 'collab.png' %}">
 		
 		<button class = "modal-btn" id = "create">Start Session</button>
 
@@ -202,7 +202,7 @@ Released   : 20130902
 					{% endfor %}
 				</div>
 				<div class = "people">
-				<a class = "join_room" room-name = "{{room.meeting_id}}" href = "{{room.zoom_url}}" target = '_blank'>Join Room</a>
+					<a class = "join_room" room-name = "{{room.meeting_id}}" href = "{{room.zoom_url}}" target = '_blank'>Join Room</a>
 					<i class="fas fa-users"></i> 
 					<p>{{counter.count}}</p>
 					{{ counter.zero }}
