@@ -200,20 +200,27 @@ def home(request):
 
     course = request.path[1:-1]
     user = request.user
-    if course == "":
-        course = 'LITHUM'
-    elif course == 'section':
-        #course = 'SECTION ABC'
-        course = user.profile.section
-
+   
+    
+    # elif course == 'section':
+    #     #course = 'SECTION ABC'
+    #     course = user.profile.section
+    rooms = 0
     classes = user.profile.classes
     for i in range(1,6):
         if course == "class{i}".format(i=i):
             course = classes['classes'][i-1]
+            rooms = Room.objects.filter(course = course)
+    
+    if course == "":
+        course = classes['classes']
+        rooms = Room.objects.filter(course__in = course)
+        course = ""
 
     if user.username != user.get_full_name and user.username != 'arulkapoor118':
         user.username = str(user.get_full_name())
         user.save()
+        
     c = Counter()
 
     form = NameForm()
@@ -224,7 +231,7 @@ def home(request):
     
     context = {
         #'rooms': Room.objects.all(),
-        'rooms': Room.objects.filter(course = course),
+        'rooms': rooms,
         'users': Profile.objects.all(),
         'counter': c,
         'classes': classes['classes'],
@@ -262,7 +269,7 @@ def selectClass(request):
             class3 = form.cleaned_data['class3'].name.upper()
             class4 = form.cleaned_data['class4'].name.upper()
             class5 = form.cleaned_data['class5'].name.upper()
-            classes = [class1, class2, class3, class4, class5]
+            classes = list(set([class1, class2, class3, class4, class5]))
             profile.classes = {'classes':classes}
             profile.first_login = False
             profile.save()

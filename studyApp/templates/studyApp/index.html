@@ -145,7 +145,11 @@ Released   : 20130902
 </div>
 
 	<div class = "banner_2">
-		<h1>Welcome to Literature Humanities!</h1>
+		{% if course == "" %}
+			<h1>Welcome to your library!</h1>
+		{% else %}
+			<h1>Welcome to {{course}}!</h1>
+		{% endif %}
 		<p>Here you can find study groups for assignments you are working on.</p>
 		
 	</div>
@@ -183,6 +187,21 @@ Released   : 20130902
 				<!--<li id = 'all_rooms' class ="all_rooms"><a href="#" accesskey="2" title="">ALL ROOMS</a></li>
 				<li id = 'COMS_1004' class ="current_page_item"><a href="#" accesskey="2" title="">COMS 1004</a></li>
 				<li id = 'MATH_25'><a href="#" accesskey="3" title="">MATH 25</a></li>-->
+				{% if course == "" %}
+				<li class = 'list'>
+					<a href="/" class="classes active">
+						<i class="fa fa-bookmark active"></i>
+						<p>ALL CLASSES</p>
+					</a>
+				</li>
+				{% else %}
+				<li class = 'list'>
+					<a href="/" class="classes">
+						<i class="far fa-bookmark"></i>
+						<p>ALL CLASSES</p>
+					</a>
+				</li>
+				{% endif%}
 				{% for class in classes %}
 					{% if class != 'NONE' %}
 						{% if class == course %}
@@ -401,7 +420,7 @@ frm.submit(function () {
 		if(loc == suffix){
 			index = i
 			//course = document.getElementsByClassName('classes')[i-1].children[1].textContent;
-			course = index - 1
+			course = index
 		}
 	}
 	$.ajax({
