@@ -368,7 +368,7 @@ color: #6F6F6F;
 	left: 0%;
 	float: left; 
 	width: 17vw;
-	height: 90%;
+	height: 100%;
 	padding: 1em 0em 6em 0em;
 	color: black;
 	background-color: rgb(56, 84, 136);
@@ -376,6 +376,7 @@ color: #6F6F6F;
 	z-index: 6;
 	min-width: 195px;
 
+	overflow-y: scroll;
 }
 #header img{
 	height: 130px;
@@ -614,15 +615,26 @@ margin-bottom: 4em;
 {
 	position: absolute;
 	left: 17%;
-	top: 20%;
+	top: 135px;
 	width: 83vw;
 	height: auto;
 	display: inline-block;
 	background-color: #f7f8fa;
 	text-align: center;
+	/*
 	margin-top: min(8vh, 5.4vw);
+	*/
 	z-index: 5;
 }
+.current_rooms::-webkit-scrollbar {
+	display: none;
+  }
+  
+  /* Hide scrollbar for IE, Edge and Firefox */
+  .current_rooms {
+	-ms-overflow-style: none;  /* IE and Edge */
+	scrollbar-width: none;  /* Firefox */
+  }
 #feedback{
 	font-size: 22px;
 
@@ -1129,6 +1141,15 @@ display: inline-block;
 	width: 100vw;
 
 }
+@media only screen and (max-width: 850px){
+	.banner_2{
+		display: none;
+	}
+	.current_rooms{
+		position: absolute !important;
+		top: 135px !important;
+	}
+}
 /* Moving Collab Logo */
 @media only screen and (max-width: 800px) {
 	.banner img {
@@ -1179,7 +1200,7 @@ display: inline-block;
 @media (max-width: 810px){
 	.current_rooms{
 		position: absolute;
-		top: 10%;
+		top: 100px;
 		left: 39.5%;
 		width: 300px;
 	}
@@ -1206,7 +1227,7 @@ display: inline-block;
 	.current_rooms{
 		width: 53vw;
 		position: absolute;
-		top: 10%;
+		top: 135px;
 		left: 46.5%;
 		}
 		.current_room_example{
@@ -1215,6 +1236,7 @@ display: inline-block;
 		}
 }
 /* Removing banner */
+/*
 @media only screen and (max-width: 950px) {
 	.banner_2 {
 		display: none;
@@ -1230,7 +1252,7 @@ display: inline-block;
 		display: none;
 	}
 }
-
+*/
 
 .banner_2 p, h1{
 	position: absolute;
@@ -1319,8 +1341,6 @@ display: inline-block;
 
 	justify-content: center;
 	align-items: center;
-	
-	
 }
 .people p{
 	position: absolute;
@@ -1401,28 +1421,44 @@ display: inline-block;
 /*********************************************************************************/
 .user_bars{
 list-style-type: none;
-margin-left: 2%;
-padding-left:0px;
-background-color: white;
+
+display: flex;
+flex-direction: row;
+
+align-items: center;
 }
 .user_bars p{
 display: inline-block;
-position: absolute;
-left: 20%;
-padding: 0 0 0 4%;
+position: relative;
+left: 5%;
+/* Back up */
+font-size: 16px;
+/*****/
+
 color: grey;
 font-size: calc(14px + min(.25vw, .45vh));
 font-weight: 200;
-padding-top: 2%;
+
+vertical-align: middle;
 }
 .user_bars img{
+/* Backup*/
+height: 25px;
+width: 25px;
+/*****/
 height: calc(20px + min(6vw, 2.5vh));
 width: calc(20px + min(6vw, 2.5vh));
+
+object-fit: cover;
+/*
 object-fit: cover;
 position: relative;
 right: 37%;
+*/
 border-radius: 70vh;
+/*
 margin-right: 10%;
+*/
 }
 
 
@@ -1488,7 +1524,7 @@ fill: white;
 	text-align: center;
 	justify-content: center;
 	position: absolute;
-	top: 150px;
+	top: 85px;
 	width: 100%;
 	margin: 0 auto;
 }
@@ -1496,7 +1532,7 @@ fill: white;
 	display: inline-block;
 	justify-content: space-between;
 	width: 400px;
-	margin-top: 10%;
+	margin-top: 100px;
 }
 .class-form p{
 	display: flex;
@@ -1518,6 +1554,7 @@ fill: white;
 	padding-bottom: 5px;
 
 	outline: none;
+	cursor: pointer;
 }
 .class-form button:hover{
 	background-color: #f7f8fa;
@@ -1526,30 +1563,42 @@ fill: white;
 	color: #0A2A66;
 }
 .primary{
-	background-color: #0A2A66;
-	z-index: 5;
+	display: flex;
+    align-items: center; 
+    justify-content: center;
+
+	background-color: rgb(56, 84, 136);
+	
+	
+	z-index: 7;
 	width: 100vw;
-	height: 60px;
+	height: 65px;
+
 	color: white;
 	text-align: center;
 	position: fixed;
-	overflow: scroll;
+	overflow-y: visible;
 }
 .secondary{
 	width: 100%;
+	height: 25px;
 	position: absolute;
 	top: 60px;
-	color: #0A2A66;
+	color: rgb(56, 84, 136);
 	text-align: center;
 	font-family: 'Lato', sans-serif;
 	background-color: white;
 
 	padding-top: 30px;
 	padding-bottom: 30px;
+	align-items: center;
 }
 .secondary h1{
+	width: 100vw;
+	margin: 0 auto;
 	font-size: 20px;
 	font-weight: 200;
+
 }
 .choices-page{
 	width: 125px;
@@ -1569,7 +1618,7 @@ fill: white;
 	position: absolute;
 	width: 100%;
 	text-align: center;
-	bottom: 5%;
+	top: 650px;
 	float: center;
 }
 /* gear button -- choices modal */

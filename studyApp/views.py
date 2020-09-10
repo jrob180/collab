@@ -16,11 +16,12 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 import base64
 import time
+from django.db.models import Q
 
 
 
 #token = 'eyJhbGciOiJIUzUxMiIsInYiOiIyLjAiLCJraWQiOiIyNWYyMjA2YS1lODA3LTRlMjUtYjhjYi0wZGZjMjBhYjdiNWIifQ.eyJ2ZXIiOiI2IiwiY2xpZW50SWQiOiJ6SmliOG5Rc1RHMFFBX0pnRXFqNVEiLCJjb2RlIjoiZXVnNWlrSG9LZF95ZWlWdUlXc1FfNjNOOUtEY3F1aG9nIiwiaXNzIjoidXJuOnpvb206Y29ubmVjdDpjbGllbnRpZDp6SmliOG5Rc1RHMFFBX0pnRXFqNVEiLCJhdXRoZW50aWNhdGlvbklkIjoiMjM2NDJlMTFlYjBiZTFhZGNiMmFkYjZjNTFhOWJlNDkiLCJ1c2VySWQiOiJ5ZWlWdUlXc1FfNjNOOUtEY3F1aG9nIiwiZ3JvdXBOdW1iZXIiOjAsImF1ZCI6Imh0dHBzOi8vb2F1dGguem9vbS51cyIsImFjY291bnRJZCI6ImhORE8zbG1NU3RTNnhjcS1iMy1QMUEiLCJuYmYiOjE1OTQ0Mzc2NzQsImV4cCI6MTU5NDQ0MTI3NCwidG9rZW5UeXBlIjoiYWNjZXNzX3Rva2VuIiwiaWF0IjoxNTk0NDM3Njc0LCJqdGkiOiJiYWQxNjhjOS03YTc3LTRlYTMtOGI2OC1mZWUwMGIzNWE1ODkiLCJ0b2xlcmFuY2VJZCI6MjJ9.ztaR-aKWc0tiPkmbtwlYQUO92cwURNbXRQxNt_75uvex0rIlTVpQJajgj_TNx5uFheHLfcnCT0-0E13gRgXOHw'
-start = 1600
+start = 2100
 def read_file(request):
     f = open('/Users/arulkapoor118/collab_website/collab/studyApp/loaderio-4049d7ee993d07bdda5b43856ece8ea9.txt', 'r')
     file_content = f.read()
@@ -61,8 +62,18 @@ def create_user_profile(sender, instance, created, **kwargs):
         Profile.objects.create(user=instance, room = Room.objects.get(title = "inactive"), zoom_id= id)
         '''
         image = None
+        email = instance.email
+        school = email.split('@')[1]
+        if school == 'college.harvard.edu':
+            school = "harvard"
+        elif school == 'princeton.edu':
+            school = "princeton"
+        elif school == 'stanford.edu':
+            school = "stanford"
+        elif school == 'penn.edu':
+            school = "upenn"
         # course = ...
-        Profile.objects.create(user=instance, room = Room.objects.get(title = "inactive"), zoom_id= "", section = "", image = image, first_login = True, classes = {})
+        Profile.objects.create(user=instance, room = Room.objects.get(title = "inactive"), zoom_id= "", section = "", image = image, first_login = True, classes = {}, school = school)
 
 @receiver(post_save, sender=User)
 def save_user_profile(sender, instance, **kwargs):
@@ -164,6 +175,7 @@ def createroom(request):
         form = NameForm()
         global start
         user = Profile.objects.get(user = request.user)
+        print(course_ind)
         course = user.classes['classes'][int(course_ind)]
         #rooms = start_meeting(token, start, title, user.zoom_id)
         
@@ -249,6 +261,11 @@ def classes(request):
     #     return redirect('studyApp-home')
 
     form = SectionForm()
+    form.fields['class1'].queryset = Section.objects.filter(Q(school = request.user.profile.school) | Q(name = "None"))
+    form.fields['class2'].queryset = Section.objects.filter(Q(school = request.user.profile.school) | Q(name = "None"))
+    form.fields['class3'].queryset = Section.objects.filter(Q(school = request.user.profile.school) | Q(name = "None"))
+    form.fields['class4'].queryset = Section.objects.filter(Q(school = request.user.profile.school) | Q(name = "None"))
+    form.fields['class5'].queryset = Section.objects.filter(Q(school = request.user.profile.school) | Q(name = "None"))
     context = {
         #'rooms': Room.objects.all(),
         'form': form,
@@ -269,6 +286,7 @@ def selectClass(request):
             class3 = form.cleaned_data['class3'].name.upper()
             class4 = form.cleaned_data['class4'].name.upper()
             class5 = form.cleaned_data['class5'].name.upper()
+
             classes = list(set([class1, class2, class3, class4, class5]))
             profile.classes = {'classes':classes}
             profile.first_login = False

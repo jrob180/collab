@@ -98,8 +98,9 @@ Released   : 20130902
 	</div>-->
 	<div class = "banner">
 		<img style = " height: 65px; width: auto;" id = logo src = "{% static 'collab.png' %}">
-		
-		<button class = "modal-btn" id = "create">Start Session</button>
+		{% if course != "" %}
+			<button class = "modal-btn" id = "create">Start Session</button>
+		{% endif %}
 
 		{% block content%}
 		{% if user.profile.image == "" %}
@@ -159,7 +160,14 @@ Released   : 20130902
 	<div id="header"> <!--navbar-->
 		
 		<div>
-			<img src = "{% static 'culogo.png' %}">
+			{% if user.profile.school == "columbia" %}
+				<img src = "{% static 'culogo.png' %}">
+			{% elif user.profile.school == "harvard" %}
+				<img src = "{% static 'harvardlogo.png' %}">
+			{% else %}
+				<img src = "{% static 'culogo.png' %}">
+			
+			{% endif %}
 		</div>
 		
 		
@@ -236,7 +244,9 @@ Released   : 20130902
 					</a>
 				</li> -->
 			</ul>
+			
 			<button class = "modal-btn" id = "create-mobile">Start Session</button>
+			
 		</div>
 	</div>
 	<div class="current_rooms">
@@ -272,7 +282,7 @@ Released   : 20130902
 								<img src = '{{user.image.url}}'>
 							{% endif %}
 
-								<p>{{user.user.get_full_name}}</p>
+								<p>{{user.user.get_full_name|truncatechars:20}}</p>
 						</div>
 						{{ counter.increment }}
 						{% endif %}
@@ -348,7 +358,7 @@ Released   : 20130902
 				</form>
 			{% endif %}
 
-				<p id = "name">{{user.get_full_name|truncatechars:27}}</p>
+				<p id = "name">{{user.get_full_name|truncatechars:25}}</p>
 				<p id = "email">{{user.email|truncatechars:24}}</p>
 				<a href = "/accounts/logout/">Logout</a>
 		</div>
@@ -420,7 +430,7 @@ frm.submit(function () {
 		if(loc == suffix){
 			index = i
 			//course = document.getElementsByClassName('classes')[i-1].children[1].textContent;
-			course = index
+			course = index - 1
 		}
 	}
 	$.ajax({

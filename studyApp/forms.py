@@ -27,7 +27,8 @@ class SectionForm(forms.Form):
 
     #section = forms.ModelChoiceField(queryset = Section.objects.all(), to_field_name="name", empty_label=None, label = "What section are you in?",
     #widget=forms.Select(attrs={'class':'choices-page', 'id': 'choices-page-modal'}))
-
+    #class0 = forms.ModelChoiceField(queryset = Section.objects.filter(name = test), to_field_name="name", empty_label=None, label = "What is your first class?",
+    #widget=forms.Select(attrs={'class':'choices-page', 'id': 'choices-page-modal'}))
     class1 = forms.ModelChoiceField(queryset = Section.objects.filter(isSection = False), to_field_name="name", empty_label=None, label = "What is your first class?",
     widget=forms.Select(attrs={'class':'choices-page', 'id': 'choices-page-modal'}))
     class2 = forms.ModelChoiceField(queryset = Section.objects.filter(isSection = False), to_field_name="name", empty_label=None, label = "What is your second class?",
