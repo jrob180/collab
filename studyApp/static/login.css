@@ -545,7 +545,12 @@ section{
     border-radius: 50%;
     border: 3px solid rgb(56, 84, 136);
 }
-
+@media only screen and (min-width: 1600px){
+    #undraw4{
+        width: 450px;
+        height: auto;
+    }
+}
 #logo{
     min-width: 191px;
     min-height: 69px;
