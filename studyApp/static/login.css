@@ -1015,16 +1015,26 @@ div#middleearth {
 /******* MOBILE VERSION **********/
 
 @media only screen and (max-device-width: 480px) {
+    html{
+        max-width: 100% !important;
+    }
     body{
         width: 100vw;
+        overflow-x: hidden;
+        max-width: 100vw !important;
+    }
+    .main{
+        overflow-x: hidden;
+        max-width: 100vw !important;
     }
     #collab{
         position: absolute;
         top: 0;
         left: 0;
 
-        width: 410px;
+        width: 97vw;
         height: auto;
+        font-family: 'Lato', sans-serif
     }
     #mobile-statement{
         position: absolute;
