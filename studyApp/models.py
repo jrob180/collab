@@ -46,5 +46,6 @@ class Section(models.Model):
 class Token(models.Model):
     access_token = models.TextField()
     refresh_token = models.TextField()
+    test = models.BooleanField()
 # Create your models here.
 

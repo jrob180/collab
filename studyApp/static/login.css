@@ -247,14 +247,7 @@ section h2{
     #undraw4{
         display: none;
     }
-    .main{
-        display: flex;
-        flex-direction: column;
-        
-        width: 100vw;
-        justify-content: center;
-        text-align: center;
-    }
+
 
     #collab{
         position: absolute;
@@ -525,7 +518,7 @@ section{
     background color: rgb(56, 84, 136);
     */
     width: 100vw !important;
-    height: 100vh !important;
+    height: 100vh;
 
 
 
@@ -534,9 +527,16 @@ section{
     overflow-x: hidden !important;
    
 }
+/*
+@media only screen and (max-height: 400px) and (min-width: 500px){
+    .main{
+        height: 400px;
+    }
+}
+*/
 #undraw4{
     position: absolute;
-    top: 25%;
+    top: 20%;
     right: 10%;
 
     width: 25vw;
@@ -594,7 +594,6 @@ section{
     left: 10%;
 
     width: 50vw;
-
 
 }
 @media (min-width: 480px) and (max-width: 900px) {
@@ -1016,14 +1015,49 @@ div#middleearth {
 /******* MOBILE VERSION **********/
 
 @media only screen and (max-device-width: 480px) {
+    body{
+        width: 100vw;
+    }
+    #collab{
+        position: absolute;
+        top: 0;
+        left: 0;
+
+        width: 410px;
+        height: auto;
+    }
     #mobile-statement{
+        position: absolute;
+        top: 0px;
         display: block;
-        color:  rgb(41, 66, 112);
+        color:  white;
         text-align: center;
         font-family: sans-serif;
-        font-size: 15px;
-        margin: 0 auto;
-        background-color: white;
+        font-size: 10px;
+
+        text-align: center;
+
+        height: 500px;
+    }
+    #mobile-statement-text-1{
+        position: absolute;
+        top: 150px;
+        width: 100vw;
+    }
+    #mobile-statement-text-1 h1{
+        font-size: 23px;
+        font-weight: 500;
+    }
+    #special-mobile-text{
+        color: #5dbcd2;
+    }
+    #mobile-statement-text-2{
+        position: absolute;
+        bottom: 0;
+        width: 100vw;
+    }
+    #mobile-statement-text-2 h1{
+        font-weight: 300;
     }
 
     #down-arrow, .google-button{

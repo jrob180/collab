@@ -36,7 +36,8 @@ Released   : 20130902
 <link href= "{% static 'default.css' %}" rel="stylesheet" type="text/css" media="all" />
 
 
-<script>
+ <script>
+
 	var beamer_config = {
 		product_id : 'awoRXhSd25571', //DO NOT CHANGE: This is your product code on Beamer
 		//selector : 'selector', /*Optional: Id, class (or list of both) of the HTML element to use as a button*/
@@ -66,7 +67,7 @@ Released   : 20130902
 		//user_id : "user_id" /*Optional : Input your user ID for better statistics*/
 	};
 </script>
-<script type="text/javascript" src="https://app.getbeamer.com/js/beamer-embed.js" defer="defer"></script>
+<script type="text/javascript" src="https://app.getbeamer.com/js/beamer-embed.js" defer="defer"></script> 
 <!--<link href="fonts.css" rel="stylesheet" type="text/css" media="all" />-->
 <!--[if IE 6]><link href="default_ie6.css" rel="stylesheet" type="text/css" /><![endif]-->
 <script src="https://kit.fontawesome.com/062d86a845.js" crossorigin="anonymous"></script>
@@ -97,6 +98,9 @@ Released   : 20130902
 			<a id = "signout" href = "/accounts/logout/">Logout</a>
 	</div>-->
 	<div class = "banner">
+
+		<div class="corner-ribbon top-left sticky red shadow">BETA</div>
+
 		<img style = " height: 65px; width: auto;" id = logo src = "{% static 'collab.png' %}">
 		{% if course != "" %}
 			<button class = "modal-btn" id = "create">Start Session</button>
@@ -216,14 +220,14 @@ Released   : 20130902
 						<li class = 'list'>
 							<a href='/class{{ forloop.counter }}' class="classes active">
 								<i class="fa fa-bookmark active"></i>
-								<p>{{class}}</p>
+								<p>{{class|truncatechars:18}}</p>
 							</a>
 						</li>
 						{% else %}
 						<li class = 'list'>
 							<a href='/class{{ forloop.counter }}' class="classes">
 								<i class="far fa-bookmark"></i>
-								<p>{{class}}</p>
+								<p>{{class|truncatechars:18}}</p>
 							</a>
 						</li>
 						{% endif%}

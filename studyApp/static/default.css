@@ -376,7 +376,7 @@ color: #6F6F6F;
 	z-index: 6;
 	min-width: 195px;
 
-	overflow-y: scroll;
+	overflow-y: auto;
 }
 #header img{
 	height: 130px;
@@ -659,7 +659,40 @@ margin-bottom: 4em;
 #feedback:hover{
 	background: rgb(56, 84, 136);
 }
-
+/* ribbon */
+.corner-ribbon{
+	width: 200px;
+	background: #0A2A66;
+	position: absolute;
+	top: 25px;
+	left: -50px;
+	text-align: center;
+	line-height: 30px;
+	letter-spacing: 1px;
+	color: white;
+	transform: rotate(-45deg);
+	-webkit-transform: rotate(-45deg);
+	z-index: 25;
+  }
+  
+  /* Custom styles */
+  
+  .corner-ribbon.sticky{
+	position: fixed;
+  }
+  
+  .corner-ribbon.shadow{
+	box-shadow: 0 0 3px rgba(0,0,0,.3);
+  }
+  
+  /* Different positions */
+  
+  .corner-ribbon.top-left{
+	top: 25px;
+	left: -50px;
+	transform: rotate(-45deg);
+	-webkit-transform: rotate(-45deg);
+  }
 .banner {
 	display: flex;
     align-items: center; 
@@ -742,7 +775,6 @@ margin-bottom: 4em;
 	color: white;
 	width: min(5vh, 2.82vw);
 	height: auto;
-	
 }
 
 #signout{
@@ -1269,7 +1301,7 @@ display: inline-block;
 	font-weight: 300;
 }
 .banner_2 p{
-	font-size: 1.7vw;
+	font-size: 1.5vw;
 	position: absolute;
 	top: 50%;
 

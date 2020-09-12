@@ -66,6 +66,8 @@ def create_user_profile(sender, instance, created, **kwargs):
         school = email.split('@')[1]
         if school == 'college.harvard.edu':
             school = "harvard"
+        elif school == 'columbia.edu':
+            school = "columbia"
         elif school == 'princeton.edu':
             school = "princeton"
         elif school == 'stanford.edu':
@@ -73,7 +75,7 @@ def create_user_profile(sender, instance, created, **kwargs):
         elif school == 'penn.edu':
             school = "upenn"
         # course = ...
-        Profile.objects.create(user=instance, room = Room.objects.get(title = "inactive"), zoom_id= "", section = "", image = image, first_login = True, classes = {}, school = school)
+        Profile.objects.create(user=instance, room = Room.objects.get(title = "inactive"), zoom_id= "", section = "", image = image, first_login = True, classes = [], school = school)
 
 @receiver(post_save, sender=User)
 def save_user_profile(sender, instance, **kwargs):
@@ -261,11 +263,13 @@ def classes(request):
     #     return redirect('studyApp-home')
 
     form = SectionForm()
+    
     form.fields['class1'].queryset = Section.objects.filter(Q(school = request.user.profile.school) | Q(name = "None"))
     form.fields['class2'].queryset = Section.objects.filter(Q(school = request.user.profile.school) | Q(name = "None"))
     form.fields['class3'].queryset = Section.objects.filter(Q(school = request.user.profile.school) | Q(name = "None"))
     form.fields['class4'].queryset = Section.objects.filter(Q(school = request.user.profile.school) | Q(name = "None"))
     form.fields['class5'].queryset = Section.objects.filter(Q(school = request.user.profile.school) | Q(name = "None"))
+
     context = {
         #'rooms': Room.objects.all(),
         'form': form,
