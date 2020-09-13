@@ -252,6 +252,7 @@ form label{
 }
 
 .hover-content{
+    display: none; /*Add back for image upload*/
     opacity: 0;
     padding: 0;
     margin: 0 auto;

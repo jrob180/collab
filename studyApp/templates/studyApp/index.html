@@ -97,6 +97,9 @@ Released   : 20130902
 			<a id = "signout" href = "/accounts/logout/">Logout</a>
 	</div>-->
 	<div class = "banner">
+
+		<div class="corner-ribbon top-left sticky red shadow">BETA</div>
+
 		<img style = " height: 65px; width: auto;" id = logo src = "{% static 'collab.png' %}">
 		{% if course != "" %}
 			<button class = "modal-btn" id = "create">Start Session</button>
@@ -148,10 +151,12 @@ Released   : 20130902
 	<div class = "banner_2">
 		{% if course == "" %}
 			<h1>Welcome to your library!</h1>
+			<p>Here you can join active study groups. Select a class on the left menu to create your own!</p>
 		{% else %}
 			<h1>Welcome to {{course}}!</h1>
+			<p>Here you can find study groups for assignments you are working on.</p>
 		{% endif %}
-		<p>Here you can find study groups for assignments you are working on.</p>
+		
 		
 	</div>
 	
@@ -211,7 +216,7 @@ Released   : 20130902
 				</li>
 				{% endif%}
 				{% for class in classes %}
-					{% if class != 'NONE' %}
+					{% if class != '----' %}
 						{% if class == course %}
 						<li class = 'list'>
 							<a href='/class{{ forloop.counter }}' class="classes active">
@@ -329,7 +334,9 @@ Released   : 20130902
 				
 
 				{% if user.profile.image == "" %}
-				<button id = "modalImg" onclick="$('#id_image').click();" style = "background-image: url('{{user.socialaccount_set.all.0.get_avatar_url}}')">
+				<!-- Enables image upload  -->
+				<!-- onclick="$('#id_image').click();" -->
+				<button id = "modalImg" style = "background-image: url('{{user.socialaccount_set.all.0.get_avatar_url}}')">
 					<div class="hover-content">
 						<p>Change Profile Picture</p>
 					</div>
@@ -343,7 +350,8 @@ Released   : 20130902
 				</form>
 
 			{% else %}
-			<button id = "modalImg" onclick="$('#id_image').click();" style = "background-image: url('{{user.profile.image.url}}')">
+			<!-- onclick="$('#id_image').click();" -->
+			<button id = "modalImg"  style = "background-image: url('{{user.profile.image.url}}')">
 				<div class="hover-content">
 					<p>Change Profile Picture</p>
 				</div>

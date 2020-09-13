@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from jsonfield import JSONField
 #from django.db.models.signals import post_save
 from django.dispatch import receiver
 #from django_pg import models
@@ -30,7 +31,7 @@ class Profile(models.Model):
     section = models.CharField(max_length = 100)
     image = models.ImageField(upload_to = "images/", default="")
     first_login = models.BooleanField()
-    classes = models.JSONField()
+    classes = JSONField()
     school = models.CharField(max_length = 100)
 
 class Section(models.Model):
