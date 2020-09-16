@@ -7,7 +7,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Document</title>
 
-        <link href= "{% static 'default.css' %}" rel="stylesheet" type="text/css" media="all" />
+        <link href= "{% static 'login.css' %}" rel="stylesheet" type="text/css" media="all" />
         <link rel="shortcut icon" href="/static/favicon.ico" />
 
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
@@ -18,16 +18,24 @@
     </head>
 
     <body>
-        <div class = "primary">
-            <img style = "height: 60px;" id = logo src = "{% static 'collab.png' %}">
-        </div>
-        <div class = "secondary">
-            <h1>Join your classmates by selecting your courses below</h1>
-        </div>
-    
-      
-        <a id = "privacy" href = "{% static 'CollabPrivacyPolicy.pdf' %}" target = "_blank">Privacy Policy</a>
-        
+        <section class = "main-error" data-index = "1">
+            
+            <img id = "collab" src = "{% static 'collab.png' %}">
+
+            
+            <!--
+            <div id="justifyabovemiddleearth">
+                
+            <div id="textabovemiddleearth">
+                    <div id="middleearth">Classrooms<br/>Study Groups<br/>Breakthroughs</br>Classrooms<br/>Study Groups<br/>Breakthroughs</br></div>
+            </div>
+            -->
+            <h1 class = "typing-error">Whoops! Looks like you tried logging in with an email from an organization we don't yet support...</h1>
+
+            <a href = "/login/" id = "return-error">RETURN TO LOGIN</a>
+
+        </div>     
+
     </body>
 
 </html>

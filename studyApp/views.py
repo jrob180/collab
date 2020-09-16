@@ -17,15 +17,74 @@ from django.dispatch import receiver
 import base64
 import time
 from django.db.models import Q
+# from selenium import webdriver
+# from selenium.webdriver.common.by import By
+
+# from selenium.common.exceptions import TimeoutException
+
+# from selenium.webdriver.support.ui import WebDriverWait # available since 2.4.0
+
+# from selenium.webdriver.support import expected_conditions as EC # available since 2.26.0
+# from bs4 import BeautifulSoup
+
+
+#import pandas as pd
+#from django.contrib.staticfiles.storage import staticfiles_storage
+
 
 
 
 #token = 'eyJhbGciOiJIUzUxMiIsInYiOiIyLjAiLCJraWQiOiIyNWYyMjA2YS1lODA3LTRlMjUtYjhjYi0wZGZjMjBhYjdiNWIifQ.eyJ2ZXIiOiI2IiwiY2xpZW50SWQiOiJ6SmliOG5Rc1RHMFFBX0pnRXFqNVEiLCJjb2RlIjoiZXVnNWlrSG9LZF95ZWlWdUlXc1FfNjNOOUtEY3F1aG9nIiwiaXNzIjoidXJuOnpvb206Y29ubmVjdDpjbGllbnRpZDp6SmliOG5Rc1RHMFFBX0pnRXFqNVEiLCJhdXRoZW50aWNhdGlvbklkIjoiMjM2NDJlMTFlYjBiZTFhZGNiMmFkYjZjNTFhOWJlNDkiLCJ1c2VySWQiOiJ5ZWlWdUlXc1FfNjNOOUtEY3F1aG9nIiwiZ3JvdXBOdW1iZXIiOjAsImF1ZCI6Imh0dHBzOi8vb2F1dGguem9vbS51cyIsImFjY291bnRJZCI6ImhORE8zbG1NU3RTNnhjcS1iMy1QMUEiLCJuYmYiOjE1OTQ0Mzc2NzQsImV4cCI6MTU5NDQ0MTI3NCwidG9rZW5UeXBlIjoiYWNjZXNzX3Rva2VuIiwiaWF0IjoxNTk0NDM3Njc0LCJqdGkiOiJiYWQxNjhjOS03YTc3LTRlYTMtOGI2OC1mZWUwMGIzNWE1ODkiLCJ0b2xlcmFuY2VJZCI6MjJ9.ztaR-aKWc0tiPkmbtwlYQUO92cwURNbXRQxNt_75uvex0rIlTVpQJajgj_TNx5uFheHLfcnCT0-0E13gRgXOHw'
-start = 3300
+start = 4000
 def read_file(request):
     f = open('/Users/arulkapoor118/collab_website/collab/studyApp/loaderio-4049d7ee993d07bdda5b43856ece8ea9.txt', 'r')
     file_content = f.read()
     f.close()
+
+    # Create a new instance of the Firefox driver
+    # driver = webdriver.Chrome('/Users/arulkapoor118/Downloads/chromedriver')
+
+    # # go to the google home page
+    # url = "http://bulletin.columbia.edu/columbia-college/departments-instruction/search/?term=3&pl=0&ph=10&college=CC"
+
+    # driver.get(url)
+    # try:    
+    #     WebDriverWait(driver, 22).until(
+    #         EC.visibility_of_element_located((By.CLASS_NAME, 'courseblocktitle'))
+    #     )
+        
+    #     #a = element.text
+    #     a=driver.page_source
+
+    # finally:
+    #     driver.quit()
+
+    # page_soup = BeautifulSoup(a, 'html.parser')
+    # results = page_soup.find(id='scopo-results')
+    # job_elems = results.find_all('p', class_='courseblocktitle')
+
+    # courses = []
+    # for job_elem in job_elems:
+    #     courses.append(job_elem.text.split('.  ')[0].replace(u'\xa0', u' '))
+    # catalog_numbers=[]
+    # for i in range(len(courses)):
+    #     catalog_numbers.append(courses[i].split(' ',2)[0] + ' ' + courses[i].split(' ',2)[2])
+    # filename = "static/princeton2.csv"
+    # filename = staticfiles_storage.path('princeton2.csv')
+
+    # column = "catalog-number"
+    # school = "princeton"
+
+    # df = pd.read_csv(filename)
+    # catalog_numbers = df[column].tolist()
+
+    #Remove when we can organize classes by course name and id 
+    # (can probably do that with a model update)
+    catalog_numbers = list(set(catalog_numbers))
+
+    for c in catalog_numbers:
+        course = Section(name = c, isSection = False, school = 'columbia')
+        course.save()
     return HttpResponse(file_content, content_type="text/plain")
 
 class Counter:
@@ -72,6 +131,8 @@ def create_user_profile(sender, instance, created, **kwargs):
             school = "stanford"
         elif school == 'penn.edu':
             school = "upenn"
+        elif school == 'columbia.edu':
+            school = "columbia"
         # course = ...
         Profile.objects.create(user=instance, room = Room.objects.get(title = "inactive"), zoom_id= "", section = "", image = image, first_login = True, classes = {}, school = school)
 
@@ -400,7 +461,7 @@ def refresh_access_token():
 #    time.sleep(1) 
 
 def refresh_access_token():
-
+    global start
     token = Token.objects.get(id = 1)
     refresh_token = token.refresh_token
     client_id = 'zJib8nQsTG0QA_JgEqj5Q'
@@ -417,6 +478,7 @@ def refresh_access_token():
     j = json.loads(x.text)
     token.refresh_token= j['refresh_token']
     token.access_token = j['access_token']
+    token.count = start
     token.save()
     #print('\n')
     #print('TOKEN HAS BEEN REFRESHED' + str(time.time()))

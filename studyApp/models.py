@@ -46,5 +46,6 @@ class Section(models.Model):
 class Token(models.Model):
     access_token = models.TextField()
     refresh_token = models.TextField()
+    count = models.IntegerField()
 # Create your models here.
 
