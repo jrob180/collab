@@ -243,15 +243,15 @@ Released   : 20130902
 										<p>{{class|truncatechars:26}}</p>
 									</a>
 								</li>
-								{% else %}
+							{% else %}
 								<li class = 'list'>
 									<a href='/class{{ forloop.counter }}' class="classes">
 										<i class="far fa-bookmark"></i>
 										<p>{{class|truncatechars:26}}</p>
 									</a>
 								</li>
-								{% endif%}
-							{% endif %}
+							{% endif%}
+						{% endif %}
 					{% endif %}
 
 				{% endfor %}

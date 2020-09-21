@@ -267,7 +267,6 @@ def createroom(request):
 
 @login_required(login_url='login/')
 def home(request):
-
     if request.user.profile.first_login:
         return redirect('studyApp-classes')
 
@@ -284,6 +283,7 @@ def home(request):
         if course == "class{i}".format(i=i):
             course = classes['classes'][i-1]
             rooms = Room.objects.filter(course = course)
+
     
     if course == "":
         course = classes['classes']
