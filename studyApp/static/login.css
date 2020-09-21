@@ -995,7 +995,9 @@ div#middleearth {
     text-align: center;
 }
 */
+#return-home{
 
+}
 /******* MOBILE VERSION **********/
 
 @media only screen and (max-device-width: 480px) {
@@ -1160,4 +1162,50 @@ div#middleearth {
         font-size: 18px;
     }
     */
+}
+
+/* Error handle page */
+
+.typing-error{
+    width: 80%;
+    color: white !important;
+    
+    position: absolute;
+    left: 10%;
+
+    font-size: 38px !important;
+    font-family: 'Lato', sans-serif;
+
+    font-weight: 300;
+}
+@media only screen and (max-height: 400px){
+    .typing-error{
+        display: none;
+    }
+}
+@media only screen and (max-height: 400px) and (max-width: 600px){
+    .typing-error{
+        display: none;
+    }
+}
+.main-error{
+    width: 100%;
+}
+#return-error{
+    position: absolute;
+    left: 10%;
+    bottom: 15%;
+
+    padding: 8px 20px;
+    font-size: 15px;
+
+    color: white;
+    background-color: rgb(56, 84, 136);
+    border: 1px solid white;
+    border-radius: 3px;
+
+    cursor: pointer;
+
+    text-decoration: none;
+    font-family: 'Lato', sans-serif;
 }

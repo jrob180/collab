@@ -5,7 +5,7 @@ const classes = ['MATH_25C', 'COMS_1004C', 'ENG_LITC', 'FROSCI_DISCC'];
 
 //getting user profile info 
 var modal = document.querySelector('.modal');
-var modalBtn = document.querySelector('.modal-btn');
+var modalBtn = document.querySelector('.current_room_example-shell');
 var modalBg = document.querySelector('.modal-bg');
 
 var sideModal = document.querySelector('.side-modal');

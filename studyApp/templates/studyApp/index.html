@@ -41,12 +41,11 @@ Released   : 20130902
 		product_id : 'awoRXhSd25571', //DO NOT CHANGE: This is your product code on Beamer
 		//selector : 'selector', /*Optional: Id, class (or list of both) of the HTML element to use as a button*/
 		//display : 'right', /*Optional: Choose how to display the Beamer panel in your site*/
-		//top: 0, /*Optional: Top position offset for the notification bubble*/
 		//right: 0, /*Optional: Right position offset for the notification bubble*/
 		//bottom: 10, /*Optional: Bottom position offset for the notification bubble*/
 		//left: 10, /*Optional: Left position offset for the notification bubble*/
-		button_position: 'bottom-left', /*Optional: Position for the notification button that shows up when the selector parameter is not set*/
-		//icon: 'bell_lines', /*Optional: Alternative icon to display in the notification button*/
+		button_position: 'bottom-right', /*Optional: Position for the notification button that shows up when the selector parameter is not set*/
+		icon: 'bell_lines', /*Optional: Alternative icon to display in the notification button*/
 		//language: 'EN', /*Optional: Bring news in the language of choice*/
 		//filter: 'admin', /*Optional : Bring the news for a certain role as well as all the public news*/
 		//lazy: false, /*Optional : true if you want to manually start the script by calling Beamer.init()*/
@@ -98,20 +97,15 @@ Released   : 20130902
 	</div>-->
 	<div class = "banner">
 
-		<div class="corner-ribbon top-left sticky red shadow">BETA</div>
+		<!-- <div class="corner-ribbon top-left sticky red shadow">BETA</div> -->
 
-		<img style = " height: 65px; width: auto;" id = logo src = "{% static 'collab.png' %}">
+		<img style = " height: 65px; width: auto; z-index: 8" id = logo src = "{% static 'collab.png' %}">
 		{% if course != "" %}
-			<button class = "modal-btn" id = "create">Start Session</button>
+			<!-- <button class = "modal-btn" id = "create">Start Session</button> -->
 		{% endif %}
 
 		{% block content%}
-		{% if user.profile.image == "" %}
-			<button id = "signout" class = "signout" data-tooltip = "Profile" style="background-image: url('{{user.socialaccount_set.all.0.get_avatar_url}}'); justify-content: center;">
-		{% else %}
-			<button id = "signout" class = "signout" data-tooltip = "Profile" style="background-image: url('{{user.profile.image.url}}'); justify-content: center;">
-		{% endif %}
-		</button>
+		
 
 		<!--href = "/accounts/logout/"-->
 </div>
@@ -161,8 +155,8 @@ Released   : 20130902
 	</div>
 	
 	
-	
-	<div id="header"> <!--navbar-->
+	<!-- <div id = "header-ghost"></div>  -->
+	<div id="header">
 		
 		<div>
 			{% if user.profile.school == "columbia" %}
@@ -256,20 +250,20 @@ Released   : 20130902
 	</div>
 	<div class="current_rooms">
 
+		<button class = "current_room_example-shell" class = "rooms">
+			<p>+ New Room</p>
+		</button>
 
 		<!--
 		<div class = "page_title">
 			<button class = "modal-btn">Start Session</button>
 		</div>-->
 			{% for room in rooms %}
+			{{ counter.zero }}
 			{% if room.title != "inactive" %}
-			<div class = "current_room_example">
-
-				{% if room.title|length >= 39 %}
-					<p class = "name" data-tooltip = "{{room.title}}">{{room.title|truncatechars:39}}</p>
-				{% else %}
-					<p class = "name">{{room.title}}</p>
-				{% endif %}
+			<div class = "current_room_example" class = "rooms">
+	
+				
 				<!--CK EDITOR-->
 
 				<!-- <button type="button" class="open-doc" data-toggle="modal" data-target="#myModal">
@@ -293,17 +287,49 @@ Released   : 20130902
 						{% endif %}
 					{% endfor %}
 				</div>
+				<div class = "members">
+					{% if room.title|length > 27 %}
+					<p class = "name" data-tooltip = "{{room.title}}">{{room.title|truncatechars:27}}</p>
+					{% else %}
+					<p class = "name">{{room.title}}</p>
+					{% endif %}
+					<i class="fas fa-users"></i> 
+					<p id = "number">{{counter.count}}</p>
+				</div>
 				<div class = "people">
 					<a class = "join_room" room-name = "{{room.meeting_id}}" href = "{{room.zoom_url}}" target = '_blank'>Join Room</a>
-					<i class="fas fa-users"></i> 
-					<p>{{counter.count}}</p>
-					{{ counter.zero }}
+					
 				</div>
 			</div>
 			{% endif %}
 		{% endfor %}
-	
-	
+
+	</div>
+
+	<div id = "header-ghost-2"></div> 
+	<div id="header-2"> <!--navbar-->
+
+		<div id = header-2-top>
+			<li class = "current-user">
+				{% if user.profile.image == "" %}
+				<button id = "signout" class = "signout" data-tooltip = "Profile" style="background-image: url('{{user.socialaccount_set.all.0.get_avatar_url}}'); justify-content: center;">
+				{% else %}
+				<button id = "signout" class = "signout" data-tooltip = "Profile" style="background-image: url('{{user.profile.image.url}}'); justify-content: center;">
+				{% endif %}
+				</button>
+				<p id = "user-text">{{user.username|truncatechars:18}}</p>
+			</li>
+		</div>
+			<ul id = "bar-2">
+				{% for user in users %}
+				<li class = "current-user">
+					<i class="fas fa-circle"></i>
+					<p>{{user.get_full_name|truncatechars:18}}</p>
+				</li>
+				{% endfor %}
+			</ul>
+			
+		</div>
 	</div>
 
 	<a id = "feedback" class = "feedback" data-tooltip = "Give us Feedback!" href = "https://docs.google.com/forms/d/e/1FAIpQLSdCZKcME2VdzqRcdVepz6r96qQIbHNuXtQYWjDimwvDTUqlgQ/viewform?usp=sf_link " target = "_blank">
@@ -313,6 +339,7 @@ Released   : 20130902
 	<div class="modal-bg">
 		<div class="modal">
 			<h1>What's this meeting for?</h1>
+			<p>(Keep it relatively short)</p>
 			<form id = "post_text" method = "post">
 				{% csrf_token %}
 				<!--<input id = "description" style = "font-size: 20px"></form>-->

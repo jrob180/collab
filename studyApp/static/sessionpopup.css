@@ -23,11 +23,11 @@
     position: relative;
     background-color: white;
     /*Back up */
-    width: 38vw;
-    height: 19vw;
+    width: 55vw;
+    height: 27.5vw;
     /***/
-    width: min(38vw, 67.26vh);
-    height: min(19vw, 33.63vh);
+    width: min(55vw, 85.8vh);
+    height: min(27.5vw, 42.9vh);
     display: flex;
     justify-content: space-evenly;
     align-items: center;
@@ -43,6 +43,9 @@
     .modal h1{
         font-size: 17px !important;
     }
+    .modal p{
+        display: none;
+    }
     .modal input{
         width: 200px !important;
         font-size: 14px !important;
@@ -56,13 +59,16 @@
     }
     
 }
-@media only screen and (max-height: 550px){
+@media only screen and (max-height: 400px){
      .modal{
         width: 350px !important;
         height: 175px !important;
     }
     .modal h1{
         font-size: 17px !important;
+    }
+    .modal p{
+        display: none;
     }
     .modal input{
         width: 200px !important;
@@ -78,22 +84,31 @@
 }
 .modal h1{
     /*Back up */
-    font-size: 1.83vw;
+    font-size: 2.28vw;
     /***/
-    font-size: min(3.25vh, 1.83vw);
-    padding: 0% 0% 8%;
+    font-size: min(3.557vh, 2.28vw);
+    padding: 0% 0% 6%;
     position: absolute;
-    top: 20%;
-    font-weight: 400;
+    top: 15%;
+    font-weight: 500;
+}
+.modal p{
+    /*Back up */
+    font-size: 2vw;
+    /***/
+    font-size: min(3.12vh, 2vw);
+
+    position: absolute;
+    top: 28%;
+    color: rgb(56, 84, 136);
 }
 #description{
-    width: 60%;
+    width: 90%;
     height: 10%;
 }
 form{
     display: flex;
     flex-direction: column;
-    
 }
 form label{
     display: none;
@@ -102,47 +117,49 @@ form label{
     width: 100%;
     display: block;
 
-    margin-right: 0 auto;
-    margin-top: 10%;
+    margin-right: auto;
+    margin-left: auto;
+
+    margin-top: 18%;
 
     padding: 2% 4%;
 
-    background-color: rgb(0, 89, 255);
+    background-color: rgb(56, 84, 136);
     color: white;
     border: none;
     font-family: 'Lato', sans-serif;
     cursor: pointer;
     border-radius: 4px;
     /*Back up */
-    font-size: 1.13vw;
+    font-size: 1.15vw;
     /***/
-    font-size: min(2vh, 1.13vw);
+    font-size: min(2.6vh, 1.456vw);
 }
 #enter:hover{
     text-decoration: underline;
 }
 .modal form{
    position: absolute;
-   top: 50%;
+   top: 45%;
 }
 .modal input{ 
     /*Back up */
-    width: 23vw;
+    width: 28vw;
     height: 1.9vw;
     /***/
 
-    width: min(40vh, 23vw);
+    width: min(50vh, 28vw);
     height: min(3.5vh, 1.9vw);
 
     border-top: none;
     border-right: none;
     border-left: none;
-    border-bottom: 1px solid rgb(0, 89, 255);
+    border-bottom: 1px solid rgb(56, 84, 136);
     outline: 0;
     /*Back up */
-    font-size: 1.512vw;
+    font-size: 2.016vw;
     /***/
-    font-size: min(2.7vh, 1.512vw);
+    font-size: min(3.6vh, 2.016vw);
     font-weight: 700px;
 }
 
@@ -156,10 +173,10 @@ form label{
     font-size: 1.69vw;
     /****/
     font-size: min(3vh, 1.69vw);
-    color: #0A2A66;
+    color: rgb(56, 84, 136);
 }
 .modal-close:hover{
-    color:rgb(0, 89, 255);
+    color:#0A2A66;
 }
 .modal-error{
     font-size: 15px;
@@ -578,6 +595,33 @@ form label{
     }
     .modal h1{
         font-size: 30px !important;
+    }
+    .modal p{
+        font-size: 27px;
+    }
+    .modal-close{
+        font-size: 25px !important;
+    }
+    .modal input{
+        font-size: 25px !important;
+    }
+    #enter{
+        margin-top: 50px;
+        font-size: 20px !important;
+        width: 100%;
+    }
+}
+@media only screen and (min-height: 1300px){
+     /* Create session modal */
+     .modal{
+        width: 700px !important;
+        height: 350px !important;
+    }
+    .modal h1{
+        font-size: 30px !important;
+    }
+    .modal p{
+        font-size: 27px !important;
     }
     .modal-close{
         font-size: 25px !important;
