@@ -3,7 +3,7 @@ from .models import Profile, Section, Room
 from django.forms import ModelForm
 
 class NameForm(forms.Form):
-    your_name = forms.CharField(max_length=33, label = '')
+    your_name = forms.CharField(max_length=40, label = '')
 
 class ImageForm(forms.Form):
     image = forms.ImageField()
