@@ -41,7 +41,8 @@ ALLOWED_HOSTS = [
     'collabrooms.io',
     'www.collabrooms.io',
     '67be1a47ffc6.ngrok.io',
-    'collabrooms-school-env.eba-3gdpj2qu.us-west-2.elasticbeanstalk.com'
+    'collabrooms-school-env.eba-3gdpj2qu.us-west-2.elasticbeanstalk.com',
+    'bf2e52c8259a.ngrok.io'
 ]
 
 

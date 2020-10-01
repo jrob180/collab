@@ -33,7 +33,7 @@ Released   : 20130902
 
 
 <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900" rel="stylesheet" />
-<link href= "{% static 'default.css' %}" rel="stylesheet" type="text/css" media="all" />
+<link href= "{% static 'default.css' %}?version=1.2" rel="stylesheet" type="text/css" media="all" />
 
 
 <script>
@@ -41,7 +41,6 @@ Released   : 20130902
 		product_id : 'awoRXhSd25571', //DO NOT CHANGE: This is your product code on Beamer
 		//selector : 'selector', /*Optional: Id, class (or list of both) of the HTML element to use as a button*/
 		//display : 'right', /*Optional: Choose how to display the Beamer panel in your site*/
-		//top: 0, /*Optional: Top position offset for the notification bubble*/
 		//right: 0, /*Optional: Right position offset for the notification bubble*/
 		//bottom: 10, /*Optional: Bottom position offset for the notification bubble*/
 		//left: 10, /*Optional: Left position offset for the notification bubble*/
@@ -76,11 +75,11 @@ Released   : 20130902
 <script src="https://apis.google.com/js/platform.js" async defer></script> 
 -->
 <!--google API shit-->
-<script src = "{% static 'index.js' %}" defer></script>
+<script src = "{% static 'index.js' %}?version=1.2" defer></script>
 <!--main script for HOMEPAGE-->
-<script src = "{% static 'sessionpopup.js' %}" defer></script>
+<script src = "{% static 'sessionpopup.js' %}?version=1.2" defer></script>
 <!--Starting a session popup script-->
-<link href = "{% static 'sessionpopup.css' %}" rel = "stylesheet">
+<link href = "{% static 'sessionpopup.css' %}?version=1.2" rel = "stylesheet">
 <!--Starting a session popup css-->
 
 <!--Text Editor-->
@@ -98,20 +97,20 @@ Released   : 20130902
 	</div>-->
 	<div class = "banner">
 
-		<div class="corner-ribbon top-left sticky red shadow">BETA</div>
+		<!-- <div class="corner-ribbon top-left sticky red shadow">BETA</div> -->
 
-		<img style = " height: 65px; width: auto;" id = logo src = "{% static 'collab.png' %}">
+		<img style = " height: 65px; width: auto; z-index: 8" id = logo src = "{% static 'collab.png' %}">
 		{% if course != "" %}
-			<button class = "modal-btn" id = "create">Start Session</button>
+			<!-- <button class = "modal-btn" id = "create">Start Session</button> -->
 		{% endif %}
 
 		{% block content%}
 		{% if user.profile.image == "" %}
-			<button id = "signout" class = "signout" data-tooltip = "Profile" style="background-image: url('{{user.socialaccount_set.all.0.get_avatar_url}}'); justify-content: center;">
+			<button id = "signout" class = "signout" data-tooltip = "Profile" style="background-image: url('{{user.socialaccount_set.all.0.get_avatar_url}}'); justify-content: center;"></button>
 		{% else %}
-			<button id = "signout" class = "signout" data-tooltip = "Profile" style="background-image: url('{{user.profile.image.url}}'); justify-content: center;">
+			<button id = "signout" class = "signout" data-tooltip = "Profile" style="background-image: url('{{user.profile.image.url}}'); justify-content: center;"></button>
 		{% endif %}
-		</button>
+		
 
 		<!--href = "/accounts/logout/"-->
 </div>
@@ -151,9 +150,13 @@ Released   : 20130902
 	<div class = "banner_2">
 		{% if course == "" %}
 			<h1>Welcome to your library!</h1>
-			<p>Here you can join study groups. Select a class on the left menu to create your own!</p>
+			<p>Here you can join active study groups. Select a class on the left menu to create your own!</p>
 		{% else %}
-			<h1>Welcome to {{course|slice:"5:"|truncatechars:28}}!</h1>
+			{% if user.profile.school == "columbia" %}
+				<h1>Welcome to {{course|slice:"5:"|truncatechars:35}}!</h1>
+			{% else %}
+				<h1>Welcome to {{course|truncatechars:35}}!</h1>
+			{% endif %}
 			<p>Here you can find study groups for assignments you are working on.</p>
 		{% endif %}
 		
@@ -161,7 +164,7 @@ Released   : 20130902
 	</div>
 	
 	
-	<!-- <div id = "header-ghost"></div> -->
+	<div id = "header-ghost"></div> 
 	<div id="header"> <!--navbar-->
 		
 		<div>
@@ -171,6 +174,8 @@ Released   : 20130902
 				<img src = "{% static 'harvardlogo.png' %}">
 			{% elif user.profile.school == "princeton" %}
 				<img src = "{% static 'plogo.png' %}">
+			{% elif user.profile.school == "hccg" %}
+				<img src = "{% static 'hccg.png' %}">
 			{% else %}
 				<img src = "{% static 'culogo.png' %}">
 			
@@ -219,39 +224,29 @@ Released   : 20130902
 				{% endif%}
 				{% for class in classes %}
 					{% if class != '----' %}
-						{% if user.profile.school == "columbia" %}
-							{% if class == course %}
-							<li class = 'list'>
-								<a href='/class{{ forloop.counter }}' class="classes active">
-									<i class="fa fa-bookmark active"></i>
+						{% if class == course %}
+						<li class = 'list'>
+							<a href='/class{{ forloop.counter }}' class="classes active">
+								<i class="fa fa-bookmark active"></i>
+								{% if user.profile.school == "columbia" %}
 									<p>{{class|slice:"5:"|truncatechars:26}}</p>
-								</a>
-							</li>
-							{% else %}
-							<li class = 'list'>
-								<a href='/class{{ forloop.counter }}' class="classes">
-									<i class="far fa-bookmark"></i>
-									<p>{{class|slice:"5:"|truncatechars:26}}</p>
-								</a>
-							</li>
-							{% endif%}
+								{% else %}
+									<p>{{class|truncatechars:26}}</p>
+								{% endif %}
+							</a>
+						</li>
 						{% else %}
-							{% if class == course %}
-								<li class = 'list'>
-									<a href='/class{{ forloop.counter }}' class="classes active">
-										<i class="fa fa-bookmark active"></i>
-										<p>{{class|truncatechars:26}}</p>
-									</a>
-								</li>
-							{% else %}
-								<li class = 'list'>
-									<a href='/class{{ forloop.counter }}' class="classes">
-										<i class="far fa-bookmark"></i>
-										<p>{{class|truncatechars:26}}</p>
-									</a>
-								</li>
-							{% endif%}
-						{% endif %}
+						<li class = 'list'>
+							<a href='/class{{ forloop.counter }}' class="classes">
+								<i class="far fa-bookmark"></i>
+								{% if user.profile.school == "columbia" %}
+									<p>{{class|slice:"5:"|truncatechars:26}}</p>
+								{% else %}
+									<p>{{class|truncatechars:26}}</p>
+								{% endif %}
+							</a>
+						</li>
+						{% endif%}
 					{% endif %}
 
 				{% endfor %}
@@ -269,27 +264,32 @@ Released   : 20130902
 					</a>
 				</li> -->
 			</ul>
-			
 			<button class = "modal-btn" id = "create-mobile">Start Session</button>
 			
 		</div>
 	</div>
 	<div class="current_rooms">
 
+		{% if course != "" %}
+		<button class = "current_room_example-shell" class = "rooms">
+			<p>+ New Room</p>
+		</button>
+		{% else %}
+		<button class = "current_room_example-shell" class = "rooms" style = "display: none;">
+			<p>+ New Room</p>
+		</button>
+		{% endif %}
 
 		<!--
 		<div class = "page_title">
 			<button class = "modal-btn">Start Session</button>
 		</div>-->
 			{% for room in rooms %}
+			{{ counter.zero }}
 			{% if room.title != "inactive" %}
-			<div class = "current_room_example">
-
-				{% if room.title|length >= 39 %}
-					<p class = "name" data-tooltip = "{{room.title}}">{{room.title|truncatechars:39}}</p>
-				{% else %}
-					<p class = "name">{{room.title}}</p>
-				{% endif %}
+			<div class = "current_room_example" class = "rooms">
+	
+				
 				<!--CK EDITOR-->
 
 				<!-- <button type="button" class="open-doc" data-toggle="modal" data-target="#myModal">
@@ -313,27 +313,33 @@ Released   : 20130902
 						{% endif %}
 					{% endfor %}
 				</div>
+				<div class = "members">
+					{% if room.title|length > 27 %}
+					<p class = "name" data-tooltip = "{{room.title}}">{{room.title|truncatechars:27}}</p>
+					{% else %}
+					<p class = "name">{{room.title}}</p>
+					<!-- {% endif %} -->
+					<i class="fas fa-users"></i> 
+					<p id = "number">{{counter.count}}</p>
+				</div>
 				<div class = "people">
 					<a class = "join_room" room-name = "{{room.meeting_id}}" href = "{{room.zoom_url}}" target = '_blank'>Join Room</a>
-					<i class="fas fa-users"></i> 
-					<p>{{counter.count}}</p>
-					{{ counter.zero }}
+					
 				</div>
 			</div>
 			{% endif %}
 		{% endfor %}
-	
-	
+
 	</div>
 
-	<a id = "feedback" class = "feedback" data-tooltip = "Give us Feedback!" href = "https://docs.google.com/forms/d/e/1FAIpQLSdCZKcME2VdzqRcdVepz6r96qQIbHNuXtQYWjDimwvDTUqlgQ/viewform?usp=sf_link
-" target = "_blank">
+	<a id = "feedback" class = "feedback" data-tooltip = "Give us Feedback!" href = "https://docs.google.com/forms/d/e/1FAIpQLSdCZKcME2VdzqRcdVepz6r96qQIbHNuXtQYWjDimwvDTUqlgQ/viewform?usp=sf_link " target = "_blank">
 		<i class="far fa-comment-alt"></i>
 	</a>
 </div>
 	<div class="modal-bg">
 		<div class="modal">
 			<h1>What's this meeting for?</h1>
+			<p>(Keep it relatively short)</p>
 			<form id = "post_text" method = "post">
 				{% csrf_token %}
 				<!--<input id = "description" style = "font-size: 20px"></form>-->
@@ -405,11 +411,11 @@ Released   : 20130902
 			<p class = "section-prompt">
 				What section are you in?
 			</p>
-			<form class = "class-form-modal" action="{% url 'selectClass' %}" method = "post">
+			<!-- <form class = "class-form-modal" action="{% url 'selectClass' %}" method = "post">
 				{% csrf_token %}
 				{{section_form.as_p}}
-				<button type = "submit">Select Course</button>
-			</form>
+				<button type = "submit">Select Courses</button>
+			</form> -->
 		</div>
 		{% endblock content%}
 

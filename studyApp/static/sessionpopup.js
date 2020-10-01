@@ -5,7 +5,7 @@ const classes = ['MATH_25C', 'COMS_1004C', 'ENG_LITC', 'FROSCI_DISCC'];
 
 //getting user profile info 
 var modal = document.querySelector('.modal');
-var modalBtn = document.querySelector('.modal-btn');
+var modalBtn = document.querySelector('.current_room_example-shell');
 var modalBg = document.querySelector('.modal-bg');
 
 var sideModal = document.querySelector('.side-modal');
@@ -68,7 +68,7 @@ function getCurrentCourseName(){
 
 window.onload=function(){   //displays and closes the modal (popup window)
 
-    
+        
     modalBtn.addEventListener('click', function(){
         modalBg.classList.add('bg-active');
     });
@@ -76,20 +76,7 @@ window.onload=function(){   //displays and closes the modal (popup window)
     modalClose.addEventListener('click', function(){
         modalBg.classList.remove('bg-active');
     });
-/*
-$( document ).ready(function() {
 
-    $(".modal-btn").click(function(){
-        $(".modal-bg").show()
-    });
-
-    window.onclick = function(event) {
-        if (event.target.class != "modal") {
-           $(".modal-bg").hide();
-        }
-     }
-});
-    */
     $(document).ready(function() {
         $('.open-doc').click(function() {
             sideModalBg.classList.add('side-bg-active')

@@ -35,7 +35,7 @@ from django.db.models import Q
 
 
 #token = 'eyJhbGciOiJIUzUxMiIsInYiOiIyLjAiLCJraWQiOiIyNWYyMjA2YS1lODA3LTRlMjUtYjhjYi0wZGZjMjBhYjdiNWIifQ.eyJ2ZXIiOiI2IiwiY2xpZW50SWQiOiJ6SmliOG5Rc1RHMFFBX0pnRXFqNVEiLCJjb2RlIjoiZXVnNWlrSG9LZF95ZWlWdUlXc1FfNjNOOUtEY3F1aG9nIiwiaXNzIjoidXJuOnpvb206Y29ubmVjdDpjbGllbnRpZDp6SmliOG5Rc1RHMFFBX0pnRXFqNVEiLCJhdXRoZW50aWNhdGlvbklkIjoiMjM2NDJlMTFlYjBiZTFhZGNiMmFkYjZjNTFhOWJlNDkiLCJ1c2VySWQiOiJ5ZWlWdUlXc1FfNjNOOUtEY3F1aG9nIiwiZ3JvdXBOdW1iZXIiOjAsImF1ZCI6Imh0dHBzOi8vb2F1dGguem9vbS51cyIsImFjY291bnRJZCI6ImhORE8zbG1NU3RTNnhjcS1iMy1QMUEiLCJuYmYiOjE1OTQ0Mzc2NzQsImV4cCI6MTU5NDQ0MTI3NCwidG9rZW5UeXBlIjoiYWNjZXNzX3Rva2VuIiwiaWF0IjoxNTk0NDM3Njc0LCJqdGkiOiJiYWQxNjhjOS03YTc3LTRlYTMtOGI2OC1mZWUwMGIzNWE1ODkiLCJ0b2xlcmFuY2VJZCI6MjJ9.ztaR-aKWc0tiPkmbtwlYQUO92cwURNbXRQxNt_75uvex0rIlTVpQJajgj_TNx5uFheHLfcnCT0-0E13gRgXOHw'
-start = 4000
+start = 5010
 def read_file(request):
     f = open('/Users/arulkapoor118/collab_website/collab/studyApp/loaderio-4049d7ee993d07bdda5b43856ece8ea9.txt', 'r')
     file_content = f.read()
@@ -123,16 +123,26 @@ def create_user_profile(sender, instance, created, **kwargs):
         image = None
         email = instance.email
         school = email.split('@')[1]
-        if school == 'college.harvard.edu':
+        if school == "college.harvard.edu":
             school = "harvard"
-        elif school == 'princeton.edu':
+        elif school == "princeton.edu":
             school = "princeton"
-        elif school == 'stanford.edu':
+        elif school == "stanford.edu":
             school = "stanford"
-        elif school == 'penn.edu':
+        elif school == "penn.edu":
             school = "upenn"
-        elif school == 'columbia.edu':
+        elif school == "columbia.edu":
             school = "columbia"
+        elif school == "tc.columbia.edu":
+            school = "columbia"
+        elif school == "cumc.columbia.edu":
+            school = "columbia"
+        elif school == "barnard.edu":
+            school = "columbia"
+        elif school == "harvardconsulting.org":
+            school = "hccg"
+        
+        #school = "columbia"
         # course = ...
         Profile.objects.create(user=instance, room = Room.objects.get(title = "inactive"), zoom_id= "", section = "", image = image, first_login = True, classes = {}, school = school)
 
@@ -244,6 +254,7 @@ def createroom(request):
 
         token = Token.objects.get(id = 1).access_token
         rooms = start_meeting(token, start, title, request.user.first_name, request.user.last_name)
+
         #rooms = ['hi', 'hi','hi']
 
         room = Room()
@@ -298,7 +309,7 @@ def home(request):
 
     form = NameForm()
     img_form = ImageForm()
-    section_form = SectionForm()
+    #section_form = SectionForm()
     text_form = TextForm()
 
     
@@ -311,7 +322,7 @@ def home(request):
         'course': course,
         'form': form,
         'img_form': img_form,
-        'section_form': section_form,
+        #'section_form': section_form,
         'text_form': text_form
     }
     return render(request, 'studyApp/index.html', context)
@@ -322,11 +333,21 @@ def classes(request):
     #     return redirect('studyApp-home')
 
     form = SectionForm()
-    form.fields['class1'].queryset = Section.objects.filter(Q(school = request.user.profile.school) | Q(name = "----")).order_by('name')
-    form.fields['class2'].queryset = Section.objects.filter(Q(school = request.user.profile.school) | Q(name = "----")).order_by('name')
-    form.fields['class3'].queryset = Section.objects.filter(Q(school = request.user.profile.school) | Q(name = "----")).order_by('name')
-    form.fields['class4'].queryset = Section.objects.filter(Q(school = request.user.profile.school) | Q(name = "----")).order_by('name')
-    form.fields['class5'].queryset = Section.objects.filter(Q(school = request.user.profile.school) | Q(name = "----")).order_by('name')
+    classlist = Section.objects.filter(Q(school = request.user.profile.school) | Q(name = "----")).order_by('name').values_list('name', flat = True)
+    #querys = querys.tolist()
+    #     #querys.sort()
+    #order_by('name')
+    tempx = list(classlist)
+    querys = []
+    for i in range(len(tempx)):
+        querys.append((tempx[i],tempx[i]))
+    #print(querys)
+
+    form.fields['class1'].choices = querys
+    form.fields['class2'].choices = querys
+    form.fields['class3'].choices = querys
+    form.fields['class4'].choices = querys
+    form.fields['class5'].choices = querys
     context = {
         #'rooms': Room.objects.all(),
         'form': form,
@@ -337,16 +358,15 @@ def classes(request):
 def selectClass(request):
     if request.method == 'POST':
         form = SectionForm(request.POST)
-    
         if form.is_valid(): 
             profile = request.user.profile
             #profile.section = form.cleaned_data['section'].name.upper()
+            class1 = form.cleaned_data['class1'].upper()
+            class2 = form.cleaned_data['class2'].upper()
+            class3 = form.cleaned_data['class3'].upper()
+            class4 = form.cleaned_data['class4'].upper()
+            class5 = form.cleaned_data['class5'].upper()
 
-            class1 = form.cleaned_data['class1'].name.upper()
-            class2 = form.cleaned_data['class2'].name.upper()
-            class3 = form.cleaned_data['class3'].name.upper()
-            class4 = form.cleaned_data['class4'].name.upper()
-            class5 = form.cleaned_data['class5'].name.upper()
 
             classes = list(set([class1, class2, class3, class4, class5]))
             profile.classes = {'classes':classes}
@@ -378,7 +398,7 @@ def start_meeting(access_token, index, topic, firstname, lastname):
     payload = {
     "action": "custCreate",
     "user_info": {
-        "email": str(start)+'l'+'@sdf.gh',
+        "email": str(start)+'le'+'@sdf.gh',
         "type": 1,
         "first_name": firstname,
         "last_name": lastname
