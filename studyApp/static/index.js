@@ -1,3 +1,4 @@
+
 /*
 imageUrl = 'x';
 
@@ -48,7 +49,4 @@ function onSignIn(googleUser) { //signing the user in
 */
 
 //login page text animation
-
- 
-  
 

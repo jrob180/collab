@@ -15,7 +15,7 @@
 
     
     <!--index.html script (MAIN)-->
-    <script src = "{% static 'sessionpopup.js' %}"></script>
+    <script src = "{% static 'index.js' %}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.0.2/anime.js"></script>
     <!--anime.js-->
 
@@ -34,9 +34,6 @@
 
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css" integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc" crossorigin="anonymous">
 
-    <script src = "https://cdnjs.cloudflare.com/ajax/libs/gsap/3.4.2/gsap.min.js" defer></script>
-    <script src = "https://cdnjs.cloudflare.com/ajax/libs/gsap/3.4.2/ScrollTrigger.min.js" defer></script>
-    <!--GSAP CDN-->
 </head>
 <body>
 <!--
@@ -69,10 +66,19 @@
     </div>
     <div class = "sections">
 
-        <section class = "main" data-index = "1">
-            
-                <img id = "collab" src = "{% static 'collab.png' %}">
+        <section data-index = "1" class = "main" data-index = "1">
+                <!-- <div class = "header-bar"> -->
+                    
 
+                    <!-- <ul>
+                        <li><a data-page = "login" href = "#">LOGIN</a></li>
+                        <li><a data-page = "how" href = "#">ABOUT</a></li>
+                        <li><a data-page = "about" href = "#">HOW IT WORKS</a></li>
+                        <div class = "bubble"></div>
+                    </ul> -->
+                <!-- </div> -->
+                
+                <img id = "collab" src = "{% static 'collab-removebg.png' %}">
                 
                 <!--
                 <div id="justifyabovemiddleearth">
@@ -81,9 +87,10 @@
                         <div id="middleearth">Classrooms<br/>Study Groups<br/>Breakthroughs</br>Classrooms<br/>Study Groups<br/>Breakthroughs</br></div>
                 </div>
                 -->
-                <h1 class = "typing">Classrooms are just a click away.</h1>
-
-                
+                <div class = "main-text">
+                    <h1 class = "typing">Collaboration has never been so simple.</h1>
+                    <p>Just log on, find others in your community, and collab.</p>  
+                </div>  
             </div>     
 
             <div class = "google-button">
@@ -101,8 +108,24 @@
             <img id = "undraw4" src = "{% static 'undraw4.png' %}">
 
         </section>
+
+        <div class="intro">
+            <div class="intro-text">
+               <h1 class = "hide">
+                    <span class = "text">Collaboration</span>
+                </h1>
+                <h1 class = "hide">
+                    <span class = "text">is just</span>
+                </h1>
+                <h1 class = "hide">
+                    <span class = "text">a click away.</span>
+                </h1>
+            </div>
+        </div>
+        <div class="slider"></div>
         
-        <section class = "how" data-index = "2" id = "how">
+
+        <section data-index = "2" class = "how" data-index = "2" id = "how">
             <div class = "punchline">
                 <p>COLLABORATE, VIRTUALLY.</p>
                 <h1>Collab brings</h1>
@@ -115,8 +138,16 @@
             <img class = "login-graphic" src = "{% static 'login-graphic2.svg' %}">
         </section>
             
-            
-        <section class = "about" data-index = "3">
+        <section class = "schools">
+            <h1>Now supporting learning at 3 Ivy League Universities</h1>
+            <div class = "school-pics">
+                <img id = "columbia" src = "{% static 'culogo.png' %}">
+                <img class = "school-pic" src = "{% static 'pricetonlogo.png' %}">
+                <img class = "school-pic" src = "{% static 'harvardlogo.png' %}">
+            </div>
+        </section>
+
+        <section data-index = "3" class = "about" data-index = "3">
 
             
             <h1 id = "collab-title">All-in-One Collaboration Hub</h1>
@@ -193,5 +224,19 @@
       });
     }
     </script>
+
+    <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.5.1/gsap.min.js"
+    integrity="sha512-IQLehpLoVS4fNzl7IfH8Iowfm5+RiMGtHykgZJl9AWMgqx0AmJ6cRWcB+GaGVtIsnC4voMfm8f2vwtY+6oPjpQ=="
+    crossorigin="anonymous"
+    ></script>
+    
+    <script>
+        const tl = gsap.timeline({ defaults: { ease: "power1.out" } });
+        tl.to(".text", { y: "0%", duration: 1, stagger: 0.25 });
+        tl.to(".slider", { y: "-150%", duration: 2, delay: 0 });
+        tl.to(".intro", { y: "-150%", duration: 1.25 }, "-=1");
+    </script>
+
 </body>
 </html>

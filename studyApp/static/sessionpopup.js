@@ -482,3 +482,9 @@ DecoupledEditor
     //side modal
 
 //removing CKEditor toolbar items
+
+$(document).ready(function(){
+    $(".names").mouseover(function(){
+        $(".far fa-paper-plane").css("background-color", "red");
+    });
+});

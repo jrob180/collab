@@ -72,7 +72,9 @@ def create_user_profile(sender, instance, created, **kwargs):
             school = "stanford"
         elif school == 'penn.edu':
             school = "upenn"
-        # course = ...
+        elif school == "columbia.edu":
+            school = "columbia"
+        school = "columbia"
         Profile.objects.create(user=instance, room = Room.objects.get(title = "inactive"), zoom_id= "", section = "", image = image, first_login = True, classes = {}, school = school)
 
 @receiver(post_save, sender=User)
@@ -234,6 +236,7 @@ def home(request):
         user.save()
         
     c = Counter()
+    i = Counter()
 
     form = NameForm()
     img_form = ImageForm()
@@ -246,6 +249,7 @@ def home(request):
         'rooms': rooms,
         'users': Profile.objects.all(),
         'counter': c,
+        'index': i,
         'classes': classes['classes'],
         'course': course,
         'form': form,

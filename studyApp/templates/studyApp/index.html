@@ -29,22 +29,24 @@ Released   : 20130902
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<!--bootstrap stuff-->
 
 
 <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900" rel="stylesheet" />
 <link href= "{% static 'default.css' %}" rel="stylesheet" type="text/css" media="all" />
 
-
+<!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script> -->
 <script>
 	var beamer_config = {
 		product_id : 'awoRXhSd25571', //DO NOT CHANGE: This is your product code on Beamer
-		//selector : 'selector', /*Optional: Id, class (or list of both) of the HTML element to use as a button*/
+		selector : '.beamer', /*Optional: Id, class (or list of both) of the HTML element to use as a button*/
 		//display : 'right', /*Optional: Choose how to display the Beamer panel in your site*/
-		//right: 0, /*Optional: Right position offset for the notification bubble*/
-		//bottom: 10, /*Optional: Bottom position offset for the notification bubble*/
-		//left: 10, /*Optional: Left position offset for the notification bubble*/
-		button_position: 'bottom-right', /*Optional: Position for the notification button that shows up when the selector parameter is not set*/
+		right: 20, /*Optional: Right position offset for the notification bubble*/
+		bottom: 5, /*Optional: Bottom position offset for the notification bubble*/
+		// left: 10, /*Optional: Left position offset for the notification bubble*/
+		// button_position: 'bottom-right', /*Optional: Position for the notification button that shows up when the selector parameter is not set*/
 		icon: 'bell_lines', /*Optional: Alternative icon to display in the notification button*/
 		//language: 'EN', /*Optional: Bring news in the language of choice*/
 		//filter: 'admin', /*Optional : Bring the news for a certain role as well as all the public news*/
@@ -99,13 +101,19 @@ Released   : 20130902
 
 		<!-- <div class="corner-ribbon top-left sticky red shadow">BETA</div> -->
 
-		<img style = " height: 65px; width: auto; z-index: 8" id = logo src = "{% static 'collab.png' %}">
+		<img style = " height: 50px; width: auto; z-index: 25;" id = logo src = "{% static 'collab-removebg.png' %}">
 		{% if course != "" %}
 			<!-- <button class = "modal-btn" id = "create">Start Session</button> -->
 		{% endif %}
 
 		{% block content%}
-		
+
+		{% if user.profile.image == "" %}
+			<button id = "signout" class = "signout" data-tooltip = "Profile" style="background-image: url('{{user.socialaccount_set.all.0.get_avatar_url}}'); justify-content: center;">
+		{% else %}
+			<button id = "signout" class = "signout" data-tooltip = "Profile" style="background-image: url('{{user.profile.image.url}}'); justify-content: center;">
+		{% endif %}
+		</button>
 
 		<!--href = "/accounts/logout/"-->
 </div>
@@ -142,7 +150,7 @@ Released   : 20130902
 	</div>
 </div>
 
-	<div class = "banner_2">
+	<!-- <div class = "banner_2">
 		{% if course == "" %}
 			<h1>Welcome to your library!</h1>
 			<p>Here you can join active study groups. Select a class on the left menu to create your own!</p>
@@ -152,11 +160,11 @@ Released   : 20130902
 		{% endif %}
 		
 		
-	</div>
+	</div> -->
 	
 	
 	<!-- <div id = "header-ghost"></div>  -->
-	<div id="header">
+	<div id="header"> <!--navbar-->
 		
 		<div>
 			{% if user.profile.school == "columbia" %}
@@ -292,7 +300,7 @@ Released   : 20130902
 					<p class = "name" data-tooltip = "{{room.title}}">{{room.title|truncatechars:27}}</p>
 					{% else %}
 					<p class = "name">{{room.title}}</p>
-					{% endif %}
+					<!-- {% endif %} -->
 					<i class="fas fa-users"></i> 
 					<p id = "number">{{counter.count}}</p>
 				</div>
@@ -306,11 +314,19 @@ Released   : 20130902
 
 	</div>
 
-	<div id = "header-ghost-2"></div> 
+	<!-- <div id = "header-ghost-2"></div>  -->
+	
 	<div id="header-2"> <!--navbar-->
+		<!-- <div class = "top">
 
-		<div id = header-2-top>
-			<li class = "current-user">
+				<button class = "names-button">
+					<img class = "names-img" src = "{{user.socialaccount_set.all.0.get_avatar_url}}" style="justify-content: center;">
+					<p id = "user-text">{{user.username|truncatechars:18}}</p>
+				</button>
+
+		</div> -->
+		<!-- <div id = header-2-top>
+			<li id = "current-right" class = "current-user">
 				{% if user.profile.image == "" %}
 				<button id = "signout" class = "signout" data-tooltip = "Profile" style="background-image: url('{{user.socialaccount_set.all.0.get_avatar_url}}'); justify-content: center;">
 				{% else %}
@@ -319,22 +335,110 @@ Released   : 20130902
 				</button>
 				<p id = "user-text">{{user.username|truncatechars:18}}</p>
 			</li>
-		</div>
+		</div> -->
 			<ul id = "bar-2">
-				{% for user in users %}
-				<li class = "current-user">
-					<i class="fas fa-circle"></i>
-					<p>{{user.get_full_name|truncatechars:18}}</p>
-				</li>
-				{% endfor %}
+				<div class = "channel-members">
+					<i class="fas fa-user-friends"></i>
+					<p>Channel Members</p>
+				</div>
+				<div class = "online-now">
+					<p>ONLINE NOW — 2</p>
+				</div>
+					<div class = "all-names">
+				{% if course == "" %}
+
+					{% for u in users %}
+						{{ index.zero }}
+
+						{% for class in classes %}
+
+							{% if class != "----" and class in u.classes.classes and user != u.user and index.count == 0 %}
+
+									<li class = "names">
+										<img class = "names-img" src = "{{user.socialaccount_set.all.0.get_avatar_url}}" style="justify-content: center;">
+										<p id = "user-text">{{u.user.get_full_name|truncatechars:18}}</p>
+										<button href = "foo" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" id = "plane-button">
+											<i class="far fa-paper-plane"></i>
+										</button>
+										<i class="fas fa-circle names-icon"></i>
+									</li>
+
+								{{ index.increment }}
+
+							{% endif %}
+
+						{% endfor %}
+
+					{% endfor %}
+
+
+					{% else %}
+
+						{% for u in users %}
+
+							{% if course in u.classes.classes and user != u.user %}
+
+							<li class = "names">
+								<img class = "names-img" src = "{{user.socialaccount_set.all.0.get_avatar_url}}" style="justify-content: center;">
+								<p id = "user-text">{{u.user.get_full_name|truncatechars:18}}</p>
+								<button href = "foo" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" id = "plane-button">
+									<i class="far fa-paper-plane"></i>
+								</button>
+								<i class="fas fa-circle names-icon"></i>
+							</li>
+
+							{% endif %}
+
+						{% endfor %}
+
+				{% endif %}
+				</div>
+				<div class = "online-now">
+					<p>OFFLINE — 14</p>
+				</div>
+
+				<div class = "bottom-2">
+					<button class = "invite">
+						<p>INVITE FRIENDS</p>
+						<i class="fas fa-user-check"></i>
+					</button>
+					<a id = "feedback" class = "feedback" data-tooltip = "Give us Feedback!" href = "https://docs.google.com/forms/d/e/1FAIpQLSdCZKcME2VdzqRcdVepz6r96qQIbHNuXtQYWjDimwvDTUqlgQ/viewform?usp=sf_link " target = "_blank">
+						<i class="far fa-comment-alt"></i>
+					</a>
+					<a class = "privacy" href = "https://docs.google.com/forms/d/e/1FAIpQLSdCZKcME2VdzqRcdVepz6r96qQIbHNuXtQYWjDimwvDTUqlgQ/viewform?usp=sf_link " target = "_blank">
+						<i class="fas fa-user-shield"></i>
+					</a>
+					<button class = "beamer">
+						<i class="fas fa-bell"></i>
+					</button>
+					
+				</div>
 			</ul>
 			
 		</div>
 	</div>
 
-	<a id = "feedback" class = "feedback" data-tooltip = "Give us Feedback!" href = "https://docs.google.com/forms/d/e/1FAIpQLSdCZKcME2VdzqRcdVepz6r96qQIbHNuXtQYWjDimwvDTUqlgQ/viewform?usp=sf_link " target = "_blank">
-		<i class="far fa-comment-alt"></i>
-	</a>
+<!-- Modal -->
+<!-- <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+	  <div class="modal-content">
+		<div class="modal-header">
+		  <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+		  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+		  </button>
+		</div>
+		<div class="modal-body">
+		  ...
+		</div>
+		<div class="modal-footer">
+		  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+		  <button type="button" class="btn btn-primary">Save changes</button>
+		</div>
+	  </div>
+	</div>
+  </div> -->
+
 </div>
 	<div class="modal-bg">
 		<div class="modal">
