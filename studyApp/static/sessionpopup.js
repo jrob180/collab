@@ -488,3 +488,88 @@ $(document).ready(function(){
         $(".far fa-paper-plane").css("background-color", "red");
     });
 });
+
+//invite js
+$(document).ready(function () {
+    $(".modal-body button").click(function (event) {
+        event.preventDefault();
+        CopyToClipboard("http://collabrooms.io", true, "Copied!");
+    });
+});
+
+function CopyToClipboard(value, showNotification, notificationText) {
+    var $temp = $("<input>");
+    $(".modal-body").append($temp);
+    $temp.val(value).select();
+    document.execCommand("copy");
+    $temp.remove();
+
+    if (typeof showNotification === 'undefined') {
+        showNotification = true;
+    }
+    if (typeof notificationText === 'undefined') {
+        notificationText = "Copied to clipboard";
+    }
+
+    var notificationTag = $("div.copy-notification-live");
+    if (showNotification && notificationTag.length == 0) {
+        notificationTag = $("<div/>", { "class": "copy-notification-live", text: notificationText });
+        $(".modal-body").append(notificationTag);
+
+        notificationTag.fadeIn("slow", function () {
+            setTimeout(function () {
+                notificationTag.fadeOut("slow", function () {
+                    notificationTag.remove();
+                });
+            }, 1000);
+        });
+    }
+}
+
+
+/* Social media sharing */
+const facebookBtn = document.querySelector(".facebook-btn");
+const twitterBtn = document.querySelector(".twitter-btn");
+// const pinterestBtn = document.querySelector(".pinterest-btn");
+const linkedinBtn = document.querySelector(".linkedin-btn");
+const whatsappBtn = document.querySelector(".whatsapp-btn");
+const redditBtn = document.querySelector(".reddit-btn");
+
+function init() {
+  const pinterestImg = document.querySelector(".pinterest-img");
+
+  let postUrl = encodeURI(document.location.href);
+  let postTitle = encodeURI("Hi everyone, please check this out: ");
+//   let postImg = encodeURI(pinterestImg.src);
+
+  facebookBtn.setAttribute(
+    "href",
+    `https://www.facebook.com/sharer.php?u=${postUrl}`
+  );
+
+  twitterBtn.setAttribute(
+    "href",
+    `https://twitter.com/share?url=${postUrl}&text=${postTitle}`
+  );
+
+//   pinterestBtn.setAttribute(
+//     "href",
+//     `https://pinterest.com/pin/create/bookmarklet/?media=${postImg}&url=${postUrl}&description=${postTitle}`
+//   );
+
+  linkedinBtn.setAttribute(
+    "href",
+    `https://www.linkedin.com/shareArticle?url=${postUrl}&title=${postTitle}`
+  );
+
+  whatsappBtn.setAttribute(
+    "href",
+    `https://wa.me/?text=${postTitle} ${postUrl}`
+  );
+  redditBtn.setAttribute(
+    "href",
+    `https://www.reddit.com/submit?url=${postUrl}&title=${postTitle}`
+  );
+}
+
+init();
