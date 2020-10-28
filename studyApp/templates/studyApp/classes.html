@@ -7,7 +7,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Document</title>
 
-        <link href= "{% static 'default.css' %}?version=1.2" rel="stylesheet" type="text/css" media="all" />
+        <link href= "{% static 'default.css' %}" rel="stylesheet" type="text/css" media="all" />
         <link rel="shortcut icon" href="/static/favicon.ico" />
 
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
@@ -19,7 +19,7 @@
 
     <body>
         <div class = "primary">
-            <img style = "height: 60px;" id = logo src = "{% static 'collab.png' %}">
+            <img style = "height: 60px;" id = logo src = "{% static 'collab-removebg.png' %}">
         </div>
         <div class = "secondary">
             <h1>Join your classmates by selecting your courses below</h1>
@@ -29,7 +29,7 @@
             <form class = "class-form" action="{% url 'selectClass' %}" method = "post">
                 {% csrf_token %}
                 {{form.as_p}}
-                <button type = "submit">Select Courses</button>
+                <button type = "submit">Select Course</button>
             </form>
 
         </div>

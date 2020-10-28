@@ -1,4 +1,3 @@
-
 var index = 0;
 const participants = [];
 const classes = ['MATH_25C', 'COMS_1004C', 'ENG_LITC', 'FROSCI_DISCC'];
@@ -68,15 +67,21 @@ function getCurrentCourseName(){
 
 window.onload=function(){   //displays and closes the modal (popup window)
 
-        
-    modalBtn.addEventListener('click', function(){
-        modalBg.classList.add('bg-active');
-    });
-    
-    modalClose.addEventListener('click', function(){
-        modalBg.classList.remove('bg-active');
+
+/*
+$( document ).ready(function() {
+
+    $(".modal-btn").click(function(){
+        $(".modal-bg").show()
     });
 
+    window.onclick = function(event) {
+        if (event.target.class != "modal") {
+           $(".modal-bg").hide();
+        }
+     }
+});
+    */
     $(document).ready(function() {
         $('.open-doc').click(function() {
             sideModalBg.classList.add('side-bg-active')
@@ -101,17 +106,27 @@ window.onload=function(){   //displays and closes the modal (popup window)
   
     //choosing classes
 
-    choicesBtn.addEventListener('click', function(){
-        choicesBg.classList.add('choices-active');
-    });
-    choicesClose.addEventListener('click', function(){
-        choicesBg.classList.remove('choices-active');
-    });
+    // choicesBtn.addEventListener('click', function(){
+    //     choicesBg.classList.add('choices-active');
+    // });
+    // choicesClose.addEventListener('click', function(){
+    //     choicesBg.classList.remove('choices-active');
+    // });
 
     var form = document.getElementById("imgForm")
 
     form.addEventListener("input", function () {
         form.submit();
+    });
+
+    var modalBtn = document.querySelector('.current_room_example-shell');
+
+    modalBtn.addEventListener('click', function(){
+        modalBg.classList.add('bg-active');
+    });
+    
+    modalClose.addEventListener('click', function(){
+        modalBg.classList.remove('bg-active');
     });
 
    //stores the value from the input field and creates a room with it
@@ -469,3 +484,94 @@ DecoupledEditor
     //side modal
 
 //removing CKEditor toolbar items
+
+$(document).ready(function(){
+    $(".names").mouseover(function(){
+        $(".far fa-paper-plane").css("background-color", "red");
+    });
+});
+
+//invite js
+$(document).ready(function () {
+    $(".modal-body button").click(function (event) {
+        event.preventDefault();
+        CopyToClipboard("http://collabrooms.io", true, "Copied!");
+    });
+});
+
+function CopyToClipboard(value, showNotification, notificationText) {
+    var $temp = $("<input>");
+    $(".modal-body").append($temp);
+    $temp.val(value).select();
+    document.execCommand("copy");
+    $temp.remove();
+
+    if (typeof showNotification === 'undefined') {
+        showNotification = true;
+    }
+    if (typeof notificationText === 'undefined') {
+        notificationText = "Copied to clipboard";
+    }
+
+    var notificationTag = $("div.copy-notification-live");
+    if (showNotification && notificationTag.length == 0) {
+        notificationTag = $("<div/>", { "class": "copy-notification-live", text: notificationText });
+        $(".modal-body").append(notificationTag);
+
+        notificationTag.fadeIn("slow", function () {
+            setTimeout(function () {
+                notificationTag.fadeOut("slow", function () {
+                    notificationTag.remove();
+                });
+            }, 1000);
+        });
+    }
+}
+
+
+/* Social media sharing */
+const facebookBtn = document.querySelector(".facebook-btn");
+const twitterBtn = document.querySelector(".twitter-btn");
+// const pinterestBtn = document.querySelector(".pinterest-btn");
+const linkedinBtn = document.querySelector(".linkedin-btn");
+const whatsappBtn = document.querySelector(".whatsapp-btn");
+const redditBtn = document.querySelector(".reddit-btn");
+
+function init() {
+  const pinterestImg = document.querySelector(".pinterest-img");
+
+  let postUrl = encodeURI(location.protocol + '//' + location.host);
+  let postTitle = encodeURI("Check out Collab Rooms to find others working on the same things you are!: ");
+//   let postImg = encodeURI(pinterestImg.src);
+
+  facebookBtn.setAttribute(
+    "href",
+    `https://www.facebook.com/sharer.php?u=${postUrl}`
+  );
+
+  twitterBtn.setAttribute(
+    "href",
+    `https://twitter.com/share?url=${postUrl}&text=${postTitle}`
+  );
+
+//   pinterestBtn.setAttribute(
+//     "href",
+//     `https://pinterest.com/pin/create/bookmarklet/?media=${postImg}&url=${postUrl}&description=${postTitle}`
+//   );
+
+  linkedinBtn.setAttribute(
+    "href",
+    `https://www.linkedin.com/shareArticle?url=${postUrl}&title=${postTitle}`
+  );
+
+  whatsappBtn.setAttribute(
+    "href",
+    `https://wa.me/?text=${postTitle} ${postUrl}`
+  );
+  redditBtn.setAttribute(
+    "href",
+    `https://www.reddit.com/submit?url=${postUrl}&title=${postTitle}`
+  );
+}
+
+init();

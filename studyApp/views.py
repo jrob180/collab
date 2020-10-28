@@ -17,6 +17,9 @@ from django.dispatch import receiver
 import base64
 import time
 from django.db.models import Q
+from .gmail import send_email
+
+
 # from selenium import webdriver
 # from selenium.webdriver.common.by import By
 
@@ -26,7 +29,16 @@ from django.db.models import Q
 
 # from selenium.webdriver.support import expected_conditions as EC # available since 2.26.0
 # from bs4 import BeautifulSoup
+# from selenium import webdriver
+# from selenium.webdriver.common.by import By
 
+# from selenium.common.exceptions import TimeoutException
+
+# from selenium.webdriver.support.ui import WebDriverWait # available since 2.4.0
+
+# from selenium.webdriver.support import expected_conditions as EC # available since 2.26.0
+# from bs4 import BeautifulSoup
+# from webdriver_manager.chrome import ChromeDriverManager
 
 #import pandas as pd
 #from django.contrib.staticfiles.storage import staticfiles_storage
@@ -35,11 +47,28 @@ from django.db.models import Q
 
 
 #token = 'eyJhbGciOiJIUzUxMiIsInYiOiIyLjAiLCJraWQiOiIyNWYyMjA2YS1lODA3LTRlMjUtYjhjYi0wZGZjMjBhYjdiNWIifQ.eyJ2ZXIiOiI2IiwiY2xpZW50SWQiOiJ6SmliOG5Rc1RHMFFBX0pnRXFqNVEiLCJjb2RlIjoiZXVnNWlrSG9LZF95ZWlWdUlXc1FfNjNOOUtEY3F1aG9nIiwiaXNzIjoidXJuOnpvb206Y29ubmVjdDpjbGllbnRpZDp6SmliOG5Rc1RHMFFBX0pnRXFqNVEiLCJhdXRoZW50aWNhdGlvbklkIjoiMjM2NDJlMTFlYjBiZTFhZGNiMmFkYjZjNTFhOWJlNDkiLCJ1c2VySWQiOiJ5ZWlWdUlXc1FfNjNOOUtEY3F1aG9nIiwiZ3JvdXBOdW1iZXIiOjAsImF1ZCI6Imh0dHBzOi8vb2F1dGguem9vbS51cyIsImFjY291bnRJZCI6ImhORE8zbG1NU3RTNnhjcS1iMy1QMUEiLCJuYmYiOjE1OTQ0Mzc2NzQsImV4cCI6MTU5NDQ0MTI3NCwidG9rZW5UeXBlIjoiYWNjZXNzX3Rva2VuIiwiaWF0IjoxNTk0NDM3Njc0LCJqdGkiOiJiYWQxNjhjOS03YTc3LTRlYTMtOGI2OC1mZWUwMGIzNWE1ODkiLCJ0b2xlcmFuY2VJZCI6MjJ9.ztaR-aKWc0tiPkmbtwlYQUO92cwURNbXRQxNt_75uvex0rIlTVpQJajgj_TNx5uFheHLfcnCT0-0E13gRgXOHw'
-start = 5010
+start = 12000
 def read_file(request):
     f = open('/Users/arulkapoor118/collab_website/collab/studyApp/loaderio-4049d7ee993d07bdda5b43856ece8ea9.txt', 'r')
     file_content = f.read()
     f.close()
+
+    # Create a new instance of the Firefox driver
+    #driver = webdriver.Chrome('/Users/arulkapoor118/Downloads/chromedriver')
+
+    # go to the google home page
+
+    # URL = 'http://student.mit.edu/catalog/search.cgi?search=&style=verbatim'
+    # page = requests.get(URL)
+
+    # soup = BeautifulSoup(page.content, 'html.parser').get_text()
+    # lines =soup.split('\n')
+    # courses = lines[56:5411]
+    # courses[5000:]
+    # catalog_numbers=[]
+    # for c in courses:
+    #     catalog_numbers.append(c.split(' ')[0])
+
 
     # Create a new instance of the Firefox driver
     # driver = webdriver.Chrome('/Users/arulkapoor118/Downloads/chromedriver')
@@ -80,11 +109,37 @@ def read_file(request):
 
     #Remove when we can organize classes by course name and id 
     # (can probably do that with a model update)
-    catalog_numbers = list(set(catalog_numbers))
+    # go to the google home page
+    # url = "https://courses.yale.edu/?srcdb=guide2020&col=YC"
 
-    for c in catalog_numbers:
-        course = Section(name = c, isSection = False, school = 'columbia')
-        course.save()
+
+    # driver = webdriver.Chrome(ChromeDriverManager().install())
+
+    # driver.get(url)
+    # try:    
+    #     WebDriverWait(driver, 10).until(
+    #         EC.visibility_of_element_located((By.CLASS_NAME, 'result--group-start'))
+    #     )
+        
+    #     #a = element.text
+    #     a=driver.page_source
+
+    # finally:
+    #     driver.quit()
+    # page_soup = BeautifulSoup(a, 'html.parser')
+    # #results = page_soup.find(id='scopo-results')
+    # job_elems = page_soup.find_all('div', class_='result result--group-start')
+    # codes = page_soup.find_all('span', class_='result__code')
+    
+    
+    # courses= []
+    # for c in codes:
+    #     courses.append(c.text)
+    # catalog_numbers = list(set(courses))
+
+    # for c in catalog_numbers:
+    #     course = Section(name = c, isSection = False, school = 'yale')
+    #     course.save()
     return HttpResponse(file_content, content_type="text/plain")
 
 class Counter:
@@ -129,6 +184,10 @@ def create_user_profile(sender, instance, created, **kwargs):
             school = "princeton"
         elif school == "stanford.edu":
             school = "stanford"
+        elif school == "yale.edu":
+            school = "yale"
+        elif school == "mit.edu":
+            school = "mit"
         elif school == "penn.edu":
             school = "upenn"
         elif school == "columbia.edu":
@@ -271,6 +330,18 @@ def createroom(request):
         data = {
             'meeting': rooms[0]
         }
+        emails = []
+        classmates = Profile.objects.filter(school = user.school)
+        for cm in classmates:
+            if course.upper() in cm.classes['classes'] and cm != user:
+                emails.append(cm.user.email)
+                
+        if(len(emails)>0):
+            separator = ', '
+            recipients = separator.join(emails)
+
+            text = "Looks like one of your classmates is trying to collaborate...\nHead over to http://collabrooms.io to join them!"
+            send_email(recipients, "New session created in "+course,  text)
         return JsonResponse(data)
     else:
         return HttpResponse("Request method is not a GET")
@@ -289,11 +360,15 @@ def home(request):
     #     #course = 'SECTION ABC'
     #     course = user.profile.section
     rooms = 0
+    classmates = []
     classes = user.profile.classes
     for i in range(1,6):
         if course == "class{i}".format(i=i):
             course = classes['classes'][i-1]
             rooms = Room.objects.filter(course = course)
+            #classmates = Profile.objects.filter(classes__classes__contains = course).values_list('name', flat = True)
+            classmates = Profile.objects.filter(classes__contains= {"classes":['----', course]})
+            print(classmates)
 
     
     if course == "":
@@ -306,6 +381,7 @@ def home(request):
         user.save()
         
     c = Counter()
+    i = Counter()
 
     form = NameForm()
     img_form = ImageForm()
@@ -318,6 +394,7 @@ def home(request):
         'rooms': rooms,
         'users': Profile.objects.all(),
         'counter': c,
+        'index': i,
         'classes': classes['classes'],
         'course': course,
         'form': form,
@@ -333,6 +410,7 @@ def classes(request):
     #     return redirect('studyApp-home')
 
     form = SectionForm()
+    
     classlist = Section.objects.filter(Q(school = request.user.profile.school) | Q(name = "----")).order_by('name').values_list('name', flat = True)
     #querys = querys.tolist()
     #     #querys.sort()
@@ -353,6 +431,8 @@ def classes(request):
         'form': form,
 
     }
+
+    
     return render(request, 'studyApp/classes.html', context)
 
 def selectClass(request):
@@ -426,7 +506,7 @@ def start_meeting(access_token, index, topic, firstname, lastname):
         ],
         "host_video": False,
         "in_meeting": False,
-        #"join_before_host": True,
+        "join_before_host": True, #un-comment to test about hillel
         "mute_upon_entry": False,
         "participant_video": False,
         "use_pmi": False,

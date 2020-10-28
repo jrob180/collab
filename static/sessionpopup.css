@@ -2,7 +2,7 @@
     position: fixed;
     width: 100%;
     height: 100vh;
-    z-index: 10;
+    z-index: 20;
     top: 0;
     left: 0;
     background-color: rgba(0, 0, 0, 0.5);
@@ -189,7 +189,7 @@ form label{
     position: fixed;
     width: 100%;
     height: 100vh;
-    z-index: 6;
+    z-index: 40;
     top: 0;
     left: 0;
     display: flex;
@@ -198,6 +198,7 @@ form label{
     visibility: hidden;
     opacity: 0;
     transition: visibility 0s, opacity 0.5s;
+    outline: 0 !important;
 }
 .user-active{
     visibility: visible;
@@ -205,24 +206,26 @@ form label{
 }
 .user-modal{
     position: fixed;
-    top: 100px;
-    right: 3vw;
+    top: 60px;
+    right: 10px;
     background-color: white;
     /*Back up */
-    width: 19vw;
-    height: 30.8vw;
+    /* width: 19vw;
+    height: 30.8vw; */
     /****/
-    width: min(19vw, 33.63vh);
+    /* width: min(19vw, 33.63vh);
     min-width: 197px;
     height: min(30.8vw, 55vh);
-    min-height: 319.14px;
+    min-height: 319.14px; */
+    width: 220px;
+    height: 400px;
     display: flex;
     justify-content: space-evenly;
     align-items: center;
     flex-direction: column;
     font-family: 'Lato', sans-serif;
     border-radius: 5px;
-    box-shadow: -3px 2px 10px rgb(202, 201, 201), 3px 3px 10px rgb(202, 201, 201);
+    /* box-shadow: -3px 2px 10px rgb(202, 201, 201), 3px 3px 10px rgb(202, 201, 201); */
 
     overflow-y: visible;
 }
@@ -322,9 +325,10 @@ form label{
     font-weight: 100;
     cursor: pointer;
     /*Back up */
-    font-size: 1.5vw;
+    /* font-size: 1.5vw; */
     /***/
-    font-size: calc(15px + min(.56vh, .27vw));
+    /* font-size: calc(15px + min(.56vh, .27vw)); */
+    font-size: 16px;
     color: #0A2A66;
 }
 #logoutClose:hover{
@@ -558,7 +562,7 @@ form label{
 
 @media only screen and (min-width: 1800px){
     /* user modal */
-    .user-modal{
+    /* .user-modal{
         width: 350px;
         height: 567px;
     }
@@ -586,7 +590,7 @@ form label{
     }
     .hover-content p{
         font-size: 18px;
-    }
+    } */
     /*******/
     /* Create session modal */
     .modal{
