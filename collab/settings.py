@@ -44,7 +44,8 @@ ALLOWED_HOSTS = [
     'collabrooms-school-env.eba-3gdpj2qu.us-west-2.elasticbeanstalk.com',
     'bf2e52c8259a.ngrok.io',
     '4c47ecedfffd.ngrok.io',
-    '68af6977fa20.ngrok.io'
+    '68af6977fa20.ngrok.io',
+    'collabroomsdbfree.cibx2skc9iqp.us-west-2.rds.amazonaws.com'
 ]
 
 
@@ -127,6 +128,18 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
+if 'RDS_HOSTNAME' in os.environ:
+    DATABASES = {
+            'default': {
+                'ENGINE': 'django.db.backends.mysql',
+                'NAME': 'CollabRoomsDBFree',
+                'USER': 'admin',
+                'PASSWORD': 'q123q123',
+                'HOST': 'collabroomsdbfree.cibx2skc9iqp.us-west-2.rds.amazonaws.com',
+                'PORT': '3306',
+            }
+        }
+
 '''
 DATABASES = {
 

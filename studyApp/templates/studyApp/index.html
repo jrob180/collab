@@ -632,10 +632,13 @@ frm.submit(function () {
 		url: "/createroom",
 		data: {
 			room_title: frm.serializeArray()[1].value,
-			course: course
+			course: course,
+			isSchedule: frm.serializeArray()[2].value,
 		},
 		success: function (data) {
-			window.open(data.meeting, '_blank');
+			if(data.isSchedule == ""){
+				window.open(data.meeting, '_blank');
+			}
 			
 			link = '/class' + index + '/';
 			window.open(link, "_self");

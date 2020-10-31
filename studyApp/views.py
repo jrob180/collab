@@ -47,7 +47,7 @@ from .gmail import send_email
 
 
 #token = 'eyJhbGciOiJIUzUxMiIsInYiOiIyLjAiLCJraWQiOiIyNWYyMjA2YS1lODA3LTRlMjUtYjhjYi0wZGZjMjBhYjdiNWIifQ.eyJ2ZXIiOiI2IiwiY2xpZW50SWQiOiJ6SmliOG5Rc1RHMFFBX0pnRXFqNVEiLCJjb2RlIjoiZXVnNWlrSG9LZF95ZWlWdUlXc1FfNjNOOUtEY3F1aG9nIiwiaXNzIjoidXJuOnpvb206Y29ubmVjdDpjbGllbnRpZDp6SmliOG5Rc1RHMFFBX0pnRXFqNVEiLCJhdXRoZW50aWNhdGlvbklkIjoiMjM2NDJlMTFlYjBiZTFhZGNiMmFkYjZjNTFhOWJlNDkiLCJ1c2VySWQiOiJ5ZWlWdUlXc1FfNjNOOUtEY3F1aG9nIiwiZ3JvdXBOdW1iZXIiOjAsImF1ZCI6Imh0dHBzOi8vb2F1dGguem9vbS51cyIsImFjY291bnRJZCI6ImhORE8zbG1NU3RTNnhjcS1iMy1QMUEiLCJuYmYiOjE1OTQ0Mzc2NzQsImV4cCI6MTU5NDQ0MTI3NCwidG9rZW5UeXBlIjoiYWNjZXNzX3Rva2VuIiwiaWF0IjoxNTk0NDM3Njc0LCJqdGkiOiJiYWQxNjhjOS03YTc3LTRlYTMtOGI2OC1mZWUwMGIzNWE1ODkiLCJ0b2xlcmFuY2VJZCI6MjJ9.ztaR-aKWc0tiPkmbtwlYQUO92cwURNbXRQxNt_75uvex0rIlTVpQJajgj_TNx5uFheHLfcnCT0-0E13gRgXOHw'
-start = 12000
+start = 14000
 def read_file(request):
     f = open('/Users/arulkapoor118/collab_website/collab/studyApp/loaderio-4049d7ee993d07bdda5b43856ece8ea9.txt', 'r')
     file_content = f.read()
@@ -301,6 +301,11 @@ def createroom(request):
     if request.method == 'GET':
         title = request.GET['room_title']
         course_ind = request.GET['course']
+        time = "TIME"
+        isSchedule = True
+        if request.GET['isSchedule'] == "":
+            isSchedule = False
+
 
         form = NameForm()
         global start
@@ -321,6 +326,7 @@ def createroom(request):
         room.zoom_url = rooms[1]
         room.meeting_id = rooms[2]
         room.course = course
+        room.isLive = not isSchedule
         room.save()
         
         user.room = room
@@ -328,7 +334,8 @@ def createroom(request):
 
         start+=1
         data = {
-            'meeting': rooms[0]
+            'meeting': rooms[0],
+            'isSchedule': isSchedule
         }
         emails = []
         classmates = Profile.objects.filter(school = user.school)
@@ -339,9 +346,12 @@ def createroom(request):
         if(len(emails)>0):
             separator = ', '
             recipients = separator.join(emails)
-
-            text = "Looks like one of your classmates is trying to collaborate...\nHead over to http://collabrooms.io to join them!"
-            send_email(recipients, "New session created in "+course,  text)
+            if isSchedule:
+                text = "Looks like one of your friends has scheduled a session at "+time+"...\nHead over to http://collabrooms.io to join them!"
+                send_email(recipients, "New session created at "+time+" in "+course,  text)
+            else:
+                text = "Looks like one of your friends is trying to hang-out...\nHead over to http://collabrooms.io to join them!"
+                send_email(recipients, "New session created in "+course,  text)
         return JsonResponse(data)
     else:
         return HttpResponse("Request method is not a GET")
@@ -478,7 +488,7 @@ def start_meeting(access_token, index, topic, firstname, lastname):
     payload = {
     "action": "custCreate",
     "user_info": {
-        "email": str(start)+'le'+'@sdf.gh',
+        "email": str(start)+'ale'+'@sdf.gh',
         "type": 1,
         "first_name": firstname,
         "last_name": lastname
@@ -490,7 +500,7 @@ def start_meeting(access_token, index, topic, firstname, lastname):
 
     payload2 = {
     "created_at": "2019-09-05T16:54:14Z",
-    "duration": 60,
+    #"duration": 90, #changed from 60
     #"host_id": str(id),
     "id": 1100000+index,
     "settings": {
@@ -517,7 +527,63 @@ def start_meeting(access_token, index, topic, firstname, lastname):
     "status": "waiting",
     "timezone": "America/New_York",
     "topic": topic,
-    "type": 2,
+    "type": 1, #changed from 2 to 1
+    }
+
+    meeting_endpoint = 'https://api.zoom.us/v2/users/'+id+'/meetings'
+    headers2 = {'Authorization': "Bearer " + access_token, 'host': 'zoom.us', "Content-Type": 'application/json'}
+    x = requests.post(meeting_endpoint, headers = headers2, json = payload2)
+    return (json.loads(x.text)['start_url'], json.loads(x.text)['join_url'],json.loads(x.text)['id'])
+
+def schedule_meeting(access_token, index, topic, firstname, lastname):
+    global start
+    start+=1
+    
+    headers = {'Authorization': "Bearer " + access_token, 'host': 'zoom.us', "Content-Type": 'application/json'}
+    payload = {
+    "action": "custCreate",
+    "user_info": {
+        "email": str(start)+'ale'+'@sdf.gh',
+        "type": 1,
+        "first_name": firstname,
+        "last_name": lastname
+    }
+    }
+    user_endpoint = 'https://api.zoom.us/v2/users'
+    u = requests.post(user_endpoint, headers = headers, json = payload)
+    id = json.loads(u.text)['id']
+
+    payload2 = {
+    "created_at": "2019-09-05T16:54:14Z",
+    #"duration": 90, #changed from 60
+    #"host_id": str(id),
+    "id": 1100000+index,
+    "settings": {
+        "alternative_hosts": "",
+        "approval_type": 2,
+        "audio": "both",
+        "close_registration": False,
+        "cn_meeting": False,
+        "enforce_login": False,
+        "enforce_login_domains": "",
+        "global_dial_in_countries": [
+        "US"
+        ],
+        "host_video": False,
+        "in_meeting": False,
+        "join_before_host": True, #un-comment to test about hillel
+        "mute_upon_entry": False,
+        "participant_video": False,
+        "use_pmi": False,
+        "waiting_room": False,
+        "watermark": False,
+    },
+    "start_time": "2020-11-57T23:46:00Z",
+    "status": "waiting",
+    "timezone": "America/New_York",
+    "topic": topic,
+    "schedule_for": str(id),
+    "type": 2, #changed from 2 to 1
     }
 
     meeting_endpoint = 'https://api.zoom.us/v2/users/'+id+'/meetings'
