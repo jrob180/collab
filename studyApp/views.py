@@ -18,6 +18,8 @@ import base64
 import time
 from django.db.models import Q
 from .gmail import send_email
+import random
+import string
 
 
 # from selenium import webdriver
@@ -140,6 +142,13 @@ def read_file(request):
     # for c in catalog_numbers:
     #     course = Section(name = c, isSection = False, school = 'yale')
     #     course.save()
+    # sections = Section.objects.using('sqlite').all()
+    # indexing = 0
+    # for s in sections:
+    #     print(indexing)
+    #     s.save(using = 'default')
+    #     indexing+=1
+
     return HttpResponse(file_content, content_type="text/plain")
 
 class Counter:
@@ -152,6 +161,11 @@ class Counter:
     def zero(self):
         self.count = 0
         return ''
+
+def get_random_string(length):
+    letters = string.ascii_lowercase
+    result_str = ''.join(random.choice(letters) for i in range(length))
+    print("Random string of length", length, "is:", result_str)
 
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
@@ -438,7 +452,9 @@ def classes(request):
 def selectClass(request):
     if request.method == 'POST':
         form = SectionForm(request.POST)
+        print("hello")
         if form.is_valid(): 
+            print("hello")
             profile = request.user.profile
             #profile.section = form.cleaned_data['section'].name.upper()
             class1 = form.cleaned_data['class1'].upper()
@@ -471,14 +487,14 @@ def joinroom(request):
         return HttpResponse("Request method is not a GET")
 
 def start_meeting(access_token, index, topic, firstname, lastname):
-    global start
-    start+=1
-    
+    #global start
+    #start+=1
+    email_name = get_random_string(20)
     headers = {'Authorization': "Bearer " + access_token, 'host': 'zoom.us', "Content-Type": 'application/json'}
     payload = {
     "action": "custCreate",
     "user_info": {
-        "email": str(start)+'le'+'@sdf.gh',
+        "email": str(email_name)+'le'+'@sdf.gh',
         "type": 1,
         "first_name": firstname,
         "last_name": lastname
