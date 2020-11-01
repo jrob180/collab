@@ -1,7 +1,7 @@
 db.sqlite3
 media/**
 _pycache_/**
-migrations/**
+#migrations/**
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
 !.elasticbeanstalk/*.cfg.yml
