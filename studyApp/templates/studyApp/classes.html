@@ -31,14 +31,14 @@
             <img style = "height: 60px;" id = logo src = "{% static 'collab-removebg.png' %}">
         </div>
         <div class = "secondary">
-            <h1>Join your classmates by selecting your courses below</h1>
+            <h1>Join your classmates by selecting your top threads below</h1>
         </div>
         {% block content %}
         <div class = "choose-section">
             <form class = "class-form" action="{% url 'selectClass' %}" method = "post">
                 {% csrf_token %}
                 {{form.as_p}}
-                <button type = "submit">Select Course</button>
+                <button type = "submit">Select Threads</button>
             </form>
 
         </div>

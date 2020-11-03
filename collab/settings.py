@@ -45,11 +45,7 @@ ALLOWED_HOSTS = [
     'bf2e52c8259a.ngrok.io',
     '4c47ecedfffd.ngrok.io',
     '68af6977fa20.ngrok.io',
-<<<<<<< HEAD
     '29f860c2ae24.ngrok.io'
-=======
-    'collabroomsdbfree.cibx2skc9iqp.us-west-2.rds.amazonaws.com'
->>>>>>> 2b5d710e70bbf5a6e67b8fd648cd5d0661e19b4a
 ]
 
 
@@ -146,22 +142,6 @@ DATABASES = {
             'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
         }
     }
-<<<<<<< HEAD
-
-=======
-}
-if 'RDS_HOSTNAME' in os.environ:
-    DATABASES = {
-            'default': {
-                'ENGINE': 'django.db.backends.mysql',
-                'NAME': 'CollabRoomsDBFree',
-                'USER': 'admin',
-                'PASSWORD': 'q123q123',
-                'HOST': 'collabroomsdbfree.cibx2skc9iqp.us-west-2.rds.amazonaws.com',
-                'PORT': '3306',
-            }
-        }
->>>>>>> 2b5d710e70bbf5a6e67b8fd648cd5d0661e19b4a
 
 '''
 DATABASES = {
@@ -228,7 +208,7 @@ AUTHENTICATION_BACKENDS = (
 
 )
 
-SITE_ID = 1
+SITE_ID = 2
 LOGIN_REDIRECT_URL = '/'
 ACCOUNT_LOGOUT_REDIRECT_URL = '/login'
 ACCOUNT_LOGOUT_ON_GET = True

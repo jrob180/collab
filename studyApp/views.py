@@ -166,6 +166,7 @@ def get_random_string(length):
     letters = string.ascii_lowercase
     result_str = ''.join(random.choice(letters) for i in range(length))
     print("Random string of length", length, "is:", result_str)
+    return result_str
 
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
@@ -315,10 +316,10 @@ def createroom(request):
     if request.method == 'GET':
         title = request.GET['room_title']
         course_ind = request.GET['course']
-        time = "TIME"
-        isSchedule = True
-        if request.GET['isSchedule'] == "":
-            isSchedule = False
+        # time = "TIME"
+        # isSchedule = True
+        # if request.GET['isSchedule'] == "":
+        #     isSchedule = False
 
 
         form = NameForm()
@@ -340,7 +341,7 @@ def createroom(request):
         room.zoom_url = rooms[1]
         room.meeting_id = rooms[2]
         room.course = course
-        room.isLive = not isSchedule
+        #room.isLive = not isSchedule
         room.save()
         
         user.room = room
@@ -349,7 +350,7 @@ def createroom(request):
         start+=1
         data = {
             'meeting': rooms[0],
-            'isSchedule': isSchedule
+          #  'isSchedule': isSchedule
         }
         emails = []
         classmates = Profile.objects.filter(school = user.school)
@@ -360,12 +361,14 @@ def createroom(request):
         if(len(emails)>0):
             separator = ', '
             recipients = separator.join(emails)
-            if isSchedule:
-                text = "Looks like one of your friends has scheduled a session at "+time+"...\nHead over to http://collabrooms.io to join them!"
-                send_email(recipients, "New session created at "+time+" in "+course,  text)
-            else:
-                text = "Looks like one of your friends is trying to hang-out...\nHead over to http://collabrooms.io to join them!"
-                send_email(recipients, "New session created in "+course,  text)
+            text = "Looks like one of your friends has scheduled a session...\nHead over to http://collabrooms.io to join them!"
+            send_email(recipients, "New session created in "+course,  text)
+            # if isSchedule:
+            #     text = "Looks like one of your friends has scheduled a session at "+time+"...\nHead over to http://collabrooms.io to join them!"
+            #     send_email(recipients, "New session created at "+time+" in "+course,  text)
+            # else:
+            #     text = "Looks like one of your friends is trying to hang-out...\nHead over to http://collabrooms.io to join them!"
+            #     send_email(recipients, "New session created in "+course,  text)
         return JsonResponse(data)
     else:
         return HttpResponse("Request method is not a GET")
@@ -512,6 +515,7 @@ def start_meeting(access_token, index, topic, firstname, lastname):
     }
     user_endpoint = 'https://api.zoom.us/v2/users'
     u = requests.post(user_endpoint, headers = headers, json = payload)
+    #print(u.text)
     id = json.loads(u.text)['id']
 
     payload2 = {

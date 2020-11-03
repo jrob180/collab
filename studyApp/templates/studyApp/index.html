@@ -285,7 +285,7 @@ Released   : 20130902
 	<div class="current_rooms">
 
 		{% if course == "" %}
-			<p id = "select-message">Select a class on the left to start a new session</p>
+			<p id = "select-message">Select a thread on the left to start a new session</p>
 		{% endif %}
 
 
@@ -643,12 +643,12 @@ frm.submit(function () {
 		data: {
 			room_title: frm.serializeArray()[1].value,
 			course: course,
-			isSchedule: frm.serializeArray()[2].value,
+			//isSchedule: frm.serializeArray()[2].value,
 		},
 		success: function (data) {
-			if(data.isSchedule == ""){
-				window.open(data.meeting, '_blank');
-			}
+			//if(data.isSchedule == ""){
+			window.open(data.meeting, '_blank');
+			//}
 
 			link = '/class' + index + '/';
 			window.open(link, "_self");

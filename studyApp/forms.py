@@ -2,10 +2,12 @@ from django import forms
 from .models import Profile, Section, Room
 from django.forms import ModelForm
 
-classlist = list(Section.objects.order_by('name').values_list('name', flat = True))
-classset = []
-for i in range(len(classlist)):
-    classset.append((classlist[i],classlist[i]))
+def classset():
+    classlist = list(Section.objects.order_by('name').values_list('name', flat = True))
+    class_tuple = []
+    for i in range(len(classlist)):
+        class_tuple.append((classlist[i],classlist[i]))
+    return class_tuple
 
 
     
@@ -63,15 +65,15 @@ class SectionForm(forms.Form):
     # widget=forms.Select(attrs={'class':'choices-page', 'id': 'choices-page-modal'}))
 
 
-    class1 = forms.ChoiceField(choices = classset, label = "What is your first class?",
+    class1 = forms.ChoiceField(choices = classset(), label = "What is your first thread?",
     widget=forms.Select(attrs={'class':'choices-page', 'id': 'choices-page-modal'}))
-    class2 = forms.ChoiceField(choices = classset, label = "What is your second class?",
+    class2 = forms.ChoiceField(choices = classset(), label = "What is your second thread?",
     widget=forms.Select(attrs={'class':'choices-page', 'id': 'choices-page-modal'}))
-    class3 = forms.ChoiceField(choices = classset, label = "What is your third class?",
+    class3 = forms.ChoiceField(choices = classset(), label = "What is your third thread?",
     widget=forms.Select(attrs={'class':'choices-page', 'id': 'choices-page-modal'}))
-    class4 = forms.ChoiceField(choices = classset, label = "What is your fourth class?",
+    class4 = forms.ChoiceField(choices = classset(), label = "What is your fourth thread?",
     widget=forms.Select(attrs={'class':'choices-page', 'id': 'choices-page-modal'}))
-    class5 = forms.ChoiceField(choices = classset, label = "What is your fifth class?",
+    class5 = forms.ChoiceField(choices = classset(), label = "What is your fifth thread?",
     widget=forms.Select(attrs={'class':'choices-page', 'id': 'choices-page-modal'}))
 
 
