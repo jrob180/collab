@@ -36,45 +36,24 @@ class SectionForm(forms.Form):
     # section = forms.CharField(label='What section are you in?', 
     # widget=forms.Select(choices=SECTION_CHOICES))
 
-    #section = forms.ModelChoiceField(queryset = Section.objects.all(), to_field_name="name", empty_label=None, label = "What section are you in?",
-    #widget=forms.Select(attrs={'class':'choices-page', 'id': 'choices-page-modal'}))
-    #class0 = forms.ModelChoiceField(queryset = Section.objects.filter(name = test), to_field_name="name", empty_label=None, label = "What is your first class?",
-    #widget=forms.Select(attrs={'class':'choices-page', 'id': 'choices-page-modal'}))
-    # classset = Section.objects.filter(name = "----").values_list('name', flat = True)
-    # classset = [("----","----")]
-    # class1 = forms.ModelChoiceField(queryset = classset, empty_label=None, label = "What is your first class?",
-    # widget=forms.Select(attrs={'class':'choices-page', 'id': 'choices-page-modal'}))
-    # class2 = forms.ModelChoiceField(queryset = classset, to_field_name="name", empty_label=None, label = "What is your second class?",
-    # widget=forms.Select(attrs={'class':'choices-page', 'id': 'choices-page-modal'}))
-    # class3 = forms.ModelChoiceField(queryset = classset, to_field_name="name", empty_label=None, label = "What is your third class?",
-    # widget=forms.Select(attrs={'class':'choices-page', 'id': 'choices-page-modal'}))
-    # class4 = forms.ModelChoiceField(queryset = classset, to_field_name="name", empty_label=None, label = "What is your fourth class?",
-    # widget=forms.Select(attrs={'class':'choices-page', 'id': 'choices-page-modal'}))
-    # class5 = forms.ModelChoiceField(queryset = classset, to_field_name="name", empty_label=None, label = "What is your fifth class?",
-    # widget=forms.Select(attrs={'class':'choices-page', 'id': 'choices-page-modal'}))
-
-    # class1 = forms.ModelChoiceField(queryset = classset, empty_label=None, label = "What is your first class?",
-    # widget=forms.Select(attrs={'class':'choices-page', 'id': 'choices-page-modal'}))
-    # class2 = forms.ModelChoiceField(queryset = classset, empty_label=None, label = "What is your second class?",
-    # widget=forms.Select(attrs={'class':'choices-page', 'id': 'choices-page-modal'}))
-    # class3 = forms.ModelChoiceField(queryset = classset, empty_label=None, label = "What is your third class?",
-    # widget=forms.Select(attrs={'class':'choices-page', 'id': 'choices-page-modal'}))
-    # class4 = forms.ModelChoiceField(queryset = classset, empty_label=None, label = "What is your fourth class?",
-    # widget=forms.Select(attrs={'class':'choices-page', 'id': 'choices-page-modal'}))
-    # class5 = forms.ModelChoiceField(queryset = classset, empty_label=None, label = "What is your fifth class?",
-    # widget=forms.Select(attrs={'class':'choices-page', 'id': 'choices-page-modal'}))
+    def __init__(self, *args, **kwargs):
+        super(SectionForm, self).__init__(*args, **kwargs)
+        classlist = list(Section.objects.order_by('name').values_list('name', flat = True))
+        self.class_tuple = []
+        for i in range(len(classlist)):
+            self.class_tuple.append((classlist[i],classlist[i]))
 
 
-    class1 = forms.ChoiceField(choices = classset(), label = "What is your first thread?",
-    widget=forms.Select(attrs={'class':'choices-page', 'id': 'choices-page-modal'}))
-    class2 = forms.ChoiceField(choices = classset(), label = "What is your second thread?",
-    widget=forms.Select(attrs={'class':'choices-page', 'id': 'choices-page-modal'}))
-    class3 = forms.ChoiceField(choices = classset(), label = "What is your third thread?",
-    widget=forms.Select(attrs={'class':'choices-page', 'id': 'choices-page-modal'}))
-    class4 = forms.ChoiceField(choices = classset(), label = "What is your fourth thread?",
-    widget=forms.Select(attrs={'class':'choices-page', 'id': 'choices-page-modal'}))
-    class5 = forms.ChoiceField(choices = classset(), label = "What is your fifth thread?",
-    widget=forms.Select(attrs={'class':'choices-page', 'id': 'choices-page-modal'}))
+        self.fields['class1'] = forms.ChoiceField(choices = self.class_tuple, label = "What is your first thread?",
+        widget=forms.Select(attrs={'class':'choices-page', 'id': 'choices-page-modal'}))
+        self.fields['class2'] = forms.ChoiceField(choices = self.class_tuple, label = "What is your second thread?",
+        widget=forms.Select(attrs={'class':'choices-page', 'id': 'choices-page-modal'}))
+        self.fields['class3'] = forms.ChoiceField(choices = self.class_tuple, label = "What is your third thread?",
+        widget=forms.Select(attrs={'class':'choices-page', 'id': 'choices-page-modal'}))
+        self.fields['class4'] = forms.ChoiceField(choices = self.class_tuple, label = "What is your fourth thread?",
+        widget=forms.Select(attrs={'class':'choices-page', 'id': 'choices-page-modal'}))
+        self.fields['class5'] = forms.ChoiceField(choices = self.class_tuple, label = "What is your fifth thread?",
+        widget=forms.Select(attrs={'class':'choices-page', 'id': 'choices-page-modal'}))
 
 
     

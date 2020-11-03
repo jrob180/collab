@@ -361,7 +361,7 @@ def createroom(request):
         if(len(emails)>0):
             separator = ', '
             recipients = separator.join(emails)
-            text = "Looks like one of your friends has scheduled a session...\nHead over to http://collabrooms.io to join them!"
+            text = "Looks like one of your friends has made a session...\nHead over to http://collabrooms.io to join them!"
             send_email(recipients, "New session created in "+course,  text)
             # if isSchedule:
             #     text = "Looks like one of your friends has scheduled a session at "+time+"...\nHead over to http://collabrooms.io to join them!"
@@ -437,19 +437,23 @@ def classes(request):
     #     return redirect('studyApp-home')
 
     form = SectionForm()
-    
     classlist = Section.objects.filter(Q(school = request.user.profile.school) | Q(name = "----")).order_by('name').values_list('name', flat = True)
-    #querys = querys.tolist()
-    #     #querys.sort()
-    #order_by('name')
     tempx = list(classlist)
     querys = []
     for i in range(len(tempx)):
         querys.append((tempx[i],tempx[i]))
+
+    #querys = querys.tolist()
+    #     #querys.sort()
+    #order_by('name')
+    # tempx = list(classlist)
+    # querys = []
+    # for i in range(len(tempx)):
+    #     querys.append((tempx[i],tempx[i]))
     #print(querys)
 
     form.fields['class1'].choices = querys
-    form.fields['class2'].choices = querys
+    form.fields['class2'].choices = querys    
     form.fields['class3'].choices = querys
     form.fields['class4'].choices = querys
     form.fields['class5'].choices = querys
