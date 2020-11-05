@@ -39,6 +39,25 @@ Released   : 20130902
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
+
+<!-- Boostrap 4-->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+
+<!-- Font Awesome -->
+<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
+<!-- Moment.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.23.0/moment.min.js" integrity="sha256-VBLiveTKyUZMEzJd6z2mhfxIqz3ZATCuVMawPZGzIfA=" crossorigin="anonymous"></script>
+
+<!-- Tempus Dominus Bootstrap 4 -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.1.2/css/tempusdominus-bootstrap-4.min.css" integrity="sha256-XPTBwC3SBoWHSmKasAk01c08M6sIA5gF5+sRxqak2Qs=" crossorigin="anonymous" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.1.2/js/tempusdominus-bootstrap-4.min.js" integrity="sha256-z0oKYg6xiLq3yJGsp/LsY9XykbweQlHl42jHv2XTBz4=" crossorigin="anonymous"></script>
+
+
+<!-- Google Analytics -->
 <script id="google-analytics" type="text/javascript">
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -382,12 +401,11 @@ Released   : 20130902
 				{% if course == "" %}
 
 					{% for u in users %}
-						{{ index.zero }}
+					
 
-						{% for class in classes %}
+						
 
-							{% if class != "----" and class in u.classes.classes and user != u.user and not u.user.is_superuser and index.count == 0%}
-
+							{% if u.school == user.profile.school and user != u.user and not u.user.is_superuser%}
 									<li class = "names">
 										<img class = "names-img" src = "{{u.user.socialaccount_set.all.0.get_avatar_url}}" style="justify-content: center;">
 										<p id = "user-text">{{u.user.get_full_name|truncatechars:16}}</p>
@@ -396,21 +414,18 @@ Released   : 20130902
 										</button>
 										<i class="fas fa-circle names-icon"></i>
 									</li>
-
-								{{ index.increment }}
-
 							{% endif %}
 
-						{% endfor %}
+					
 
 					{% endfor %}
 
 
-					{% else %}
+				{% else %}
 
 						{% for u in users %}
 
-							{% if course in u.classes.classes and user != u.user %}
+							{% if course in u.classes.classes and user != u.user and not u.user.is_superuser%}
 
 							<li class = "names">
 								<img class = "names-img" src = "{{u.user.socialaccount_set.all.0.get_avatar_url}}" style="justify-content: center;">
@@ -512,7 +527,14 @@ Released   : 20130902
 			<form id = "post_text" method = "post">
 				{% csrf_token %}
 				<!--<input id = "description" style = "font-size: 20px"></form>-->
-				{{form}}
+				{{form.your_name}}
+				<!-- {{form.isSchedule}}
+				<div class="input-group date" id="datetimepicker1" data-target-input="nearest">
+					{{ form.date }}
+					<div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
+					  <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+					</div>
+				  </div> -->
 				<button type = "submit" target = "_blank" id = "enter">Create Session</button>
 			</form>
 			<span class = "modal-close">
@@ -671,4 +693,14 @@ frm.submit(function () {
 });
 </script>
 </body>
+<!-- <link rel="stylesheet" type="text/css" href="/jquery.datetimepicker.css"/>
+<script src="/jquery.js"></script>
+<script src="/build/jquery.datetimepicker.full.min.js"></script>
+<script>
+	$(function () {
+		$("#datetimepicker1").datetimepicker({
+		format: 'DD/MM/YYYY HH:mm',
+		});
+	});
+</script> -->
 </html>

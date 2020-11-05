@@ -171,25 +171,7 @@ def get_random_string(length):
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
-        '''
-        global start
-        start+=1
-        
-        headers = {'Authorization': "Bearer " + token, 'host': 'zoom.us', "Content-Type": 'application/json'}
-        payload = {
-        "action": "custCreate",
-        "user_info": {
-            "email": str(start)+'l'+'@sdf.gh',
-            "type": 1,
-            "first_name": str(instance.first_name),
-            "last_name": str(instance.last_name)
-        }
-        }
-        user_endpoint = 'https://api.zoom.us/v2/users'
-        u = requests.post(user_endpoint, headers = headers, json = payload)
-        id = json.loads(u.text)['id']
-        Profile.objects.create(user=instance, room = Room.objects.get(title = "inactive"), zoom_id= id)
-        '''
+  
         image = None
         email = instance.email
         school = email.split('@')[1]
@@ -399,7 +381,9 @@ def home(request):
 
     
     if course == "":
+        print(len(Profile.objects.filter(school = 'harvard')))
         course = classes['classes']
+        #course = Section.objects.filter(school = user.profile.school)
         rooms = Room.objects.filter(course__in = course)
         course = ""
 

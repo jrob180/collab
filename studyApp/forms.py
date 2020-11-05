@@ -1,6 +1,9 @@
 from django import forms
 from .models import Profile, Section, Room
 from django.forms import ModelForm
+from datetime import datetime
+from dateutil import tz
+
 
 def classset():
     classlist = list(Section.objects.order_by('name').values_list('name', flat = True))
@@ -9,12 +12,25 @@ def classset():
         class_tuple.append((classlist[i],classlist[i]))
     return class_tuple
 
+def get_time():
+    now = datetime.now()
+    utc = now.replace(tzinfo = tz.tzutc())
+    local = utc.astimezone(tz.tzlocal())
+    #timezonenow = now.replace(tzinfo=timezone.utc).astimezone(tz=None)
+    return local.strftime('%m/%d/%Y %H:%M')
 
     
 class NameForm(forms.Form):
     your_name = forms.CharField(max_length=33, label = '')
     # isSchedule = forms.BooleanField(initial=False, label = 'Schedule for now or later?', required=False)
-    # time = forms.TimeField(required = False, widget=forms.TimeInput(format='%H:%M'))
+    # date = forms.DateTimeField(
+    #     input_formats=['%m/%d/%Y %H:%M'], initial=get_time,
+    #     widget=forms.DateTimeInput(attrs={
+    #         'class': 'form-control datetimepicker-input',
+    #         'data-target': '#datetimepicker1'
+    #     })
+    # )
+
 
 class ImageForm(forms.Form):
     image = forms.ImageField()
