@@ -79,11 +79,11 @@ def read_file(request):
     # url = "http://bulletin.columbia.edu/columbia-college/departments-instruction/search/?term=3&pl=0&ph=10&college=CC"
 
     # driver.get(url)
-    # try:    
+    # try:
     #     WebDriverWait(driver, 22).until(
     #         EC.visibility_of_element_located((By.CLASS_NAME, 'courseblocktitle'))
     #     )
-        
+
     #     #a = element.text
     #     a=driver.page_source
 
@@ -109,7 +109,7 @@ def read_file(request):
     # df = pd.read_csv(filename)
     # catalog_numbers = df[column].tolist()
 
-    #Remove when we can organize classes by course name and id 
+    #Remove when we can organize classes by course name and id
     # (can probably do that with a model update)
     # go to the google home page
     # url = "https://courses.yale.edu/?srcdb=guide2020&col=YC"
@@ -118,11 +118,11 @@ def read_file(request):
     # driver = webdriver.Chrome(ChromeDriverManager().install())
 
     # driver.get(url)
-    # try:    
+    # try:
     #     WebDriverWait(driver, 10).until(
     #         EC.visibility_of_element_located((By.CLASS_NAME, 'result--group-start'))
     #     )
-        
+
     #     #a = element.text
     #     a=driver.page_source
 
@@ -132,8 +132,8 @@ def read_file(request):
     # #results = page_soup.find(id='scopo-results')
     # job_elems = page_soup.find_all('div', class_='result result--group-start')
     # codes = page_soup.find_all('span', class_='result__code')
-    
-    
+
+
     # courses= []
     # for c in codes:
     #     courses.append(c.text)
@@ -174,7 +174,7 @@ def create_user_profile(sender, instance, created, **kwargs):
         '''
         global start
         start+=1
-        
+
         headers = {'Authorization': "Bearer " + token, 'host': 'zoom.us', "Content-Type": 'application/json'}
         payload = {
         "action": "custCreate",
@@ -215,7 +215,7 @@ def create_user_profile(sender, instance, created, **kwargs):
             school = "columbia"
         elif school == "harvardconsulting.org":
             school = "hccg"
-        
+
         #school = "columbia"
         # course = ...
         Profile.objects.create(user=instance, room = Room.objects.get(title = "inactive"), zoom_id= "", section = "", image = image, first_login = True, classes = {}, school = school)
@@ -267,7 +267,7 @@ def participantleft(request):
     jsondata = request.body
     data = json.loads(jsondata)
     inactive = Room.objects.get(title = "inactive")
-    
+
     print(data['payload']['object']['participant'])
 
     zoom_id = data['payload']['object']['participant']['user_name']
@@ -278,7 +278,7 @@ def participantleft(request):
 
         if Profile.objects.filter(user__username = zoom_id, room = room).exists():
             Profile.objects.filter(user__username = zoom_id, room = room).update(room = inactive)
-    
+
     return HttpResponse(status=200)
 
 '''@csrf_exempt
@@ -297,15 +297,15 @@ def participantjoin(request):
     #    if not Profile.objects.filter(zoom_id = p['id'])
     #        user.zoom_id = p['id']
     #meta = copy.copy(request.META)
-    
+
     return HttpResponse(status=200)
 '''
 # Create your views here.
 def uploadImage(request):
     if request.method == 'POST':
         form = ImageForm(request.POST, request.FILES)
-        
-        if form.is_valid(): 
+
+        if form.is_valid():
             profile = request.user.profile
             profile.image = form.cleaned_data['image']
             profile.save()
@@ -328,7 +328,7 @@ def createroom(request):
         print(course_ind)
         course = user.classes['classes'][int(course_ind)]
         #rooms = start_meeting(token, start, title, user.zoom_id)
-        
+
         refresh_access_token()
 
         token = Token.objects.get(id = 1).access_token
@@ -343,7 +343,7 @@ def createroom(request):
         room.course = course
         #room.isLive = not isSchedule
         room.save()
-        
+
         user.room = room
         user.save()
 
@@ -357,7 +357,7 @@ def createroom(request):
         for cm in classmates:
             if course.upper() in cm.classes['classes'] and cm != user:
                 emails.append(cm.user.email)
-                
+
         if(len(emails)>0):
             separator = ', '
             recipients = separator.join(emails)
@@ -381,8 +381,8 @@ def home(request):
 
     course = request.path[1:-1]
     user = request.user
-   
-    
+
+
     # elif course == 'section':
     #     #course = 'SECTION ABC'
     #     course = user.profile.section
@@ -397,7 +397,7 @@ def home(request):
             classmates = Profile.objects.filter(classes__contains= {"classes":['----', course]})
             print(classmates)
 
-    
+
     if course == "":
         course = classes['classes']
         rooms = Room.objects.filter(course__in = course)
@@ -406,7 +406,7 @@ def home(request):
     if user.username != user.get_full_name and user.username != 'arulkapoor118':
         user.username = str(user.get_full_name())
         user.save()
-        
+
     c = Counter()
     i = Counter()
 
@@ -415,7 +415,7 @@ def home(request):
     #section_form = SectionForm()
     text_form = TextForm()
 
-    
+
     context = {
         #'rooms': Room.objects.all(),
         'rooms': rooms,
@@ -433,6 +433,22 @@ def home(request):
 
 @login_required(login_url='login/')
 def classes(request):
+
+    if request.is_ajax():
+        search_results = Section.objects.filter((Q(school = request.user.profile.school) | Q(name = "----")) & Q(name__icontains=request.GET.get("q")))[:3].values_list('name', flat = True)
+        search_names = list(search_results)
+
+        print(search_names)
+
+        html = ""
+        for search_name in search_names:
+            html += "<p>" + search_name + "</p></br>"
+
+        data_dict = {"html_from_view": html}
+
+        return JsonResponse(data=data_dict, safe=False)
+
+
     # if not request.user.profile.first_login:
     #     return redirect('studyApp-home')
 
@@ -453,7 +469,7 @@ def classes(request):
     #print(querys)
 
     form.fields['class1'].choices = querys
-    form.fields['class2'].choices = querys    
+    form.fields['class2'].choices = querys
     form.fields['class3'].choices = querys
     form.fields['class4'].choices = querys
     form.fields['class5'].choices = querys
@@ -463,14 +479,14 @@ def classes(request):
 
     }
 
-    
+    print("G'day")
     return render(request, 'studyApp/classes.html', context)
 
 def selectClass(request):
     if request.method == 'POST':
         form = SectionForm(request.POST)
         print("hello")
-        if form.is_valid(): 
+        if form.is_valid():
             print("hello")
             profile = request.user.profile
             #profile.section = form.cleaned_data['section'].name.upper()
@@ -496,9 +512,9 @@ def joinroom(request):
         room = request.GET['room_id']
         user = Profile.objects.get(user = request.user)
 
-        user.room = Room.objects.get(meeting_id = room) 
+        user.room = Room.objects.get(meeting_id = room)
         user.save()
-        #zoom api call to get all meeting participants, and then loop over participant ids and check 
+        #zoom api call to get all meeting participants, and then loop over participant ids and check
         return HttpResponse("success")
     else:
         return HttpResponse("Request method is not a GET")
@@ -562,7 +578,7 @@ def start_meeting(access_token, index, topic, firstname, lastname):
 def schedule_meeting(access_token, index, topic, firstname, lastname):
     global start
     start+=1
-    
+
     headers = {'Authorization': "Bearer " + access_token, 'host': 'zoom.us', "Content-Type": 'application/json'}
     payload = {
     "action": "custCreate",
@@ -648,7 +664,7 @@ def refresh_access_token():
 
 #while True:
 #    schedule.run_pending()
-#    time.sleep(1) 
+#    time.sleep(1)
 
 def refresh_access_token():
     global start

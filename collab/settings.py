@@ -45,7 +45,8 @@ ALLOWED_HOSTS = [
     'bf2e52c8259a.ngrok.io',
     '4c47ecedfffd.ngrok.io',
     '68af6977fa20.ngrok.io',
-    '29f860c2ae24.ngrok.io'
+    '29f860c2ae24.ngrok.io',
+    '35719353173a.ngrok.io'
 ]
 
 
@@ -60,15 +61,15 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
-    'allauth', 
-    'allauth.account', 
-    #'social_auth', 
-    'allauth.socialaccount',   
+    'allauth',
+    'allauth.account',
+    #'social_auth',
+    'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
     #'allauth.socialaccount.adapter',
     #'background_task',
     #'django_crontab',
-    #'django_pg',  
+    #'django_pg',
     'ckeditor',
     'ckeditor_uploader',
 ]
@@ -244,10 +245,10 @@ STATIC_ROOT = 'static'
 
 CKEDITOR_CONFIGS = {
     'default':
-        {'toolbar': 'Custom', 
+        {'toolbar': 'Custom',
          'toolbar_Custom': [
-            ['Bold', 'Link', 'Unlink', 'Image'], 
-        ], 
+            ['Bold', 'Link', 'Unlink', 'Image'],
+        ],
 }}
 
 DJRICHTEXTFIELD_CONFIG = {

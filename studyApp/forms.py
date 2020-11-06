@@ -10,7 +10,7 @@ def classset():
     return class_tuple
 
 
-    
+
 class NameForm(forms.Form):
     your_name = forms.CharField(max_length=33, label = '')
     # isSchedule = forms.BooleanField(initial=False, label = 'Schedule for now or later?', required=False)
@@ -33,7 +33,7 @@ class SectionForm(forms.Form):
     # for i in range(len(sections)):
     #     SECTION_CHOICES.append((sections[i], sections[i]))
 
-    # section = forms.CharField(label='What section are you in?', 
+    # section = forms.CharField(label='What section are you in?',
     # widget=forms.Select(choices=SECTION_CHOICES))
 
     def __init__(self, *args, **kwargs):
@@ -54,6 +54,3 @@ class SectionForm(forms.Form):
         widget=forms.Select(attrs={'class':'choices-page', 'id': 'choices-page-modal'}))
         self.fields['class5'] = forms.ChoiceField(choices = self.class_tuple, label = "What is your fifth thread?",
         widget=forms.Select(attrs={'class':'choices-page', 'id': 'choices-page-modal'}))
-
-
-    

@@ -24,6 +24,8 @@
       ga('send', 'pageview');
     </script>
 
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+
     </head>
 
     <body>
@@ -33,18 +35,72 @@
         <div class = "secondary">
             <h1>Join your classmates by selecting your top threads below</h1>
         </div>
+
+
         {% block content %}
         <div class = "choose-section">
-            <form class = "class-form" action="{% url 'selectClass' %}" method = "post">
+            <!-- <form class = "class-form" action="{% url 'selectClass' %}" method = "post">
                 {% csrf_token %}
                 {{form.as_p}}
                 <button type = "submit">Select Threads</button>
-            </form>
+            </form> -->
+
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+
+            <div class="col-6 align-left">
+              <p>Input your classes</p>
+              <input id="user-input" placeholder="Search">
+            </div>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+
+            <div id="replaceable-content">
+            </div>
 
         </div>
         {% endblock content%}
 
         <a id = "privacy" href = "{% static 'CollabPrivacyPolicy.pdf' %}" target = "_blank">Privacy Policy</a>
+
+        <script>
+          const user_input = $("#user-input")
+          const artists_div = $('#replaceable-content')
+          const endpoint = '/classes/'
+          const delay_by_in_ms = 100
+          let scheduled_function = false
+
+          let ajax_call = function (endpoint, request_parameters) {
+              $.getJSON(endpoint, request_parameters)
+                  .done(response => {
+                      // fade out the artists_div, then:
+                      artists_div.fadeTo('slow', 0).promise().then(() => {
+                          // replace the HTML contents
+                          artists_div.html(response['html_from_view'])
+                      })
+                  })
+          }
+
+
+          user_input.on('keyup', function () {
+
+              const request_parameters = {
+                  q: $(this).val() // value of user_input: the HTML element with ID user-input
+              }
+
+              // if scheduled_function is NOT false, cancel the execution of the function
+              if (scheduled_function) {
+                  clearTimeout(scheduled_function)
+              }
+
+              // setTimeout returns the ID of the function to be executed
+              scheduled_function = setTimeout(ajax_call, delay_by_in_ms, endpoint, request_parameters)
+          })
+        </script>
 
     </body>
 
