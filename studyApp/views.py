@@ -438,11 +438,9 @@ def classes(request):
         search_results = Section.objects.filter((Q(school = request.user.profile.school) | Q(name = "----")) & Q(name__icontains=request.GET.get("q")))[:3].values_list('name', flat = True)
         search_names = list(search_results)
 
-        print(search_names)
-
         html = ""
         for search_name in search_names:
-            html += "<p>" + search_name + "</p></br>"
+            html += "<p>" + search_name + "</p>"
 
         data_dict = {"html_from_view": html}
 
