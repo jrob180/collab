@@ -39,12 +39,6 @@
 
         {% block content %}
         <div class = "choose-section">
-            <!-- <form class = "class-form" action="{% url 'selectClass' %}" method = "post">
-                {% csrf_token %}
-                {{form.as_p}}
-                <button type = "submit">Select Threads</button>
-            </form> -->
-
             <br/>
             <br/>
             <br/>
@@ -62,26 +56,62 @@
             <div id="replaceable-content">
             </div>
 
+            <div id="error-msg">
+            </div>
+
+            <form class = "class-form" action="{% url 'selectClass' %}" method = "post">
+                {% csrf_token %}
+                {{form.as_p}}
+                <button type = "submit">Select Threads</button>
+            </form>
+
         </div>
         {% endblock content%}
 
         <a id = "privacy" href = "{% static 'CollabPrivacyPolicy.pdf' %}" target = "_blank">Privacy Policy</a>
 
         <script>
+          function addClass(classname) {
+            classes = [
+              document.getElementsByName("class1")[0],
+              document.getElementsByName("class2")[0],
+              document.getElementsByName("class3")[0],
+              document.getElementsByName("class4")[0],
+              document.getElementsByName("class5")[0]
+            ];
+            for (var i = 0; i < 5; i++) {
+              oneclass = classes[i];
+              if (oneclass.value == "----") {
+                oneclass.value = classname;
+                break;
+              }
+              else if (oneclass.value == classname) {
+                for (var j = i; j < 4; j++) {
+                  twoclass = classes[j];
+                  twoclass.value = classes[j+1].value;
+                  classes[j+1].value = "----";
+                }
+                break;
+              }
+              // else if (i == 4) {
+              //   document.getElementByID("")
+              // }
+            }
+            return 5;
+          }
+        </script>
+
+        <script>
           const user_input = $("#user-input")
           const artists_div = $('#replaceable-content')
           const endpoint = '/classes/'
-          const delay_by_in_ms = 100
+          const delay_by_in_ms = 10
           let scheduled_function = false
 
           let ajax_call = function (endpoint, request_parameters) {
               $.getJSON(endpoint, request_parameters)
                   .done(response => {
-                      // fade out the artists_div, then:
-                      artists_div.fadeTo('slow', 0).promise().then(() => {
-                          // replace the HTML contents
-                          artists_div.html(response['html_from_view'])
-                      })
+                    artists_div.html(response['html_from_view'])
                   })
           }
 
