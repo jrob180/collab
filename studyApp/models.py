@@ -34,6 +34,8 @@ class Profile(models.Model):
     first_login = models.BooleanField()
     classes = JSONField()
     school = models.CharField(max_length = 100)
+    token = models.TextField()
+    refresh_token = models.TextField()
 
 class Section(models.Model):
     name = models.CharField(max_length = 1000)

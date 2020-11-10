@@ -314,9 +314,17 @@ Released   : 20130902
 		</div>-->
 		<div class = "the-rooms">
 			{% if course != "" %}
-			<button class = "current_room_example-shell" class = "rooms">
-				<p>+ New Room</p>
-			</button>
+				{%if user.profile.token == " " %}
+					<a href = "{% url 'oauth'%}">
+						<button class = "current_room_example-shell" class = "rooms">
+							<p>+ New Room</p>
+						</button>
+					</a>
+				{% else %}
+					<button class = "current_room_example-shell" class = "rooms">
+						<p>+ New Room</p>
+					</button>
+				{% endif %}
 			{% endif %}
 
 			{% for room in rooms %}
@@ -528,8 +536,8 @@ Released   : 20130902
 				{% csrf_token %}
 				<!--<input id = "description" style = "font-size: 20px"></form>-->
 				{{form.your_name}}
-				<!-- {{form.isSchedule}}
-				<div class="input-group date" id="datetimepicker1" data-target-input="nearest">
+				<!-- {{form.isSchedule}} -->
+				<!-- <div class="input-group date" id="datetimepicker1" data-target-input="nearest">
 					{{ form.date }}
 					<div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
 					  <div class="input-group-text"><i class="fa fa-calendar"></i></div>
@@ -687,6 +695,7 @@ frm.submit(function () {
 		},
 		error: function(data) {
 			// something went wrong
+			window.alert('oops')
 		}
 	});
 	return false;

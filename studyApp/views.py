@@ -293,16 +293,52 @@ def uploadImage(request):
             profile.save()
         return redirect('studyApp-home')
 
+def oauth(request):
+    #The code -> access token should not be here and instead be somewhere on log-in or on room generation
+
+    url = 'https://zoom.us/oauth/authorize?response_type=code&client_id=GQfsfQ_pR2YAG4_h8_m0Q&redirect_uri=http%3A%2F%2F29f860c2ae24.ngrok.io%2Ftoken'
+    return redirect(url)
+
+
+def token(request):
+    code = request.GET['code']
+    redirect_uri = 'http://29f860c2ae24.ngrok.io/token'
+    #client_id = 'zJib8nQsTG0QA_JgEqj5Q'
+    #client_secret = 'V7GDiRa1c1d9gMRfW4GzZMvp3MJY7vkE'
+    client_id = 'GQfsfQ_pR2YAG4_h8_m0Q'
+    client_secret = '6ExPiAQdAKgEEcGGGAfEeqsq6ilRaSk2'
+
+    message = client_id + ':' + client_secret
+    message_bytes = message.encode('ascii')
+    base64_bytes = base64.b64encode(message_bytes)
+    auth = 'Basic ' + base64_bytes.decode('ascii')
+
+    #Get user Access token
+    user = request.user.profile
+    endpoint = 'https://zoom.us/oauth/token?grant_type=authorization_code&code={c}&redirect_uri={uri}'.format(c = code, uri = redirect_uri)
+    headers = {'Authorization': auth, 'host': 'zoom.us'}
+    token_data = requests.post(endpoint, headers = headers)
+    token_dict = json.loads(token_data.text)
+
+    token = token_dict['access_token']
+    refresh_token = token_dict['refresh_token']
+    user.token = token
+    user.refresh_token = refresh_token
+    user.save()
+    return redirect('studyApp-home') # think more about this redirect
+
 
 def createroom(request):
+
     if request.method == 'GET':
         title = request.GET['room_title']
         course_ind = request.GET['course']
-        # time = "TIME"
+        # time = ""
         # isSchedule = True
         # if request.GET['isSchedule'] == "":
         #     isSchedule = False
-
+        # if isSchedule:
+        #     time = request.GET['date']
 
         form = NameForm()
         global start
@@ -311,9 +347,12 @@ def createroom(request):
         course = user.classes['classes'][int(course_ind)]
         #rooms = start_meeting(token, start, title, user.zoom_id)
         
-        refresh_access_token()
+        refresh_access_token(user)
 
-        token = Token.objects.get(id = 1).access_token
+
+        #token = Token.objects.get(id = 1).access_token
+        token = user.token
+
         rooms = start_meeting(token, start, title, request.user.first_name, request.user.last_name)
 
         #rooms = ['hi', 'hi','hi']
@@ -488,24 +527,14 @@ def joinroom(request):
         return HttpResponse("Request method is not a GET")
 
 def start_meeting(access_token, index, topic, firstname, lastname):
-    #global start
-    #start+=1
-    email_name = get_random_string(20)
-    headers = {'Authorization': "Bearer " + access_token, 'host': 'zoom.us', "Content-Type": 'application/json'}
-    payload = {
-    "action": "custCreate",
-    "user_info": {
-        "email": str(email_name)+'le'+'@sdf.gh',
-        "type": 1,
-        "first_name": firstname,
-        "last_name": lastname
-    }
-    }
-    user_endpoint = 'https://api.zoom.us/v2/users'
-    u = requests.post(user_endpoint, headers = headers, json = payload)
-    #print(u.text)
-    id = json.loads(u.text)['id']
 
+    #Get user zoom id
+    user_endpoint = 'https://api.zoom.us/v2/users/me'
+    auth_header = {'Authorization': "Bearer " + access_token, 'host': 'zoom.us', "Content-Type": 'application/json'}
+    zoom_user = requests.get(user_endpoint, headers = auth_header)
+    zoom_id = json.loads(zoom_user.text)['id']
+
+    #Create meeting with zoom id
     payload2 = {
     "created_at": "2019-09-05T16:54:14Z",
     #"duration": 90, #changed from 60
@@ -519,9 +548,9 @@ def start_meeting(access_token, index, topic, firstname, lastname):
         "cn_meeting": False,
         "enforce_login": False,
         "enforce_login_domains": "",
-        "global_dial_in_countries": [
-        "US"
-        ],
+        # "global_dial_in_countries": [
+        # "US"
+        # ],
         "host_video": False,
         "in_meeting": False,
         "join_before_host": True, #un-comment to test about hillel
@@ -538,12 +567,68 @@ def start_meeting(access_token, index, topic, firstname, lastname):
     "type": 1, #changed from 2 to 1
     }
 
-    meeting_endpoint = 'https://api.zoom.us/v2/users/'+id+'/meetings'
+    meeting_endpoint = 'https://api.zoom.us/v2/users/'+zoom_id+'/meetings'
     headers2 = {'Authorization': "Bearer " + access_token, 'host': 'zoom.us', "Content-Type": 'application/json'}
     x = requests.post(meeting_endpoint, headers = headers2, json = payload2)
+
     return (json.loads(x.text)['start_url'], json.loads(x.text)['join_url'],json.loads(x.text)['id'])
 
+
+    # email_name = get_random_string(20)
+    # headers = {'Authorization': "Bearer " + access_token, 'host': 'zoom.us', "Content-Type": 'application/json'}
+    # payload = {
+    # "action": "custCreate",
+    # "user_info": {
+    #     "email": str(email_name)+'le'+'@sdf.gh',
+    #     "type": 1,
+    #     "first_name": firstname,
+    #     "last_name": lastname
+    # }
+    # }
+    # user_endpoint = 'https://api.zoom.us/v2/users'
+    # u = requests.post(user_endpoint, headers = headers, json = payload)
+    # #print(u.text)
+    # id = json.loads(u.text)['id']
+
+    # payload2 = {
+    # "created_at": "2019-09-05T16:54:14Z",
+    # #"duration": 90, #changed from 60
+    # #"host_id": str(id),
+    # "id": 1100000+index,
+    # "settings": {
+    #     "alternative_hosts": "",
+    #     "approval_type": 2,
+    #     "audio": "both",
+    #     "close_registration": False,
+    #     "cn_meeting": False,
+    #     "enforce_login": False,
+    #     "enforce_login_domains": "",
+    #     "global_dial_in_countries": [
+    #     "US"
+    #     ],
+    #     "host_video": False,
+    #     "in_meeting": False,
+    #     "join_before_host": True, #un-comment to test about hillel
+    #     "mute_upon_entry": False,
+    #     "participant_video": False,
+    #     "use_pmi": False,
+    #     "waiting_room": False,
+    #     "watermark": False,
+    # },
+    # "start_time": "2019-08-30T22:00:00Z",
+    # "status": "waiting",
+    # "timezone": "America/New_York",
+    # "topic": topic,
+    # "type": 1, #changed from 2 to 1
+    # }
+
+    # meeting_endpoint = 'https://api.zoom.us/v2/users/'+id+'/meetings'
+    # headers2 = {'Authorization': "Bearer " + access_token, 'host': 'zoom.us', "Content-Type": 'application/json'}
+    # x = requests.post(meeting_endpoint, headers = headers2, json = payload2)
+    # return (json.loads(x.text)['start_url'], json.loads(x.text)['join_url'],json.loads(x.text)['id'])
+
 def schedule_meeting(access_token, index, topic, firstname, lastname):
+    
     global start
     start+=1
     
@@ -605,34 +690,6 @@ def get_participants(access_token, meeting_id):
     x = requests.get(meeting_endpoint, headers = headers)
     return json.loads(x.text)['participants']
 
-'''@background(schedule = 1)
-def refresh_access_token():
-    token = Token.objects.get(id = 1)
-    refresh_token = token.refresh_token
-    client_id = 'zJib8nQsTG0QA_JgEqj5Q'
-    client_secret = 'V7GDiRa1c1d9gMRfW4GzZMvp3MJY7vkE'
-
-    message = client_id + ':' + client_secret
-    message_bytes = message.encode('ascii')
-    base64_bytes = base64.b64encode(message_bytes)
-    auth = 'Basic ' + base64_bytes.decode('ascii')
-
-    endpoint = 'https://zoom.us/oauth/token?grant_type=refresh_token&refresh_token=' + refresh_token
-    headers = {'Authorization': auth, 'host': 'zoom.us'}
-    x = requests.post(endpoint, headers = headers)
-    j = json.loads(x.text)
-    token.refresh_token= j['refresh_token']
-    token.access_token = j['access_token']
-    token.save()
-    print('\n')
-    print('TOKEN HAS BEEN REFRESHED' + str(time.time()))
-    print('\n')
-    return'''
-#schedule.every(5).seconds.do(refresh_access_token)
-
-#while True:
-#    schedule.run_pending()
-#    time.sleep(1) 
 
 def refresh_access_token():
     global start
@@ -654,15 +711,26 @@ def refresh_access_token():
     token.access_token = j['access_token']
     token.count = start
     token.save()
-    #print('\n')
-    #print('TOKEN HAS BEEN REFRESHED' + str(time.time()))
-    #print('\n')
+
     return
 
+def refresh_access_token(user):
+    refresh_token = user.refresh_token
+    client_id = 'GQfsfQ_pR2YAG4_h8_m0Q'
+    client_secret = '6ExPiAQdAKgEEcGGGAfEeqsq6ilRaSk2'
 
-#class PostCreateView(CreateView):
-#    model = Room
-#   fields = ['notes']
+    message = client_id + ':' + client_secret
+    message_bytes = message.encode('ascii')
+    base64_bytes = base64.b64encode(message_bytes)
+    auth = 'Basic ' + base64_bytes.decode('ascii')
 
-#    def get_success_url(self):
-#        return reverse('blog:detail', args=[self.object.pk])
+    endpoint = 'https://zoom.us/oauth/token?grant_type=refresh_token&refresh_token=' + refresh_token
+    headers = {'Authorization': auth, 'host': 'zoom.us'}
+    x = requests.post(endpoint, headers = headers)
+    j = json.loads(x.text)
+    user.refresh_token= j['refresh_token']
+    user.token = j['access_token']
+    user.save()
+
+    return
+

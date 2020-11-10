@@ -22,7 +22,7 @@ def get_time():
     
 class NameForm(forms.Form):
     your_name = forms.CharField(max_length=33, label = '')
-    # isSchedule = forms.BooleanField(initial=False, label = 'Schedule for now or later?', required=False)
+    #isSchedule = forms.BooleanField(initial=False, label = 'Schedule for now or later?', required=False)
     # date = forms.DateTimeField(
     #     input_formats=['%m/%d/%Y %H:%M'], initial=get_time,
     #     widget=forms.DateTimeInput(attrs={
