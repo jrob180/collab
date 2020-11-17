@@ -45,7 +45,9 @@ ALLOWED_HOSTS = [
     'bf2e52c8259a.ngrok.io',
     '4c47ecedfffd.ngrok.io',
     '68af6977fa20.ngrok.io',
-    '29f860c2ae24.ngrok.io'
+    '29f860c2ae24.ngrok.io',
+    'c389acd415b2.ngrok.io',
+    'e94fbb37dee9.ngrok.io'
 ]
 
 
@@ -132,15 +134,15 @@ WSGI_APPLICATION = 'collab.wsgi.application'
 
 #Make sure to uncomment and change 'default' to 'sqlite'
 DATABASES = {
-        # 'default': {
-        #     'ENGINE': 'django.db.backends.mysql',
-        #     'NAME': 'CollabRoomsDBFree',
-        #     'USER': 'admin',
-        #     'PASSWORD': 'q123q123',
-        #     'HOST': 'collabroomsdbfree.cibx2skc9iqp.us-west-2.rds.amazonaws.com',
-        #     'PORT': '3306',
-        # },
         'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': 'CollabRoomsDBFree',
+            'USER': 'admin',
+            'PASSWORD': 'q123q123',
+            'HOST': 'collabroomsdbfree.cibx2skc9iqp.us-west-2.rds.amazonaws.com',
+            'PORT': '3306',
+        },
+        'sqlite': {
             'ENGINE': 'django.db.backends.sqlite3',
             'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
         }

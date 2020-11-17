@@ -67,6 +67,16 @@ Released   : 20130902
   ga('send', 'pageview');
 </script>
 
+
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+	new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+	j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+	'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+	})(window,document,'script','dataLayer','GTM-N7JH7L2');
+</script>
+	<!-- End Google Tag Manager -->
+
 <script>
 	var beamer_config = {
 		product_id : 'awoRXhSd25571', //DO NOT CHANGE: This is your product code on Beamer
@@ -120,6 +130,13 @@ Released   : 20130902
 <!--File Upload Button style bootstrap-->
 </head>
 <body>
+
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-N7JH7L2"
+	height="0" width="0" style="display:none;visibility:hidden"></iframe>
+</noscript>
+	<!-- End Google Tag Manager (noscript) -->
+
 <div id="page" class="container"> <!--left side container-->
 	<!--
 	<div class = "banner">
@@ -315,7 +332,7 @@ Released   : 20130902
 		<div class = "the-rooms">
 			{% if course != "" %}
 				{%if user.profile.token == " " %}
-					<a href = "{% url 'oauth'%}">
+					<a href = "{% url 'oauth'%}" target = '_blank'>
 						<button class = "current_room_example-shell" class = "rooms">
 							<p>+ New Room</p>
 						</button>

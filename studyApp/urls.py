@@ -26,6 +26,7 @@ urlpatterns = [
     url(r'^selectClass/$', views.selectClass, name='selectClass'),
     url(r'^meetingend', views.meetingend, name='meetingend'),
     url(r'^participantleft', views.participantleft, name='participantleft'),
+    url(r'^authview/$', views.authview, name='authview'),
     #url(r'^participantjoin', views.participantjoin, name='participantjoin'),
     path('accounts/', include('allauth.urls')),
     url(r'^loaderio-4049d7ee993d07bdda5b43856ece8ea9/', views.read_file, name='loaderio-4049d7ee993d07bdda5b43856ece8ea9'),

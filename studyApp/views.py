@@ -295,14 +295,13 @@ def uploadImage(request):
 
 def oauth(request):
     #The code -> access token should not be here and instead be somewhere on log-in or on room generation
-
-    url = 'https://zoom.us/oauth/authorize?response_type=code&client_id=GQfsfQ_pR2YAG4_h8_m0Q&redirect_uri=http%3A%2F%2F29f860c2ae24.ngrok.io%2Ftoken'
+    url = 'https://zoom.us/oauth/authorize?response_type=code&client_id=GQfsfQ_pR2YAG4_h8_m0Q&redirect_uri=https://collabrooms.io/token'
     return redirect(url)
 
 
 def token(request):
     code = request.GET['code']
-    redirect_uri = 'http://29f860c2ae24.ngrok.io/token'
+    redirect_uri = 'https://collabrooms.io/token'
     #client_id = 'zJib8nQsTG0QA_JgEqj5Q'
     #client_secret = 'V7GDiRa1c1d9gMRfW4GzZMvp3MJY7vkE'
     client_id = 'GQfsfQ_pR2YAG4_h8_m0Q'
@@ -325,8 +324,10 @@ def token(request):
     user.token = token
     user.refresh_token = refresh_token
     user.save()
-    return redirect('studyApp-home') # think more about this redirect
+    return render(request, "studyApp/auth.html") # think more about this redirect
 
+def authview(request):
+    return render(request, "studyApp/auth.html")
 
 def createroom(request):
 
