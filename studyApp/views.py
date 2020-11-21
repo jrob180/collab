@@ -175,7 +175,7 @@ def create_user_profile(sender, instance, created, **kwargs):
         image = None
         email = instance.email
         school = email.split('@')[1]
-        if school == "college.harvard.edu":
+        if school == "college.harvard.edu" or school == "fas.harvard.edu":
             school = "harvard"
         elif school == "princeton.edu":
             school = "princeton"
@@ -185,7 +185,7 @@ def create_user_profile(sender, instance, created, **kwargs):
             school = "yale"
         elif school == "mit.edu":
             school = "mit"
-        elif school == "penn.edu":
+        elif school == "sas.upenn.edu" or school == "wharton.upenn.edu" or school == "seas.upenn.edu":
             school = "upenn"
         elif school == "columbia.edu":
             school = "columbia"
@@ -195,12 +195,18 @@ def create_user_profile(sender, instance, created, **kwargs):
             school = "columbia"
         elif school == "barnard.edu":
             school = "columbia"
+        elif school == "brown.edu":
+            school = "brown"
+        elif school == "cornell.edu":
+            school = "cornell"
+        elif school == "dartmouth.edu":
+            school = "dartmouth"
         elif school == "harvardconsulting.org":
             school = "hccg"
         
         #school = "columbia"
         # course = ...
-        Profile.objects.create(user=instance, room = Room.objects.get(title = "inactive"), zoom_id= "", section = "", image = image, first_login = True, classes = {}, school = school)
+        Profile.objects.create(user=instance, room = Room.objects.get(title = "inactive"), zoom_id= "", section = "", image = image, first_login = True, classes = {}, school = school, token = " ", refresh_token = "")
 
 @receiver(post_save, sender=User)
 def save_user_profile(sender, instance, **kwargs):

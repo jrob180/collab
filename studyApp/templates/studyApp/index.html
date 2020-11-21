@@ -215,16 +215,34 @@ Released   : 20130902
 		<div>
 			{% if user.profile.school == "columbia" %}
 				<img src = "{% static 'culogo.png' %}">
+
 			{% elif user.profile.school == "harvard" %}
 				<img src = "{% static 'harvardlogo.png' %}">
+
+			{% elif user.profile.school == "brown" %}
+				<img src = "{% static 'brownlogo.png' %}">
+
+			{% elif user.profile.school == "upenn" %}
+				<img src = "{% static 'upennlogo.png' %}">
+
+			{% elif user.profile.school == "dartmouth" %}
+				<img src = "{% static 'dartmouthlogo.png' %}">
+
+			{% elif user.profile.school == "cornell" %}
+				<img src = "{% static 'cornelllogo.png' %}">
+
 			{% elif user.profile.school == "princeton" %}
 				<img src = "{% static 'princetonlogo.png' %}">
+
 			{% elif user.profile.school == "yale" %}
 				<img src = "{% static 'yale.png' %}">
+
 			{% elif user.profile.school == "mit" %}
 				<img src = "{% static 'mit.png' %}">
+
 			{% elif user.profile.school == "hccg" %}
 				<img src = "{% static 'hccg.png' %}">
+
 			{% else %}
 				<img src = "{% static 'culogo.png' %}">
 

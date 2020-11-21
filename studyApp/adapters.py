@@ -8,7 +8,8 @@ import requests
 class MySocialAccount(DefaultSocialAccountAdapter):
     def pre_social_login(self, request, sociallogin):
         u = sociallogin.user
-        whitelist = ["columbia.edu", "barnard.edu", "tc.columbia.edu", "cumc.columbia.edu", "college.harvard.edu", "princeton.edu", "harvardconsulting.org"]
+        whitelist = ["columbia.edu", "barnard.edu", "tc.columbia.edu", "cumc.columbia.edu", "college.harvard.edu", "fas.harvard.edu", "cornell.edu",
+         "princeton.edu", "harvardconsulting.org", "yale.edu", "brown.edu", "mit.edu", "sas.upenn.edu", "seas.upenn.edu", "wharton.penn.edu", "dartmouth.edu"]
         email = u.email.split('@')[1]
         if not (email in whitelist):
             raise ImmediateHttpResponse(render(request, 'studyApp/error.html'))
