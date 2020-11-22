@@ -177,7 +177,7 @@ def create_user_profile(sender, instance, created, **kwargs):
         school = email.split('@')[1]
         if school == "college.harvard.edu" or school == "fas.harvard.edu":
             school = "harvard"
-        elif school == "princeton.edu":
+        elif school == "princeton.edu" or school == "alumni.princeton.edu":
             school = "princeton"
         elif school == "stanford.edu":
             school = "stanford"
@@ -195,7 +195,7 @@ def create_user_profile(sender, instance, created, **kwargs):
             school = "columbia"
         elif school == "barnard.edu":
             school = "columbia"
-        elif school == "brown.edu":
+        elif school == "brown.edu" or school == "alumni.brown.edu":
             school = "brown"
         elif school == "cornell.edu":
             school = "cornell"
@@ -390,7 +390,9 @@ def createroom(request):
             separator = ', '
             recipients = separator.join(emails)
             text = "Looks like one of your friends has made a session...\nHead over to http://collabrooms.io to join them!"
-            send_email(recipients, "New session created in "+course,  text)
+            # send_email(recipients, "New session created in "+course,  text)
+
+
             # if isSchedule:
             #     text = "Looks like one of your friends has scheduled a session at "+time+"...\nHead over to http://collabrooms.io to join them!"
             #     send_email(recipients, "New session created at "+time+" in "+course,  text)
