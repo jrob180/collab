@@ -390,7 +390,7 @@ def createroom(request):
             separator = ', '
             recipients = separator.join(emails)
             text = "Looks like one of your friends has made a session...\nHead over to http://collabrooms.io to join them!"
-            # send_email(recipients, "New session created in "+course,  text)
+            send_email(recipients, "New session created in "+course,  text)
 
 
             # if isSchedule:
