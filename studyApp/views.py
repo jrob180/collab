@@ -354,13 +354,17 @@ def createroom(request):
         course = user.classes['classes'][int(course_ind)]
         #rooms = start_meeting(token, start, title, user.zoom_id)
         
-        refresh_access_token(user)
+        if len(user.token) < 2:
+            refresh_access_token()
+            token = Token.objects.get(id = 1).access_token
+            isAuth = False
+        else:
+            refresh_access_token(user)
+            token = user.token
+            isAuth = True
 
 
-        #token = Token.objects.get(id = 1).access_token
-        token = user.token
-
-        rooms = start_meeting(token, start, title, request.user.first_name, request.user.last_name)
+        rooms = start_meeting(token, start, title, request.user.first_name, request.user.last_name, isAuth)
 
         #rooms = ['hi', 'hi','hi']
 
@@ -535,13 +539,31 @@ def joinroom(request):
     else:
         return HttpResponse("Request method is not a GET")
 
-def start_meeting(access_token, index, topic, firstname, lastname):
+def start_meeting(access_token, index, topic, firstname, lastname, isAuth):
 
-    #Get user zoom id
-    user_endpoint = 'https://api.zoom.us/v2/users/me'
-    auth_header = {'Authorization': "Bearer " + access_token, 'host': 'zoom.us', "Content-Type": 'application/json'}
-    zoom_user = requests.get(user_endpoint, headers = auth_header)
-    zoom_id = json.loads(zoom_user.text)['id']
+    if isAuth:
+        #Get user zoom id
+        user_endpoint = 'https://api.zoom.us/v2/users/me'
+        auth_header = {'Authorization': "Bearer " + access_token, 'host': 'zoom.us', "Content-Type": 'application/json'}
+        zoom_user = requests.get(user_endpoint, headers = auth_header)
+        zoom_id = json.loads(zoom_user.text)['id']
+    else:
+        email_name = get_random_string(20)
+        headers = {'Authorization': "Bearer " + access_token, 'host': 'zoom.us', "Content-Type": 'application/json'}
+        payload = {
+        "action": "custCreate",
+        "user_info": {
+            "email": str(email_name)+'le'+'@sdf.gh',
+            "type": 1,
+            "first_name": firstname,
+            "last_name": lastname
+        }
+        }
+        user_endpoint = 'https://api.zoom.us/v2/users'
+        u = requests.post(user_endpoint, headers = headers, json = payload)
+        #print(u.text)
+        zoom_id = json.loads(u.text)['id']
+
 
     #Create meeting with zoom id
     payload2 = {

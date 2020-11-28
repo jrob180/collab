@@ -26,16 +26,16 @@ class Room(models.Model):
 class Profile(models.Model):
     #name = models.CharField(max_length=60)
     #image_url = models.CharField(max_length=1000)
-    room = models.ForeignKey(Room, on_delete=models.CASCADE)
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    zoom_id = models.CharField(max_length = 100)
-    section = models.CharField(max_length = 100)
-    image = models.ImageField(upload_to = "images/", default="")
+    room = models.ForeignKey(Room, on_delete = models.CASCADE)
+    user = models.OneToOneField(User, on_delete = models.CASCADE)
+    zoom_id = models.CharField(max_length = 100, blank = True)
+    section = models.CharField(max_length = 100, blank = True)
+    #image = models.ImageField(upload_to = "images/", default="")
     first_login = models.BooleanField()
     classes = JSONField()
     school = models.CharField(max_length = 100)
-    token = models.TextField()
-    refresh_token = models.TextField()
+    token = models.TextField(blank = True)
+    refresh_token = models.TextField(blank = True)
 
 class Section(models.Model):
     name = models.CharField(max_length = 1000)

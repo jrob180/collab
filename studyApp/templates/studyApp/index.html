@@ -351,18 +351,20 @@ Released   : 20130902
 			<button class = "modal-btn">Start Session</button>
 		</div>-->
 		<div class = "the-rooms">
-			{% if course != "" %}
-				{%if user.profile.token == " " %}
-					<a href = "{% url 'oauth'%}" target = '_blank'>
-						<button class = "current_room_example-shell" class = "rooms">
-							<p>+ New Room</p>
-						</button>
-					</a>
-				{% else %}
+			<!-- @Jackson move this button and style -->
+			{% if user.profile.token|length < 2 %}
+				<a href = "{% url 'oauth'%}" target = '_blank'>
 					<button class = "current_room_example-shell" class = "rooms">
-						<p>+ New Room</p>
+						<p>Link Zoom</p>
 					</button>
-				{% endif %}
+				</a>
+			{% endif %}
+			<!-- end button -->
+
+			{% if course != "" %}
+				<button class = "current_room_example-shell" class = "rooms">
+					<p>+ New Room</p>
+				</button>
 			{% endif %}
 
 			{% for room in rooms %}
