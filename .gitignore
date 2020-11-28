@@ -6,3 +6,4 @@ _pycache_/**
 .elasticbeanstalk/*
 !.elasticbeanstalk/*.cfg.yml
 !.elasticbeanstalk/*.global.yml
+aws-elastic-beanstalk-cli-setup/**
