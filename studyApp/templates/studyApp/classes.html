@@ -1,0 +1,65 @@
+{% load static %}
+{% load socialaccount %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+
+        <link href= "{% static 'default.css' %}" rel="stylesheet" type="text/css" media="all" />
+        <link rel="shortcut icon" href="/static/favicon.ico" />
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+
+    <script id="google-analytics" type="text/javascript">
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-181082488-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-N7JH7L2');
+    </script>
+    <!-- End Google Tag Manager -->
+
+    </head>
+
+    <body>
+        <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-N7JH7L2"
+        height="0" width="0" style="display:none;visibility:hidden"></iframe>
+    </noscript>
+    <!-- End Google Tag Manager (noscript) -->
+        <div class = "primary">
+            <img style = "height: 60px;" id = logo src = "{% static 'collab-removebg.png' %}">
+        </div>
+        <div class = "secondary">
+            <h1>Join your classmates by selecting your top threads below</h1>
+        </div>
+        {% block content %}
+        <div class = "choose-section">
+            <form class = "class-form" action="{% url 'selectClass' %}" method = "post">
+                {% csrf_token %}
+                {{form.as_p}}
+                <button type = "submit">Select Threads</button>
+            </form>
+
+        </div>
+        {% endblock content%}
+
+        <a id = "privacy" href = "{% static 'CollabPrivacyPolicy.pdf' %}" target = "_blank">Privacy Policy</a>
+
+    </body>
+
+</html>

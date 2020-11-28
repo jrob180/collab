@@ -24,7 +24,7 @@ SECRET_KEY = '!2k-i*!=q^o^*uapjn68mu3#l9t9b97tt88bf4-vv-(bl3hp-u'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-
+#test
 ALLOWED_HOSTS = [
     '737899e9175e.ngrok.io',
     '127.0.0.1',
@@ -35,6 +35,19 @@ ALLOWED_HOSTS = [
     'ba4f4b1cfa1e.ngrok.io',
     'aa2bd4fff57f.ngrok.io',
     'dd5fb990096c.ngrok.io',
+    'bb24e4822392.ngrok.io',
+    'collabrooms-prod-env.eba-yd7yre6h.us-west-2.elasticbeanstalk.com',
+    '172.31.40.199',
+    'collabrooms.io',
+    'www.collabrooms.io',
+    '67be1a47ffc6.ngrok.io',
+    'collabrooms-school-env.eba-3gdpj2qu.us-west-2.elasticbeanstalk.com',
+    'bf2e52c8259a.ngrok.io',
+    '4c47ecedfffd.ngrok.io',
+    '68af6977fa20.ngrok.io',
+    '29f860c2ae24.ngrok.io',
+    'c389acd415b2.ngrok.io',
+    'e94fbb37dee9.ngrok.io'
 ]
 
 
@@ -55,11 +68,21 @@ INSTALLED_APPS = [
     'allauth.socialaccount',   
     'allauth.socialaccount.providers.google',
     #'allauth.socialaccount.adapter',
-    'background_task',
-    'django_crontab',
+    #'background_task',
+    #'django_crontab',
     #'django_pg',  
+    'ckeditor',
+    'ckeditor_uploader',
 ]
+
+CKEDITOR_UPLOAD_PATH = 'uploads/'
+
 SOCIALACCOUNT_ADAPTER = 'studyApp.adapters.MySocialAccount'
+
+MEDIA_ROOT =  os.path.join(BASE_DIR, 'media')
+
+MEDIA_URL = '/media/'
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -76,7 +99,7 @@ ROOT_URLCONF = 'collab.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -101,12 +124,30 @@ WSGI_APPLICATION = 'collab.wsgi.application'
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
 
+# DATABASES = {
+#     'sqlite': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#     }
+# }
+
+
+#Make sure to uncomment and change 'default' to 'sqlite'
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': 'CollabRoomsDBFree',
+            'USER': 'admin',
+            'PASSWORD': 'q123q123',
+            'HOST': 'collabroomsdbfree.cibx2skc9iqp.us-west-2.rds.amazonaws.com',
+            'PORT': '3306',
+        },
+        'sqlite': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        }
     }
-}
+
 '''
 DATABASES = {
 
@@ -172,7 +213,7 @@ AUTHENTICATION_BACKENDS = (
 
 )
 
-SITE_ID = 1
+SITE_ID = 2
 LOGIN_REDIRECT_URL = '/'
 ACCOUNT_LOGOUT_REDIRECT_URL = '/login'
 ACCOUNT_LOGOUT_ON_GET = True
@@ -192,15 +233,35 @@ SOCIAL_AUTH_PIPELINE =  (
 
     'social_core.pipeline.social_auth.auth_allowed',
 )
-SOCIAL_AUTH_GOOGLE_OAUTH2_AUTH_EXTRA_ARGUMENTS = {
-    'hd': 'columbia.edu',
-    'access_type': 'online',
-}
+# SOCIAL_AUTH_GOOGLE_OAUTH2_AUTH_EXTRA_ARGUMENTS = {
+#     'hd': 'columbia.edu',
+#     'access_type': 'online',
+# }
 
 
 STATIC_URL = '/static/'
+STATIC_ROOT = 'static'
 
 
 #CRONJOBS = [
 #    ('*/1 * * * *', 'studyApp.cron.refresh_access_token')
 #]
+
+CKEDITOR_CONFIGS = {
+    'default':
+        {'toolbar': 'Custom', 
+         'toolbar_Custom': [
+            ['Bold', 'Link', 'Unlink', 'Image'], 
+        ], 
+}}
+
+DJRICHTEXTFIELD_CONFIG = {
+    'js': ['//cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js'],
+    'init_template': 'djrichtextfield/init/tinymce.js',
+    'settings': {
+        'menubar': False,
+        'plugins': 'link image',
+        'toolbar': 'bold italic | link image | removeformat',
+        'width': 700
+    }
+}
