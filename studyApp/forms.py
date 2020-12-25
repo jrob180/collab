@@ -1,9 +1,40 @@
 from django import forms
 from .models import Profile, Section, Room
 from django.forms import ModelForm
+from datetime import datetime
+from dateutil import tz
+
+def classset():
+    classlist = list(Section.objects.order_by('name').values_list('name', flat = True))
+    class_tuple = []
+    for i in range(len(classlist)):
+        class_tuple.append((classlist[i],classlist[i]))
+    return class_tuple
+
+
+def get_time():
+    now = datetime.now()
+    utc = now.replace(tzinfo = tz.tzutc())
+    local = utc.astimezone(tz.tzlocal())
+    #timezonenow = now.replace(tzinfo=timezone.utc).astimezone(tz=None)
+    return local.strftime('%m/%d/%Y %H:%M')
 
 class NameForm(forms.Form):
-    your_name = forms.CharField(max_length=40, label = '')
+    your_name = forms.CharField(max_length=40, label = '' )
+    isSchedule = forms.BooleanField(initial=False, label = 'Schedule for now or later?', required=False, 
+        widget=forms.CheckboxInput(attrs={
+                'class': 'checkmark'
+            })
+        )
+    # widget=forms.Boolean(attrs={'class':'check', 'id': 'check'}))
+    date = forms.DateTimeField(
+        input_formats=['%m/%d/%Y %H:%M'], initial=get_time,
+        widget=forms.DateTimeInput(attrs={
+            'class': 'form-control datetimepicker-input',
+            'data-target': '#datetimepicker1'
+        })
+    )
+
 
 class ImageForm(forms.Form):
     image = forms.ImageField()
@@ -29,15 +60,15 @@ class SectionForm(forms.Form):
     #widget=forms.Select(attrs={'class':'choices-page', 'id': 'choices-page-modal'}))
     #class0 = forms.ModelChoiceField(queryset = Section.objects.filter(name = test), to_field_name="name", empty_label=None, label = "What is your first class?",
     #widget=forms.Select(attrs={'class':'choices-page', 'id': 'choices-page-modal'}))
-    class1 = forms.ModelChoiceField(queryset = Section.objects.filter(isSection = False), to_field_name="name", empty_label=None, label = "What is your first class?",
+    class1 = forms.ModelChoiceField(queryset = Section.objects.filter(isSection = False), to_field_name="name", empty_label=None, label = "Thread 1",
     widget=forms.Select(attrs={'class':'choices-page', 'id': 'choices-page-modal'}))
-    class2 = forms.ModelChoiceField(queryset = Section.objects.filter(isSection = False), to_field_name="name", empty_label=None, label = "What is your second class?",
+    class2 = forms.ModelChoiceField(queryset = Section.objects.filter(isSection = False), to_field_name="name", empty_label=None, label = "Thread 2",
     widget=forms.Select(attrs={'class':'choices-page', 'id': 'choices-page-modal'}))
-    class3 = forms.ModelChoiceField(queryset = Section.objects.filter(isSection = False), to_field_name="name", empty_label=None, label = "What is your third class?",
+    class3 = forms.ModelChoiceField(queryset = Section.objects.filter(isSection = False), to_field_name="name", empty_label=None, label = "Thread 3",
     widget=forms.Select(attrs={'class':'choices-page', 'id': 'choices-page-modal'}))
-    class4 = forms.ModelChoiceField(queryset = Section.objects.filter(isSection = False), to_field_name="name", empty_label=None, label = "What is your fourth class?",
+    class4 = forms.ModelChoiceField(queryset = Section.objects.filter(isSection = False), to_field_name="name", empty_label=None, label = "Thread 4",
     widget=forms.Select(attrs={'class':'choices-page', 'id': 'choices-page-modal'}))
-    class5 = forms.ModelChoiceField(queryset = Section.objects.filter(isSection = False), to_field_name="name", empty_label=None, label = "What is your fifth class?",
+    class5 = forms.ModelChoiceField(queryset = Section.objects.filter(isSection = False), to_field_name="name", empty_label=None, label = "Thread 5",
     widget=forms.Select(attrs={'class':'choices-page', 'id': 'choices-page-modal'}))
 
     

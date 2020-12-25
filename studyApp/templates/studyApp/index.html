@@ -67,6 +67,24 @@ Released   : 20130902
 		//user_id : "user_id" /*Optional : Input your user ID for better statistics*/
 	};
 </script>
+
+<!-- Boostrap 4-->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+
+<!-- Font Awesome -->
+<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
+<!-- Moment.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.23.0/moment.min.js" integrity="sha256-VBLiveTKyUZMEzJd6z2mhfxIqz3ZATCuVMawPZGzIfA=" crossorigin="anonymous"></script>
+
+<!-- Tempus Dominus Bootstrap 4 -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.1.2/css/tempusdominus-bootstrap-4.min.css" integrity="sha256-XPTBwC3SBoWHSmKasAk01c08M6sIA5gF5+sRxqak2Qs=" crossorigin="anonymous" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.1.2/js/tempusdominus-bootstrap-4.min.js" integrity="sha256-z0oKYg6xiLq3yJGsp/LsY9XykbweQlHl42jHv2XTBz4=" crossorigin="anonymous"></script>
+
+
 <script type="text/javascript" src="https://app.getbeamer.com/js/beamer-embed.js" defer="defer"></script>
 <!--<link href="fonts.css" rel="stylesheet" type="text/css" media="all" />-->
 <!--[if IE 6]><link href="default_ie6.css" rel="stylesheet" type="text/css" /><![endif]-->
@@ -76,10 +94,14 @@ Released   : 20130902
 <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
 <script src="https://apis.google.com/js/platform.js" async defer></script> 
 -->
+<!--react-->
+<script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
+<script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
+
 <!--google API shit-->
 <script src = "{% static 'index.js' %}" defer></script>
 <!--main script for HOMEPAGE-->
-<script src = "{% static 'sessionpopup.js' %}" defer></script>
+<script src = "{% static 'sessionpopup.js' %}" type = "text/babel"></script>
 <!--Starting a session popup script-->
 <link href = "{% static 'sessionpopup.css' %}" rel = "stylesheet">
 <!--Starting a session popup css-->
@@ -101,10 +123,39 @@ Released   : 20130902
 
 		<!-- <div class="corner-ribbon top-left sticky red shadow">BETA</div> -->
 
-		<img style = " height: 50px; width: auto; z-index: 25;" id = logo src = "{% static 'collab-removebg.png' %}">
+		<img style = "position: absolute; left: 10px; height: 40px; width: auto; z-index: 25;" id = logo src = "{% static 'collab-removebg.png' %}">
 		{% if course != "" %}
 			<!-- <button class = "modal-btn" id = "create">Start Session</button> -->
 		{% endif %}
+
+		<div class="top-stuff">
+
+			<!-- <div class="wrap">
+				<div class="search">
+				   <input type="text" class="searchTerm" placeholder="Search for a different thread...">
+				   <button type="submit" class="searchButton">
+					 <i class="fa fa-search"></i>
+				  </button>
+				</div>
+			 </div> -->
+
+			 <!-- <button class = "new-thread btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+				<p>NEW THREAD</p>
+				<i class="fab fa-chromecast"></i>
+			</button> -->
+
+			<!-- @Jackson move this button and style -->
+			{% if user.profile.token|length < 2 %}
+				<a href = "" target = '_blank'>
+					<button class = "new-thread btn btn-primary" id = "zoom-btn">
+						<p>LINK ZOOM</p>
+						<i class="fas fa-video"></i>
+					</button>
+				</a>
+			{% endif %}
+			<!-- end button -->
+
+		</div>
 
 		{% block content%}
 
@@ -116,6 +167,8 @@ Released   : 20130902
 		</button>
 
 		<!--href = "/accounts/logout/"-->
+
+
 </div>
 
 <!--Sidebar Modal-->
@@ -189,7 +242,7 @@ Released   : 20130902
 				</li>
 				<li class="headers">
 					<i class="fas fa-caret-down"></i>
-					<p>Your Courses</p>
+					<p>Favorite Threads</p>
 
 					<!-- <button class = "choices-modal">
 						<i class="fas fa-cog"></i>
@@ -252,20 +305,48 @@ Released   : 20130902
 				</li> -->
 			</ul>
 			
-			<button class = "modal-btn" id = "create-mobile">Start Session</button>
+			<!-- <button class = "modal-btn" id = "create-mobile">Start Session</button> -->
 			
 		</div>
 	</div>
 	<div class="current_rooms">
 
-		<button class = "current_room_example-shell" class = "rooms">
-			<p>+ New Room</p>
-		</button>
+		
+
+		{% if course == "" %}
+			<p id = "select-message">Select a class on the left to start a new session</p>
+
+			<!-- @Jackson move this button and style -->
+			<!-- {% if user.profile.token|length < 2 %}
+				<a href = "" target = '_blank'>
+					<button class = "new-thread btn btn-primary" id = "zoom-btn">
+						<p>LINK ZOOM</p>
+						<i class="fas fa-video"></i>
+					</button>
+				</a>
+			{% endif %} -->
+			<!-- end button -->
+			
+		{% else %}
+			<div class="pre-rooms">
+				<h1 class="room-title-header">
+					Welcome to {{course|truncatechars:19}}. Stay Awhile.
+				</h1>
+			</div>
+		{% endif %}
 
 		<!--
 		<div class = "page_title">
 			<button class = "modal-btn">Start Session</button>
 		</div>-->
+		<div class = "the-rooms">
+
+			{% if course != "" %}
+			<button class = "current_room_example-shell" class = "rooms" data-toggle="modal" data-target="#myModal">
+				<p>+ New Room</p>
+			</button>
+			{% endif %}
+			
 			{% for room in rooms %}
 			{{ counter.zero }}
 			{% if room.title != "inactive" %}
@@ -296,8 +377,8 @@ Released   : 20130902
 					{% endfor %}
 				</div>
 				<div class = "members">
-					{% if room.title|length > 27 %}
-					<p class = "name" data-tooltip = "{{room.title}}">{{room.title|truncatechars:27}}</p>
+					{% if room.title|length > 25 %}
+					<p class = "name" data-tooltip = "{{room.title}}">{{room.title|truncatechars:25}}</p>
 					{% else %}
 					<p class = "name">{{room.title}}</p>
 					<!-- {% endif %} -->
@@ -311,7 +392,7 @@ Released   : 20130902
 			</div>
 			{% endif %}
 		{% endfor %}
-
+		</div>
 	</div>
 
 	<!-- <div id = "header-ghost-2"></div>  -->
@@ -341,9 +422,9 @@ Released   : 20130902
 					<i class="fas fa-user-friends"></i>
 					<p>Channel Members</p>
 				</div>
-				<div class = "online-now">
-					<p>ONLINE NOW — 2</p>
-				</div>
+				<!-- <div class = "online-now">
+					<p>ONLINE NOW</p>
+				</div> -->
 					<div class = "all-names">
 				{% if course == "" %}
 
@@ -393,9 +474,9 @@ Released   : 20130902
 
 				{% endif %}
 				</div>
-				<div class = "online-now">
+				<!-- <div class = "online-now">
 					<p>OFFLINE — 14</p>
-				</div>
+				</div> -->
 
 				<div class = "bottom-2">
 					<button class = "invite btn btn-primary" data-toggle="modal" data-target="#exampleModal">
@@ -405,7 +486,7 @@ Released   : 20130902
 					<a id = "feedback" class = "feedback" data-tooltip = "Give us Feedback!" href = "https://docs.google.com/forms/d/e/1FAIpQLSdCZKcME2VdzqRcdVepz6r96qQIbHNuXtQYWjDimwvDTUqlgQ/viewform?usp=sf_link " target = "_blank">
 						<i class="far fa-comment-alt"></i>
 					</a>
-					<a class = "privacy" href = "https://docs.google.com/forms/d/e/1FAIpQLSdCZKcME2VdzqRcdVepz6r96qQIbHNuXtQYWjDimwvDTUqlgQ/viewform?usp=sf_link " target = "_blank">
+					<a class = "privacy" href = "{% static 'CollabPrivacyPolicy.pdf' %}" target = "_blank">
 						<i class="fas fa-user-shield"></i>
 					</a>
 					<button class = "beamer">
@@ -470,22 +551,96 @@ Released   : 20130902
 	</div>
   </div>
 
+  <div class="modal fade create" id="myModal" tabindex="1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+	  <div class="modal-content" style = "height: 400px;">
+		<!-- <div class="modal-header">
+		  
+		  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+		  </button>
+		</div> -->
+		<div class="modal-body">
 
-	<div class="modal-bg">
+			<div class = "column">
+
+				<h1 class="modal-title main-title" id="myModalLabel">What's this meeting for?</h1>
+				<p class="modal-title main-title-2" id="myModalLabel">(Keep it relatively short)</p>
+				
+				<form id = "post_text" method = "post">
+					{% csrf_token %}
+			
+					{{form.your_name}}
+
+					<!-- <label for = "id_check">Is this meeting for the future?</label>
+					{{form.your_name.label_tag}}{{form.your_name}} -->
+	
+					<div class="check-div">
+						<p class="check-text">Is this for the future?</p>
+						{{form.isSchedule}}
+					</div>
+
+					<!--Date and time picker-->
+					<!-- <div id="datepicker">
+						<label for="meetingdate" id = "meetinglabel">When's this meeting for?</label>
+						<input type="date" name="meetingdate" id="meetingdate">
+						<input type="time" id="meetingtime" name="meetingtime">
+					</div> -->
+
+					<div class="input-group date" id="datetimepicker1" data-target-input="nearest">
+						{{ form.date }}
+						<div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
+						  <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+						</div>
+					  </div>
+
+					 <!--End of date and time picker-->
+
+					<button type = "submit" target = "_blank" id = "enter">
+						<p>Create Session</p>
+					</button>
+
+				</form>
+			</div>
+			
+		</div>
+		<!-- <div class="modal-footer">
+
+		</div> -->
+	  </div>
+	</div>
+  </div>
+
+
+	<!-- <div class="modal-bg">
 		<div class="modal">
 			<h1>What's this meeting for?</h1>
 			<p>(Keep it relatively short)</p>
+
 			<form id = "post_text" method = "post">
+
+
 				{% csrf_token %}
-				<!--<input id = "description" style = "font-size: 20px"></form>-->
-				{{form}}
+				<input id = "description" style = "font-size: 20px"></form>
+
+				<label for = "id_check">Is this meeting for the future?</label>
+				{{form.your_name.label_tag}}{{form.your_name}}
+
+				<div class="check-div">
+					<p class="check-text">Is this for the future?</p>
+					{{form.isSchedule}}
+				</div>
+				
+				
+
 				<button type = "submit" target = "_blank" id = "enter">Create Session</button>
 			</form>
+			
 			<span class = "modal-close">
 				<i class="fas fa-times"></i>
 			</span>
 		</div>
-	</div>
+	</div> -->
 
 	<div class="user-bg" id = "user-bg">
 			<div class="user-modal" id = "user-modal">
@@ -633,5 +788,18 @@ frm.submit(function () {
 	return false;
 });
 </script>
+
 </body>
+
+<link rel="stylesheet" type="text/css" href="/jquery.datetimepicker.css"/>
+<script src="/jquery.js"></script>
+<script src="/build/jquery.datetimepicker.full.min.js"></script>
+<script>
+	$(function () {
+		$("#datetimepicker1").datetimepicker({
+		format: 'DD/MM/YYYY HH:mm',
+		});
+	});
+</script>
+
 </html>

@@ -15,28 +15,127 @@
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
     <link rel="manifest" href="/site.webmanifest">
 
+    <script id="google-analytics" type="text/javascript">
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-181082488-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+
     </head>
 
     <body>
         <div class = "primary">
-            <img style = "height: 60px;" id = logo src = "{% static 'collab.png' %}">
+            <img style = "height: 60px;" id = logo src = "{% static 'collab-removebg.png' %}">
         </div>
         <div class = "secondary">
-            <h1>Join your classmates by selecting your courses below</h1>
+            <h1>Join your classmates by selecting your top threads below</h1>
         </div>
+
+
         {% block content %}
         <div class = "choose-section">
-            <form class = "class-form" action="{% url 'selectClass' %}" method = "post">
-                {% csrf_token %}
-                {{form.as_p}}
-                <button type = "submit">Select Course</button>
-            </form>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <div class = "left">
+                <div class="col-6 align-left">
+                <p>Search and select threads</p>
+                <input id="user-input" placeholder="Search">
+
+                <div id="replaceable-content">
+                </div>
+
+                </div>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+            
+                
+            </div>
+            <div id="error-msg">
+            </div>
+            <div class = right>
+                <form class = "class-form" action="{% url 'selectClass' %}" method = "post">
+                    {% csrf_token %}
+                    {{form.as_p}}
+                    <button type = "submit">Select Threads</button>
+                </form>
+            </div>
 
         </div>
         {% endblock content%}
-        
+
         <a id = "privacy" href = "{% static 'CollabPrivacyPolicy.pdf' %}" target = "_blank">Privacy Policy</a>
-        
+
+        <script>
+          function addClass(classname) {
+            classes = [
+              document.getElementsByName("class1")[0],
+              document.getElementsByName("class2")[0],
+              document.getElementsByName("class3")[0],
+              document.getElementsByName("class4")[0],
+              document.getElementsByName("class5")[0]
+            ];
+            for (var i = 0; i < 5; i++) {
+              oneclass = classes[i];
+              if (oneclass.value == "----") {
+                oneclass.value = classname;
+                break;
+              }
+              else if (oneclass.value == classname) {
+                for (var j = i; j < 4; j++) {
+                  twoclass = classes[j];
+                  twoclass.value = classes[j+1].value;
+                  classes[j+1].value = "----";
+                }
+                break;
+              }
+              // else if (i == 4) {
+              //   document.getElementByID("")
+              // }
+            }
+            return 5;
+          }
+        </script>
+
+        <script>
+          const user_input = $("#user-input")
+          const artists_div = $('#replaceable-content')
+          const endpoint = '/classes/'
+          const delay_by_in_ms = 10
+          let scheduled_function = false
+
+          let ajax_call = function (endpoint, request_parameters) {
+              $.getJSON(endpoint, request_parameters)
+                  .done(response => {
+                    artists_div.html(response['html_from_view'])
+                  })
+          }
+
+
+          user_input.on('keyup', function () {
+
+              const request_parameters = {
+                  q: $(this).val() // value of user_input: the HTML element with ID user-input
+              }
+
+              // if scheduled_function is NOT false, cancel the execution of the function
+              if (scheduled_function) {
+                  clearTimeout(scheduled_function)
+              }
+
+              // setTimeout returns the ID of the function to be executed
+              scheduled_function = setTimeout(ajax_call, delay_by_in_ms, endpoint, request_parameters)
+          })
+        </script>
+
     </body>
 
 </html>

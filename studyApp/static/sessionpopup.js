@@ -1,3 +1,41 @@
+import React, { useState } from "react";
+import DatePicker from "react-datepicker";
+
+import "react-datepicker/dist/react-datepicker.css";
+
+// CSS Modules, react-datepicker-cssmodules.css
+// import 'react-datepicker/dist/react-datepicker-cssmodules.css';
+// const datePicker = document.querySelector('#datepicker');
+
+// const createPicker = () => {
+//     const [startDate, setStartDate] = useState(new Date());
+//     return (
+//         <DatePicker 
+//         selected={startDate} 
+//         onChange={date => setStartDate(date)} 
+//         onSelect={handleDateSelect} 
+//         onChange={handleDateChange} 
+//         />
+//     );
+//   };
+
+//   var Picker = React.createClass({
+//     render: function() {
+//       return ( 
+//       <DatePicker
+//         selected={startDate} 
+//         onChange={date => setStartDate(date)} 
+//         onSelect={handleDateSelect} 
+//         onChange={handleDateChange} 
+//       /> 
+//       )
+//     }
+//   });
+
+// ReactDOM.render(createPicker(), document.getElementById('datepicker'));
+
+
+
 
 var index = 0;
 const participants = [];
@@ -42,6 +80,21 @@ const colors = [
     ''
 ]
 
+/* Checkmark js */
+
+$('#id_isSchedule').change(function(){
+
+    const datePicker = document.querySelector('#datetimepicker1');
+
+    if($(this).is(':checked')) {
+        datePicker.classList.add('datetimepicker-active');
+    } else {
+        datePicker.classList.add('datetimepicker-active');
+    }
+});
+
+
+
 
 function getCurrentCourse(){
     if (document.getElementById('MATH_25').classList.contains('current_page_item')){
@@ -68,14 +121,7 @@ function getCurrentCourseName(){
 
 window.onload=function(){   //displays and closes the modal (popup window)
 
-    
-    modalBtn.addEventListener('click', function(){
-        modalBg.classList.add('bg-active');
-    });
-    
-    modalClose.addEventListener('click', function(){
-        modalBg.classList.remove('bg-active');
-    });
+
 /*
 $( document ).ready(function() {
 
@@ -114,17 +160,27 @@ $( document ).ready(function() {
   
     //choosing classes
 
-    choicesBtn.addEventListener('click', function(){
-        choicesBg.classList.add('choices-active');
-    });
-    choicesClose.addEventListener('click', function(){
-        choicesBg.classList.remove('choices-active');
-    });
+    // choicesBtn.addEventListener('click', function(){
+    //     choicesBg.classList.add('choices-active');
+    // });
+    // choicesClose.addEventListener('click', function(){
+    //     choicesBg.classList.remove('choices-active');
+    // });
 
     var form = document.getElementById("imgForm")
 
     form.addEventListener("input", function () {
         form.submit();
+    });
+
+    var modalBtn = document.querySelector('.current_room_example-shell');
+
+    modalBtn.addEventListener('click', function(){
+        modalBg.classList.add('bg-active');
+    });
+    
+    modalClose.addEventListener('click', function(){
+        modalBg.classList.remove('bg-active');
     });
 
    //stores the value from the input field and creates a room with it
@@ -345,7 +401,14 @@ function joinRoom(i){ //adding user cards to rooms
   }
   
 
-  
+// $(document).ready(function() {
+
+//     var $submit = $("#id_isSchedule").hide(),
+//         $cbs = $('input[name="prog"]').click(function() {
+//             $submit.toggle( $cbs.is(":checked") );
+//         });
+
+// });
 //resizing stuff 
 
 
@@ -538,8 +601,8 @@ const redditBtn = document.querySelector(".reddit-btn");
 function init() {
   const pinterestImg = document.querySelector(".pinterest-img");
 
-  let postUrl = encodeURI(document.location.href);
-  let postTitle = encodeURI("Hi everyone, please check this out: ");
+  let postUrl = encodeURI(location.protocol + '//' + location.host);
+  let postTitle = encodeURI("Check out Collab Rooms to find others working on the same things you are!: ");
 //   let postImg = encodeURI(pinterestImg.src);
 
   facebookBtn.setAttribute(

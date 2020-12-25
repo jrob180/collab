@@ -334,6 +334,7 @@ section h2{
     height: 400px;
     justify-content: space-evenly;
     text-align: center;
+    overflow-x: visible;
 }
 .schools h1{
     font-size: 3vw;
@@ -347,16 +348,16 @@ section h2{
     flex-direction: row;
 }
 .school-pic{
-    height: 150px;
+    height: 130px;
     width: auto;
-    margin: 0px 45px;
+    margin: 0px 40px;
 }
 #columbia{
-    height: 170px;
+    height: 150px;
     width: auto;
-    margin: 0px 45px;
+    margin: 0px 40px;
 }
-@media only screen and (max-width: 700px){
+@media only screen and (max-width: 1000px){
     .schools h1{
         font-size: 22px;
         overflow-x: scroll;
